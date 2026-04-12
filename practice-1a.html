@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practice 1 / Zhaojun</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: #f6f3ec;
+        color: #111;
+        font-family: "Cormorant Garamond", serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      p,
+      h1,
+      h2,
+      figure {
+        margin: 0;
+      }
+
+      .p1a-shell {
+        width: min(100vw - 40px, 1380px);
+        margin: 0 auto;
+        padding: 18px 0 36px;
+      }
+
+      .p1a-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .p1a-date {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.72);
+      }
+
+      .p1a-nav {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .p1a-nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.72);
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .p1a-nav a:hover,
+      .p1a-nav a:focus-visible {
+        border-color: rgba(17, 17, 17, 0.6);
+      }
+
+      .p1a-main {
+        display: grid;
+        gap: 42px;
+        padding-top: 20px;
+      }
+
+      .p1a-top {
+        display: grid;
+        grid-template-columns: 0.88fr 1.12fr;
+        gap: 42px;
+        align-items: start;
+        padding-left: 7vw;
+      }
+
+      .p1a-col {
+        display: grid;
+        gap: 18px;
+      }
+
+      .p1a-left {
+        justify-items: start;
+      }
+
+      .p1a-right {
+        justify-items: start;
+      }
+
+      .p1a-img {
+        overflow: hidden;
+        background: #edf2f8;
+      }
+
+      .p1a-img img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .p1a-portrait {
+        width: min(15vw, 180px);
+      }
+
+      .p1a-landscape {
+        width: min(22vw, 280px);
+      }
+
+      .p1a-top-small {
+        margin-left: 1vw;
+      }
+
+      .p1a-bottom-small {
+        margin-left: 5vw;
+      }
+
+      .p1a-pair {
+        width: min(28vw, 340px);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .p1a-meta {
+        width: min(24vw, 300px);
+        display: grid;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .p1a-meta p {
+        font-size: 0.84rem;
+        line-height: 1.7;
+        color: rgba(17, 17, 17, 0.84);
+      }
+
+      .p1a-meta strong {
+        display: inline-block;
+        margin-right: 8px;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.64rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* Bottom compact panel */
+      .p1a-bottom {
+         position: relative;
+  width: min(calc(100% - 140px), 1140px);
+  height: 570px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #000;
+}
+      .p1a-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        background: #000;
+      }
+
+      .p1a-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.02) 0%,
+          rgba(255, 255, 255, 0.01) 100%
+        );
+      }
+
+      .p1a-reading {
+        position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 36%;
+  transform: translateX(-50%);
+  width: min(34vw, 440px);
+  background: rgba(250, 249, 245, 0.97);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 88px 24px 18px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+      .p1a-title {
+        position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(4.8rem, 8vw, 8.4rem);
+  line-height: 0.9;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.96);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.18);
+  z-index: 4;
+  pointer-events: none;
+  animation: p1aTitleDrift 4.5s ease-in-out infinite;
+}
+      .p1a-scroll {
+        overflow-y: auto;
+        height: 100%;
+        padding-right: 6px;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.18) transparent;
+      }
+
+      .p1a-scroll::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .p1a-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .p1a-scroll::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.18);
+        border-radius: 999px;
+      }
+
+      .p1a-scroll p {
+        margin: 0 0 14px;
+  font-size: 0.9rem;
+  line-height: 1.78;
+  color: rgba(17, 17, 17, 0.88);
+}
+
+      .p1a-term {
+        position: absolute;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.56rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(24, 70, 126, 0.46);
+        z-index: 4;
+        animation: p1aTermBlink 5s ease-in-out infinite;
+      }
+
+      .p1a-term-1 {
+        top: 102px;
+        right: 16px;
+      }
+
+      .p1a-term-2 {
+        top: 212px;
+        left: 12px;
+        animation-delay: -1.2s;
+      }
+
+      .p1a-term-3 {
+        bottom: 26px;
+        right: 12px;
+        animation-delay: -2.6s;
+      }
+
+      @keyframes p1aTitleDrift {
+        0% {
+          transform: translateX(-50%) translateY(0px) skewY(0deg);
+        }
+        25% {
+          transform: translateX(-50%) translateY(4px) skewY(1deg);
+        }
+        50% {
+          transform: translateX(-50%) translateY(8px) skewY(-1deg);
+        }
+        75% {
+          transform: translateX(-50%) translateY(4px) skewY(0.5deg);
+        }
+        100% {
+          transform: translateX(-50%) translateY(0px) skewY(0deg);
+        }
+      }
+
+      @keyframes p1aTermBlink {
+        0% {
+          opacity: 0.2;
+          transform: translateY(0px);
+        }
+        50% {
+          opacity: 0.75;
+          transform: translateY(-4px);
+        }
+        100% {
+          opacity: 0.2;
+          transform: translateY(0px);
+        }
+      }
+
+      @media (max-width: 1100px) {
+        .p1a-top {
+          padding-left: 2vw;
+        }
+
+        .p1a-bottom {
+          width: min(calc(100% - 120px), 760px);
+        }
+      }
+
+      @media (max-width: 980px) {
+        .p1a-top {
+          grid-template-columns: 1fr;
+          padding-left: 0;
+        }
+
+        .p1a-portrait,
+        .p1a-landscape,
+        .p1a-pair,
+        .p1a-meta {
+          width: 100%;
+          max-width: none;
+        }
+
+        .p1a-bottom {
+          width: min(calc(100% - 40px), 760px);
+          height: 340px;
+        }
+
+        .p1a-reading {
+          left: 40%;
+          width: min(42vw, 320px);
+        }
+      }
+
+      @media (max-width: 700px) {
+        .p1a-shell {
+          width: min(100vw - 24px, 1380px);
+        }
+
+        .p1a-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .p1a-bottom {
+          width: 100%;
+          height: auto;
+        }
+
+        .p1a-video {
+          position: relative;
+          height: 320px;
+        }
+
+        .p1a-overlay {
+          display: none;
+        }
+
+        .p1a-reading {
+          position: relative;
+          inset: auto;
+          transform: none;
+          width: 100%;
+          min-height: 420px;
+          padding: 82px 18px 18px;
+        }
+
+        .p1a-title {
+          font-size: clamp(2.8rem, 12vw, 4.6rem);
+        }
+      }
+    </style>
+  </head>
+  <body class="p1a-page">
+    <div class="p1a-shell">
+      <header class="p1a-header">
+        <p class="p1a-date">March 2026</p>
+        <nav class="p1a-nav" aria-label="页面导航">
+          <a href="my-practice.html">Back</a>
+          <a href="practice-2a.html">Next Practice</a>
+        </nav>
+      </header>
+
+      <main class="p1a-main">
+        <section class="p1a-top">
+          <div class="p1a-col p1a-left">
+            <figure class="p1a-img p1a-portrait p1a-top-small">
+              <img src="My-practice-picture-7.jpg" alt="Zhaojun image 7" />
+            </figure>
+
+            <div class="p1a-pair">
+              <figure class="p1a-img">
+                <img src="My-practice-picture-2.jpg" alt="Zhaojun gesture interaction 1" />
+              </figure>
+              <figure class="p1a-img">
+                <img src="My-practice-picture-3.jpg" alt="Zhaojun gesture interaction 2" />
+              </figure>
+            </div>
+
+            <figure class="p1a-img p1a-portrait p1a-bottom-small">
+              <img src="My-practice-picture-8.jpg" alt="Zhaojun installation detail" />
+            </figure>
+          </div>
+
+          <div class="p1a-col p1a-right">
+            <figure class="p1a-img p1a-landscape">
+              <img src="My-practice-picture-4.jpg" alt="Zhaojun image 4" />
+            </figure>
+
+            <figure class="p1a-img p1a-landscape">
+              <img src="My-practice-picture-5.jpg" alt="Zhaojun image 5" />
+            </figure>
+
+            <figure class="p1a-img p1a-landscape">
+              <img src="My-practice-picture-6.jpg" alt="Zhaojun image 6" />
+            </figure>
+
+            <div class="p1a-meta">
+              <p><strong>Name</strong> Zhaojun</p>
+              <p>
+                <strong>Venue</strong> <em>Unfolding Narrative</em> Exhibition 2026
+                (Upper Gallery, London College of Communication) / <em>Memory Catcher</em>
+                (Safe House 1, London, 2016)
+              </p>
+              <p>
+                <strong>Equipment and Media</strong> screen-based interactive installation,
+                Leap Motion gesture-tracking sensor, generative AI system.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="p1a-bottom">
+          <video class="p1a-video" autoplay muted loop playsinline>
+            <source src="My-practice-video-1.mp4" type="video/mp4" />
+          </video>
+
+          <div class="p1a-overlay"></div>
+
+          <div class="p1a-reading">
+            <p class="p1a-term p1a-term-1">Interaction</p>
+            <p class="p1a-term p1a-term-2">Relation</p>
+            <p class="p1a-term p1a-term-3">Becoming</p>
+
+            <h2 class="p1a-title">Zhaojun</h2>
+
+            <div class="p1a-scroll">
+              <p>
+                I developed a new interactive work that extends the ecological and somatic
+                concerns of my doctoral research into a more explicitly participatory form.
+                The work presents a video environment generated through TouchDesigner, in
+                which AI-generated imagery and particle systems oscillate between states of
+                coherence and dispersal.
+              </p>
+
+              <p>
+                Before any participant enters, the work is already in motion: particles drift
+                and cluster according to their own parameters, hovering between order and
+                chaos. In the absence of human participation, the system's generative logic
+                continues to operate. The AI-generated imagery and particle structures evolve
+                cyclically between fixed parameters and stochastic perturbation, and this
+                continuously unfolding state renders the work as a process always already in
+                becoming.
+              </p>
+
+              <p>
+                Participants simply enter a temporal flow that has already begun, a
+                relationship that resonates with Neo-Daoist understandings of ziran 自然 and
+                wu wei 无为: acting by attuning to and participating in processes that are
+                already underway (Chan, 2006; Chan, 2019).
+              </p>
+
+              <p>
+                The interaction is gesture-based, mediated through a Leap Motion sensor
+                placed on a plinth in front of the screen. Hand movements modulate the
+                movement trajectories and density changes of the particle system, though this
+                influence is always jointly conditioned by the algorithm, parameter settings,
+                and the uncertainties of the sensor itself. The particles are understood here
+                as analogous to fungal spores: they disperse, drift, and respond to
+                directional forces across brief temporal scales. When a participant opens
+                their palm, particles gather toward the detected centre of the hand; when
+                they close their fist, particles disperse outward.
+              </p>
+
+              <p>
+                Recognition delays, misreadings, and interference between multiple hands keep
+                the causal relationship open. This uncertainty introduces an ethical
+                dimension into the work that resonates with Donna Haraway's
+                <em>Stay with the Trouble</em>: interaction becomes a process of ongoing
+                negotiation (Haraway, 2016). It also resonates with Merleau-Ponty (1962):
+                the hand reaching toward the screen is simultaneously reaching toward its own
+                capacity to sense.
+              </p>
+
+              <p>
+                The work's blue-white tonality, luminous quality, and fluid structures evoked
+                oceanic perceptual associations for many audiences. Perception is distributed
+                across human and non-human actors (Braidotti, 2019), and the screen
+                constitutes a perceptible interface within this structure, its surfaceness
+                and volumetric quality placed in tension, forming a perceptual field that is
+                simultaneously open and constrained.
+              </p>
+
+              <p>
+                Audiences enter the work through exploratory means, invited to find within
+                the system a rhythm that attunes to their own body. The attempts, errors,
+                and delays of gesture collectively constitute part of the interactive
+                experience. When multiple participants engage simultaneously, their gestures
+                create intersections and interference, gradually revealing a social dimension
+                of movement relations. Drawing on Erin Manning's concept of a "field of
+                relation," I understand these moments as among the most honest the work
+                produces: perception is here generated relationally, and experience flows
+                continuously between individuals and within the system (Manning, 2025).
+              </p>
+
+              <p>
+                Within the overall structure of this exhibition, I understand interaction as a
+                situated practice of responsiveness. The human body participates as one
+                element within an ecology, perception unfolding across body, technology, and
+                algorithm. Establishing connection through gesture allows participants to
+                find their own position within the work.
+              </p>
+
+              <p>
+                In the next phase, I intend to develop workshop formats that widen this point
+                of entry, guiding participants toward fuller somatic attunement and exploring
+                what it means to move with a system that responds according to its own logic,
+                one that, as Guo Xiang understood it, unfolds through its own conditions of
+                existence (Gao, 2022).
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

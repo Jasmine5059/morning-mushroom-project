@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.1 Taoist Philosophical Reflection</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: #050505;
+        color: rgba(248, 245, 238, 0.95);
+        font-family: "Cormorant Garamond", serif;
+        overflow-x: hidden;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path fill='white' d='M16 6c5.2 0 9.3 3.1 10.4 8.1-3.1.8-6.8 1.2-10.4 1.2S8.7 14.9 5.6 14.1C6.7 9.1 10.8 6 16 6Zm-1.2 10.2h2.4v7.2c0 1.7-.7 2.6-1.2 2.6s-1.2-.9-1.2-2.6v-7.2Z'/></svg>")
+            8 8,
+          auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      p,
+      h1,
+      h2,
+      blockquote {
+        margin: 0;
+      }
+
+      .canvas-wrap {
+        position: fixed;
+        right: -2vw;
+        bottom: -6vh;
+        width: min(42vw, 520px);
+        height: min(46vh, 420px);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      #bg-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .page {
+        position: relative;
+        z-index: 2;
+        width: min(100vw - 40px, 1120px);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 18px 0 64px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .kicker,
+      .nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .nav a {
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .main {
+        display: grid;
+        gap: 28px;
+        padding-top: 30px;
+      }
+
+      .video-wrap {
+  position: relative;
+  width: min(100%, 620px);
+  margin: 0 auto 20px;
+  background: #000;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.34);
+  overflow: hidden;
+}
+
+
+     .video-wrap video {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #000;
+}
+
+      .title-block {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+      }
+
+      h1 {
+        max-width: 18ch;
+        text-align: center;
+        font-size: clamp(2.6rem, 5vw, 4.4rem);
+        line-height: 0.94;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.96);
+      }
+
+      h2 {
+        width: min(100%, 52rem);
+        margin: 8px auto 0;
+        font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+        line-height: 1;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.94);
+      }
+
+      .text {
+        display: grid;
+        gap: 18px;
+        justify-items: center;
+      }
+
+      .text p,
+      .text blockquote {
+        width: min(100%, 52rem);
+        text-align: justify;
+        text-align-last: left;
+        font-size: 1.06rem;
+        line-height: 1.9;
+        color: rgba(245, 241, 233, 0.9);
+      }
+
+      .text blockquote {
+        font-style: italic;
+        border-left: 1px solid rgba(255, 255, 255, 0.12);
+        padding-left: 16px;
+      }
+
+      .qi-mark {
+  display: inline-block;
+  color: rgba(210, 225, 255, 0.96);
+  text-shadow: 0 0 14px rgba(154, 190, 255, 0.34);
+  animation: qiShake 3.2s ease-in-out infinite;
+}
+
+
+      .qi-breeze {
+        position: relative;
+      }
+
+      .qi-breeze .word {
+        display: inline-block;
+        animation: breezeDrift var(--dur, 6s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+      }
+
+      .ribbon-quote {
+        width: min(100%, 56rem);
+        margin: 0 auto;
+        min-height: 8rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: 0.28em;
+        row-gap: 0.2em;
+        line-height: 1.5;
+        font-size: 1.02rem;
+        font-style: italic;
+      }
+
+      .ribbon-quote .word {
+        display: inline-block;
+        animation: ribbonFloat 5.8s ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+      }
+
+      .ribbon-quote .word:nth-child(5n + 1) { transform: translateY(-12px); }
+      .ribbon-quote .word:nth-child(5n + 2) { transform: translateY(-4px); }
+      .ribbon-quote .word:nth-child(5n + 3) { transform: translateY(4px); }
+      .ribbon-quote .word:nth-child(5n + 4) { transform: translateY(10px); }
+      .ribbon-quote .word:nth-child(5n) { transform: translateY(0px); }
+
+      .loading-note {
+        position: fixed;
+        right: 24px;
+        bottom: 18px;
+        z-index: 4;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.64rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.38);
+      }
+
+      @keyframes qiShake {
+  0% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-1px) rotate(-1deg); }
+  50% { transform: translateY(1px) rotate(0.8deg); }
+  75% { transform: translateY(-0.5px) rotate(-0.6deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+
+      @keyframes breezeDrift {
+        0% { transform: translateX(0px) translateY(0px); opacity: 0.88; }
+        35% { transform: translateX(8px) translateY(-2px); opacity: 1; }
+        70% { transform: translateX(18px) translateY(1px); opacity: 0.92; }
+        100% { transform: translateX(0px) translateY(0px); opacity: 0.88; }
+      }
+
+      @keyframes ribbonFloat {
+        0% { transform: translateY(0px) rotate(0deg); }
+        25% { transform: translateY(-6px) rotate(-1.2deg); }
+        50% { transform: translateY(3px) rotate(1deg); }
+        75% { transform: translateY(-2px) rotate(-0.8deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
+      }
+
+      @media (max-width: 800px) {
+        .page {
+          width: min(100vw - 24px, 1120px);
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .canvas-wrap {
+          width: min(54vw, 320px);
+          height: min(30vh, 240px);
+        }
+
+        .text p,
+        .text blockquote,
+        .ribbon-quote,
+        h2 {
+          width: 100%;
+        }
+
+        h1 {
+          font-size: clamp(2.2rem, 8vw, 3.4rem);
+        }
+      }
+    </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="canvas-wrap">
+      <canvas id="bg-canvas"></canvas>
+    </div>
+    <p class="loading-note" id="loadingNote">Loading flower model</p>
+
+    <div class="page">
+      <header class="header">
+        <p class="kicker">Context Review / 4.1</p>
+        <nav class="nav">
+          <a href="context-review.html">Back</a>
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <div class="video-wrap">
+          <video autoplay muted loop playsinline>
+            <source src="context-video-2.mov" type="video/mp4" />
+          </video>
+        </div>
+
+
+        <section class="title-block">
+          <p class="kicker">Taoist Philosophical Reflection</p>
+          <h1>A Downward Theory of Life</h1>
+        </section>
+
+        <section class="text">
+          <h2>Introduction</h2>
+
+          <p>
+            The concept of mushroom as a growing environment offers me a way to think and write from beneath the surface of subjectivity. In this section, I work from the subsoil of Taoist cosmology to describe a downward, mycelial theory of life that reorients both body and technology toward processes of becoming. Daoist thought, particularly in the image-rich writings of Laozi and Zhuangzi, allows me to conceptualise existence as an ongoing creative emergence that precedes and exceeds the human subject, moving through humidity, cracks, and contingency like fungal.
+          </p>
+
+          <p>
+            I approach the Dao as a generative field that operates through analogy, metaphor, and iconography, a self-emergent creativity rooted in void and nothingness that resonates strongly with the exploratory logic of mycelia. Water and Qi become key figures in this subsoil: water gathers in low places and keeps pathways open, while Qi circulates as an energetic continuity that moves between visible and invisible states, opening a conceptual bridge toward digital flows and Qi in generative.
+          </p>
+
+          <p>
+            Within this under-soil, I position my own practice research as a form of cultivation. I draw on Taoist somatic disciplines to reconfigure the body as a slow, porous interface capable of sensing weak signals in both biological and computational ecologies.
+          </p>
+
+          <h2>The "Subsoil" of Existence</h2>
+
+          <p>
+            In this research, the philosophical thinking of Taoism constitutes this subsoil. The Dao serves as a condition of becoming that precedes the subject. Zhuangzi enters this generative logic through imagery filled with imagination and tension. In <em>Free and Easy Wandering 逍遥游</em> (Chen, 2016, p. 5), the morning mushroom represents a downward orientation of life that spreads underground to establish connections at an invisible level. Conversely, the Great Toona tree represents the possibility of infinite temporal extension. These metaphorical nodal points of the morning mushroom and the Great Toona tree generate a living chain of imagery through which the imagination of existence is continually extended, transformed, and renewed (Zhuangzi & Watson, 2013). Taoist philosophy provides a semiotic structure or order that moves beyond substantiality. Imagery here assumes the function of abstract thought, enabling change to be sustained and allowing cosmology to be perceived through figures (Liu, 2025).
+          </p>
+
+          <div class="ribbon-quote word-cloud">
+            “In the bald and barren north, there is a dark sea, the Lake of Heaven. In it is a fish that is several thousand li across, and no one knows how long. His name is Kun. There is also a bird there, named Peng, with a back like Mount Tai and wings like clouds filling the sky. He beats the whirlwind, leaps into the air, and rises up ninety thousand li, cutting through the clouds and mist, shouldering the blue sky, and then he turns his eyes south and prepares to journey to the southern darkness.”
+          </div>
+
+          <p>
+            This abstract and a priori concept of the Dao reveals its thinking capacity specifically within this image based writing. It manifests as continuous becoming through analogy, metaphor, and iconographic language. As Miller (2017) indicates, the Dao presents as a self-emergent creative process. This generative mechanism is rooted in ‘void’ (<em>xu 虚</em>) and ‘nothingness’ (<em>wu 无</em>), probing its surroundings in a manner resembling mycelia.
+          </p>
+
+          <p>
+            Daoist cosmology thus forms a mode of thinking centred on becoming and relationships. Drawing on the imagery of the Dao, the morning mushroom in my research points toward a mode of existence unfolding within becoming, representing a logic of life entwined with time, the environment, and the other. Taoist thought remains a necessary path for discussing post-human technological ecologies within this study.
+          </p>
+
+          <h2>The Flow of Water and <span class="qi-mark">氣</span> / <span class="qi-mark">气</span>, within the Subsoil</h2>
+
+          <p>
+            Water and Qi circulate beneath the surface of this research as two movements of the same underground ecology. In this section, I begin with water, tracing how it gathers in low places, seeps through cracks, and opens a temporality that knows both departure and return. From this material flow, I move toward Qi, a subtle energetic medium that condenses, disperses, and transmits relational change. Together they form the fluid infrastructure through which this subsoil breathes, connecting my somatic practice to the engagement with digital systems as living, responsive fields.
+          </p>
+
+          <p>
+            Water permeates the subsoil as an essential condition for growth, carrying the imagination of Taoist continuity, fluidity, and generativity (Lee, Yang & Wang, 2009, p. 73; Moeller, 2006). It gathers in low places and establishes continuity within pathways while remaining open amidst change. Laozi employs the terms ‘reaching far,’ ‘passing away,’ and ‘returning’ to describe the movement of water, presenting a non-linear temporal structure that maintains the possibility of return within constant transformation (Laozi, Chapter 25, trans. Lau, 1963). This imagery of water provides a perceptible model for the fluidity of the subsoil and constitutes a vital mechanism for its internal operation.
+          </p>
+
+          <blockquote>
+            Nothing in the world is more weak and soft than water, yet nothing surpasses it in conquering the hard and strong – there is nothing that can compare (Laozi, Chapter 78, trans. Lau, 1963).
+          </blockquote>
+
+          <p class="qi-breeze word-cloud">
+            Connected to the imagery of water, the concept of Qi in Taoist thought describes how this flow is transmitted among the myriad things. This manifests as a process of flowing, condensing, and dissipating. Qi operates between forms and transforms between the visible and the invisible, enabling becoming to occur across various levels. It allows the subsoil to move from a latent state into a process of perceptible change.
+          </p>
+
+          <p>
+            Within the context of digital art, Qi can be analogised to flowing data or digital energy streams. The Chinese philosophical tradition of Qi regards all things as an energetic field characterised by vitality and the capacity to generate ‘resonance’ (Hui, 2016). This discourse provides theoretical support for re-examining digital information within my generative art. Discrete logical code and algorithmic parameters are reconstructed here as “digital Qi” circulating between hardware, software, and the environment. Information operates as a continuous flow within the subsoil of the system, simulating the gathering and transformation characteristics of Qi. This enables technological media to transcend mechanical computational logic, manifesting instead as a dynamic field capable of resonant fusion with participants.
+          </p>
+
+          <p>
+            From water to Qi, the fluidity of the subsoil extends from natural imagery to abstract mechanisms. Becoming expresses itself here as a continuous process of adjustment, feedback, and adaptation. The subsoil thus becomes a field in constant operation, providing a dynamic foundation for subsequent discussions regarding somatic perception and technical systems in this writing.
+          </p>
+
+          <h2>The Slow Body: Lingzhi-style Cultivation Practice</h2>
+
+          <p>
+            Lingzhi (Divine Mushroom灵芝) metaphorically represents a gradual process of cultivation where environmental conditions sculpt its form and change emerges through sustained engagement.
+          </p>
+
+          <p>
+            Within this research, I reconceptualise the body as a critical site for the generation of perception, grounded in the ontology of the subsoil developed in the preceding section. The growth patterns of Lingzhi echo the emphasis on inner observation and gradualism found in Taoist cultivation, offering a methodological model for incorporating the slow body. Within the practice of this research, this Lingzhi-style somatic posture is transformed into a perceptual strategy against contemporary digital accelerationism. Through deliberate breathing and movement, the body re-establishes a resonance with the technological environment (Assemblage).
+          </p>
+
+          <p>
+            In Taoist somatic practices, Lingzhi-style cultivation aligns with exercises such as Zhan Zhuang站桩, Xing Qi行气, Tai Chi太极, and Jingang Qigong金刚功, constituting a form of "Somatic Technology" that modulates perceptual precision (Kohn, 2008). This practice manifests through the repeated exercise of breath regulation, posture, perception, and internal awareness, transforming the body into a field of refined sensitivity where Qi circulates and the senses are reawakened (Despeux, 1989). Taoist cultivation prioritises clarity, stillness, harmony, and internal perception, enabling the body to serve as a sensitive interface capable of capturing weak signals, whether biological or digital. This mode of practice mediated by the body provides continuous inspiration for my artistic creation, specifically in painting and music, ensuring the creative process remains intimately connected to bodily states, the flow of breath, and perceptual awareness (Komjathy, 2019).
+          </p>
+
+          <p>
+            Yu (2016) further reveals the spatial structure of this somatic experience through an interpretation of the Void (<em>Xu虚</em>). Void serves as a state of readiness characterised by ambiguity and openness, facilitating the formation of a relational field within the body that accommodates change. The body and the myriad things, including generative AI, code streams, and virtual imagery in this context, permeate one another through continuous transformation (Zhuangzi & Watson, 2013). Campany (2023) situates this mode of cultivation within a broader ecological dimension, identifying it as a multi-species process of co-becoming involving heaven, earth, climate, and biological entities. Through practice, the body enters an expansive symbiotic network to engage in response, adjustment, and coordination. Consequently, cultivation assumes an ecological character shared by both humans and non-humans. My practices and workshops of this study, somatic responses, emotional fluctuations, and micro-postural changes are reconstructed as organic disturbances within the ecosystem through relaxation and the modulation of attention and imagination. These elements interact and coordinate with the logic of algorithmic generation. This Lingzhi-style practice provides my post-human artistic research an interactive paradigm based on "resonance."
+          </p>
+
+          <h2>Linguistic Mycelia and Misaligned Understanding</h2>
+
+          <p>
+            Within the context of cross-cultural research, the translation and interpretation of Daoist texts exhibit a non-linear and sprawling quality. This research regards language as a bio-active mycelial system, exploring how misreadings or translational surpluses generate new creativity within heterogeneous cultural soils in a manner resembling mycelial mutation.
+          </p>
+
+          <p>
+            The translation of Daoist literature frequently encounters intense tension between non-Western modes of thought and modern academic contexts. Billeter (2010) notes in his interpretation of Zhuangzi that language in Daoism serves to dismantle existing cognitive frameworks specifically instead of establishing fixed definitions. This linguistic indeterminacy inevitably generates a surplus that cannot be perfectly aligned during cross-cultural transfer. Ziporyn (2012) further argues for the linguistic manifestation of ‘the equalisation of things’ (<em>qiwu 齐物</em>) within Daoist thought. When a concept is situated within an alternative linguistic system, the resulting misaligned understanding represents an efflorescence of meaning. This misalignment resembles mycelia encountering obstacles underground, leading to shifts and differentiations that ultimately establish unexpected connections.
+          </p>
+
+          <p>
+            They changed how I approach the making of the work itself. I have begun to treat the gap between languages as a generative space. The mycelial logic of linguistic translation has become a methodology for my practices and workshops themselves: provisional, responsive, and oriented toward the unexpected.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      const loadingNote = document.getElementById("loadingNote");
+      const canvas = document.getElementById("bg-canvas");
+
+      function wrapWords(selector) {
+        document.querySelectorAll(selector).forEach((node) => {
+          const text = node.textContent.trim();
+          const parts = text.split(/\s+/);
+          node.innerHTML = parts
+            .map((word, index) => {
+              const delay = (index % 10) * 0.12;
+              return `<span class="word" style="--delay:${delay}s">${word}</span>`;
+            })
+            .join(" ");
+        });
+      }
+
+      wrapWords(".word-cloud");
+
+      const scene = new THREE.Scene();
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+      camera.position.set(0, 0.5, 4.2);
+
+      const ambient = new THREE.AmbientLight(0xf4f1ea, 1.2);
+      scene.add(ambient);
+
+      const dir1 = new THREE.DirectionalLight(0xffffff, 1.05);
+      dir1.position.set(3, 4, 5);
+      scene.add(dir1);
+
+      const dir2 = new THREE.DirectionalLight(0xbba7ff, 0.45);
+      dir2.position.set(-3, 1, 3);
+      scene.add(dir2);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enablePan = false;
+      controls.enableZoom = false;
+      controls.enableDamping = true;
+      controls.rotateSpeed = 0.22;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.4;
+      controls.minPolarAngle = Math.PI / 2.5;
+      controls.maxPolarAngle = Math.PI / 1.8;
+
+      let flower = null;
+
+      function resize() {
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+
+      const loader = new GLTFLoader();
+      loader.load(
+        "./flower.glb",
+        (gltf) => {
+          flower = gltf.scene;
+          flower.position.set(0.5, -0.8, 0);
+          flower.rotation.y = -0.3;
+          flower.scale.setScalar(1.8);
+
+          flower.traverse((child) => {
+            if (child.isMesh && child.material) {
+              child.material.transparent = true;
+              child.material.opacity = 0.24;
+            }
+          });
+
+          scene.add(flower);
+          loadingNote.style.display = "none";
+        },
+        undefined,
+        () => {
+          loadingNote.textContent = "Model failed to load";
+        }
+      );
+
+      const pointer = { x: 0, y: 0 };
+
+      window.addEventListener("mousemove", (event) => {
+        pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        if (flower) {
+          flower.rotation.x += (pointer.y * 0.05 - flower.rotation.x) * 0.02;
+          flower.rotation.z += (pointer.x * 0.05 - flower.rotation.z) * 0.02;
+        }
+
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>

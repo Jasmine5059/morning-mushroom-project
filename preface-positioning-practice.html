@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preface / Positioning Practice</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background:
+          radial-gradient(circle at 16% 20%, rgba(141, 118, 80, 0.08), transparent 24%),
+          radial-gradient(circle at 78% 28%, rgba(121, 100, 67, 0.06), transparent 24%),
+          linear-gradient(180deg, #f2ead8, #e9deca);
+        color: #17130f;
+        font-family: "Cormorant Garamond", serif;
+        overflow-x: hidden;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2311100d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M7 15c1-5 5-8 9-8s8 3 9 8c-5 1-13 1-18 0Z'/><path d='M16 15v8'/><path d='M13.5 23c.6 1.2 1.4 1.8 2.5 1.8s1.9-.6 2.5-1.8'/></g></svg>")
+            8 8,
+          auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2311100d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M7 15c1-5 5-8 9-8s8 3 9 8c-5 1-13 1-18 0Z'/><path d='M16 15v8'/><path d='M13.5 23c.6 1.2 1.4 1.8 2.5 1.8s1.9-.6 2.5-1.8'/></g></svg>")
+            8 8,
+          pointer;
+      }
+
+      p,
+      h1 {
+        margin: 0;
+      }
+
+      .video-gate {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background: #050605;
+        display: grid;
+        place-items: center;
+        transition: opacity 900ms ease, visibility 900ms ease;
+      }
+
+      .video-gate.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .gate-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .gate-note {
+        position: absolute;
+        right: 24px;
+        bottom: 20px;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.66rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(250, 244, 229, 0.72);
+      }
+
+      .page {
+        position: relative;
+        min-height: 100vh;
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 1.1s ease, transform 1.1s ease;
+      }
+
+      .page.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .canvas-wrap {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: auto;
+      }
+
+      #bg-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .paper-noise {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.16;
+        background:
+          radial-gradient(circle at 20% 24%, rgba(0, 0, 0, 0.03) 0 1px, transparent 1px),
+          radial-gradient(circle at 74% 28%, rgba(0, 0, 0, 0.02) 0 1px, transparent 1px),
+          radial-gradient(circle at 34% 72%, rgba(0, 0, 0, 0.018) 0 1px, transparent 1px);
+        background-size: 16px 16px, 20px 20px, 22px 22px;
+      }
+
+      .content {
+        position: relative;
+        z-index: 4;
+        width: min(100vw - 40px, 960px);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 18px 0 64px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .kicker,
+      .nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(23, 19, 15, 0.78);
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .nav a {
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        border-color: rgba(23, 19, 15, 0.5);
+      }
+
+      .main {
+        display: grid;
+        gap: 22px;
+        padding-top: 46px;
+      }
+
+      .title-block {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+      }
+
+      .title {
+        max-width: 18ch;
+        text-align: center;
+        font-size: clamp(2.1rem, 4.2vw, 3.6rem);
+        line-height: 0.95;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+      }
+
+      .text {
+        display: grid;
+        gap: 20px;
+        justify-items: center;
+      }
+
+      .text p {
+        width: min(100%, 46rem);
+        text-align: justify;
+        text-align-last: left;
+        font-size: 1.08rem;
+        line-height: 1.92;
+        color: rgba(23, 19, 15, 0.92);
+        background: rgba(246, 239, 223, 0.4);
+        padding: 0.15rem 0.2rem;
+      }
+
+      .loading-note {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%);
+        z-index: 5;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.66rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(23, 19, 15, 0.58);
+      }
+
+      @media (max-width: 800px) {
+        .content {
+          width: min(100vw - 24px, 960px);
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .title {
+          font-size: clamp(1.9rem, 8vw, 3rem);
+        }
+
+        .text p {
+          font-size: 1rem;
+          line-height: 1.82;
+        }
+      }
+    </style>
+
+    <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three/three.module.js",
+      "three/addons/": "./vendor/three/"
+    }
+  }
+</script>
+
+  </head>
+  <body>
+    <div class="video-gate" id="videoGate">
+      <video class="gate-video" id="introVideo" autoplay muted playsinline>
+        <source src="preface-video-2.mp4" type="video/mp4" />
+      </video>
+      <p class="gate-note">Preface / Positioning Practice</p>
+    </div>
+
+    <div class="page" id="pageContent">
+      <div class="canvas-wrap">
+        <canvas id="bg-canvas"></canvas>
+      </div>
+
+      <div class="paper-noise" aria-hidden="true"></div>
+      <p class="loading-note" id="loadingNote">Loading mushroom model</p>
+
+      <div class="content">
+        <header class="header">
+          <p class="kicker">Preface / 02</p>
+          <nav class="nav">
+            <a href="preface.html">Back</a>
+            <a href="index.html">Home</a>
+          </nav>
+        </header>
+
+        <main class="main">
+          <section class="title-block">
+            <p class="kicker">Positioning Practice</p>
+            <h1 class="title">Positioning Practice as the Cultivation of the Morning Mushroom</h1>
+          </section>
+
+          <section class="text">
+            <p>
+              In my research, practice is understood as a field of continuous becoming, a
+              cultivated, infected, and participatory mushroom bed where knowledge grows,
+              differentiates, and diffuses. I situate myself within the practice,
+              participating in the generative process alongside materials, technology, the
+              environment, and the body.
+            </p>
+
+            <p>
+              Pelbart's research examines how Guattari's concept of the ecology of the
+              virtual opens toward heterogeneous, ecopolitical processes that operate
+              across mental, social, and environmental dimensions, offering a framework
+              for understanding how artistic practice might participate in the production
+              of new modes of existence. Drawing on this foundation, my practice resembles
+              the construction of a 'virtual ecology' (Guattari, 2000; Pelbart, 2023).
+              Through the direct participation of immersive imagery, interactive
+              installations, generative artificial intelligence, and the body, I attempt
+              to build an open and fluid space co-constituted by technology, imagery,
+              others, human and non-human. Technology here represents an existence with
+              materiality and perceptual agency. Somatic responses, emotional
+              fluctuations, linguistic errors, and cultural translations all alter the
+              forms and meanings of data.
+            </p>
+
+            <p>
+              Within my practice, the status of the image loosens from fixity as the
+              generative system takes on its own productive agency. Generative art
+              establishes a symbiotic ecology where human creativity and machine
+              intelligence are intertwined, making algorithmic training, parameter
+              fluctuations, and model feedback become integral parts of this ecology.
+              This framework shifts the artist's role from manual creator to a strategist
+              who manages an evolving, autonomous system. Ultimately, this ecology
+              ensures that the artwork is not a static product but a process-oriented
+              experience, where the interplay of human and machine keeps the art in a
+              constant state of becoming.
+            </p>
+
+            <p>
+              The bodies of audiences and participants enter the field, becoming media
+              that can be triggered and influenced. In my installations and workshops,
+              rhythms of breath, pauses in pace, and changes in posture act as
+              micro-disturbances absorbed and reallocated by the system. In this process,
+              the audience is embedded into the generative network as temporary nodes.
+              Ecology unfolds continuously through the intersection of multiple
+              relationships, between body and algorithm, between stillness and movement,
+              between the human and the non-human.
+            </p>
+
+            <p>
+              Through repeated cycles of growth, decay, and mutation, the practice itself
+              becomes a research apparatus. Generative rules, interactive logics,
+              perceptual pathways, and strategies of uncertainty are tested, refined, and
+              translated across contexts. In this sense, practice actively advances
+              research by producing situated knowledge. Ultimately, process-based
+              methodology provides a path that can be accessed, perceived, and
+              continuously grown for post-human, non-anthropocentric, and non-controlling
+              ecological art practices.
+            </p>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script>
+  const videoGate = document.getElementById("videoGate");
+  const introVideo = document.getElementById("introVideo");
+  const pageContent = document.getElementById("pageContent");
+
+  function revealPage() {
+    videoGate.classList.add("hidden");
+    pageContent.classList.add("visible");
+  }
+
+  introVideo.addEventListener("ended", revealPage);
+  introVideo.addEventListener("error", revealPage);
+
+  setTimeout(() => {
+    if (!pageContent.classList.contains("visible") && introVideo.paused && introVideo.currentTime > 0) {
+      revealPage();
+    }
+  }, 1200);
+
+  setTimeout(() => {
+    if (!pageContent.classList.contains("visible")) {
+      revealPage();
+    }
+  }, 15000);
+</script>
+
+<script type="module">
+  import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+
+  const loadingNote = document.getElementById("loadingNote");
+  const canvas = document.getElementById("bg-canvas");
+
+  const scene = new THREE.Scene();
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: true
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  const camera = new THREE.PerspectiveCamera(
+    35,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    100
+  );
+  camera.position.set(0, 0.7, 4.2);
+
+  const ambient = new THREE.AmbientLight(0xf7edd6, 1.3);
+  scene.add(ambient);
+
+  const dir1 = new THREE.DirectionalLight(0xffffff, 1.1);
+  dir1.position.set(3, 4, 5);
+  scene.add(dir1);
+
+  const dir2 = new THREE.DirectionalLight(0xd7c09b, 0.9);
+  dir2.position.set(-4, -1, 3);
+  scene.add(dir2);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enablePan = false;
+  controls.enableZoom = false;
+  controls.enableDamping = true;
+  controls.rotateSpeed = 0.4;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = 0.6;
+  controls.minPolarAngle = Math.PI / 2.4;
+  controls.maxPolarAngle = Math.PI / 1.7;
+
+  let mushroom = null;
+
+  const loader = new GLTFLoader();
+  loader.load(
+    "./mushroom-1.glb",
+    (gltf) => {
+      mushroom = gltf.scene;
+      mushroom.position.set(0, -0.9, 0);
+      mushroom.rotation.y = -0.35;
+      mushroom.scale.setScalar(1.35);
+
+      mushroom.traverse((child) => {
+        if (child.isMesh && child.material) {
+          child.material.transparent = true;
+          child.material.opacity = 0.42;
+        }
+      });
+
+      scene.add(mushroom);
+      loadingNote.style.display = "none";
+    },
+    undefined,
+    () => {
+      loadingNote.textContent = "Model failed to load";
+    }
+  );
+
+  window.addEventListener("resize", () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  const pointer = { x: 0, y: 0 };
+
+  window.addEventListener("mousemove", (event) => {
+    pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+    pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  });
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    if (mushroom) {
+      mushroom.rotation.x += (pointer.y * 0.12 - mushroom.rotation.x) * 0.03;
+      mushroom.rotation.z += (pointer.x * 0.08 - mushroom.rotation.z) * 0.03;
+    }
+
+    controls.update();
+    renderer.render(scene, camera);
+  }
+
+  animate();
+</script>
+  </body>
+</html>

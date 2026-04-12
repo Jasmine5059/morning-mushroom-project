@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Context Review</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+  background:
+    radial-gradient(circle at 50% 32%, rgba(230, 234, 240, 0.13), transparent 27%),
+    linear-gradient(180deg, #9aa1aa, #8b929d);
+  color: #fff;
+  font-family: "Cormorant Garamond", serif;
+  overflow: hidden;
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path fill='white' d='M16 6c5.2 0 9.3 3.1 10.4 8.1-3.1.8-6.8 1.2-10.4 1.2S8.7 14.9 5.6 14.1C6.7 9.1 10.8 6 16 6Zm-1.2 10.2h2.4v7.2c0 1.7-.7 2.6-1.2 2.6s-1.2-.9-1.2-2.6v-7.2Z'/></svg>")
+      8 8,
+    auto;
+}
+
+
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path fill='white' d='M16 6c5.2 0 9.3 3.1 10.4 8.1-3.1.8-6.8 1.2-10.4 1.2S8.7 14.9 5.6 14.1C6.7 9.1 10.8 6 16 6Zm-1.2 10.2h2.4v7.2c0 1.7-.7 2.6-1.2 2.6s-1.2-.9-1.2-2.6v-7.2Z'/></svg>")
+            8 8,
+          pointer;
+      }
+
+      p,
+      h1,
+      h2 {
+        margin: 0;
+      }
+
+      .overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(18, 24, 30, 0.05), rgba(18, 24, 30, 0.1)),
+    radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.055), transparent 26%);
+}
+
+
+      .page {
+        position: relative;
+        z-index: 2;
+        width: min(100vw - 40px, 1380px);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 18px 0 28px;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .kicker,
+      .nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.94);
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .nav a {
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        border-color: rgba(255, 255, 255, 0.74);
+      }
+
+      .main {
+        position: relative;
+        display: grid;
+        align-content: center;
+        justify-items: center;
+        gap: 34px;
+      }
+
+      .title {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.28em;
+        max-width: 14ch;
+        text-align: center;
+        font-size: clamp(3.8rem, 7vw, 7rem);
+        line-height: 0.88;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        color: rgba(255, 255, 255, 0.94);
+        text-shadow:
+          0 8px 28px rgba(0, 0, 0, 0.22),
+          0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .title span {
+        display: inline-block;
+      }
+
+      .w1 { animation: wordSway 6.4s ease-in-out infinite; }
+      .w2 { animation: wordSpin 9s linear infinite; transform-origin: center 62%; }
+      .w3 { animation: wordHop 4.8s ease-in-out infinite; }
+      .w4 { animation: wordLean 5.6s ease-in-out infinite; }
+      .w5 { animation: wordOrbit 7.4s ease-in-out infinite; }
+      .w6 { animation: wordBreathe 5.2s ease-in-out infinite; }
+
+      .card-grid {
+        width: 100%;
+        max-width: 920px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        align-items: start;
+        justify-items: center;
+      }
+
+      .card {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+        text-decoration: none;
+      }
+
+      .card,
+      .card:link,
+      .card:visited,
+      .card:hover,
+      .card:focus-visible {
+        text-decoration: none;
+      }
+
+      .card-label {
+        min-height: 2.8em;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.86);
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+        text-decoration: none;
+        border-bottom: none;
+        box-shadow: none;
+      }
+
+      .card-image {
+        width: 100%;
+        max-width: 156px;
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+        transition: transform 260ms ease, box-shadow 260ms ease, z-index 260ms ease;
+      }
+
+      .card-image img {
+        width: 108%;
+        height: 108%;
+        object-fit: cover;
+        display: block;
+        transform: translate(-2%, -2%) scale(1);
+        filter: saturate(1.04) contrast(1.02);
+        animation: imageFlow 8s ease-in-out infinite;
+      }
+
+      .card:nth-child(2) .card-image img {
+        animation-duration: 9.5s;
+        animation-delay: -1.2s;
+      }
+
+      .card:nth-child(3) .card-image img {
+        animation-duration: 7.4s;
+        animation-delay: -2.1s;
+      }
+
+      .card:nth-child(4) .card-image img {
+        animation-duration: 10.2s;
+        animation-delay: -3s;
+      }
+
+      .card:hover .card-image,
+      .card:focus-visible .card-image {
+        transform: scale(1.5);
+        box-shadow: 0 28px 56px rgba(0, 0, 0, 0.34);
+        z-index: 5;
+      }
+
+      .footer-notes {
+        display: grid;
+        gap: 4px;
+        justify-items: start;
+        align-self: end;
+      }
+
+      .footer-notes p {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.76rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        line-height: 1.45;
+        color: rgba(255, 255, 255, 0.62);
+      }
+
+      @keyframes wordSway {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-8px) rotate(-3deg); }
+      }
+
+      @keyframes wordSpin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes wordHop {
+        0%, 100% { transform: translateY(0); }
+        35% { transform: translateY(-12px); }
+        55% { transform: translateY(2px); }
+      }
+
+      @keyframes wordLean {
+        0%, 100% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(7deg) scale(1.04); }
+      }
+
+      @keyframes wordOrbit {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(6px, -5px) rotate(-5deg); }
+        50% { transform: translate(-3px, -10px) rotate(5deg); }
+        75% { transform: translate(-8px, 4px) rotate(-4deg); }
+      }
+
+      @keyframes wordBreathe {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.08); opacity: 0.84; }
+      }
+
+      @keyframes imageFlow {
+        0% {
+          transform: translate(-2%, -2%) scale(1) rotate(0deg);
+          filter: saturate(1.04) contrast(1.02);
+        }
+        25% {
+          transform: translate(-3.4%, -1.2%) scale(1.03) rotate(-0.6deg);
+          filter: saturate(1.08) contrast(1.04);
+        }
+        50% {
+          transform: translate(-1.2%, -3.4%) scale(1.05) rotate(0.5deg);
+          filter: saturate(1.1) contrast(1.05);
+        }
+        75% {
+          transform: translate(-3.1%, -2.4%) scale(1.02) rotate(-0.4deg);
+          filter: saturate(1.06) contrast(1.03);
+        }
+        100% {
+          transform: translate(-2%, -2%) scale(1) rotate(0deg);
+          filter: saturate(1.04) contrast(1.02);
+        }
+      }
+
+      @media (max-width: 1100px) {
+        .card-grid {
+          grid-template-columns: 1fr 1fr;
+          max-width: 760px;
+        }
+      }
+
+      @media (max-width: 680px) {
+        body {
+          overflow-y: auto;
+        }
+
+        .page {
+          width: min(100vw - 24px, 1380px);
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .main {
+          padding: 28px 0;
+          align-content: start;
+        }
+
+        .card-grid {
+          grid-template-columns: 1fr;
+          max-width: 320px;
+        }
+
+        .title {
+          font-size: clamp(3rem, 12vw, 4.8rem);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay" aria-hidden="true"></div>
+
+    <div class="page">
+      <header class="header">
+        <p class="kicker">Chapter 4</p>
+        <nav class="nav">
+          <a href="preface.html">Back</a>
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <h1 class="title" aria-label="The Growing Environment of the Mushroom">
+          <span class="w1">The</span>
+          <span class="w2">Growing</span>
+          <span class="w3">Environment</span>
+          <span class="w4">of</span>
+          <span class="w5">the</span>
+          <span class="w6">Mushroom</span>
+        </h1>
+
+        <section class="card-grid">
+          <a class="card" href="context-review-taoist-reflection.html">
+            <p class="card-label">Taoist Philosophical Reflection</p>
+            <figure class="card-image">
+              <img src="context-review-1.jpeg" alt="Context Review 4.1" />
+            </figure>
+          </a>
+
+          <a class="card" href="context-review-on-becoming.html">
+            <p class="card-label">On Becoming: The Morning Mushroom</p>
+            <figure class="card-image">
+              <img src="context-review-2.png" alt="Context Review 4.2" />
+            </figure>
+          </a>
+
+          <a class="card" href="context-review-mycology-anthropology.html">
+            <p class="card-label">Mycology and Anthropology</p>
+            <figure class="card-image">
+              <img src="context-review-3.jpg" alt="Context Review 4.3" />
+            </figure>
+          </a>
+
+          <a class="card" href="context-review-algorithmic-mycelia.html">
+            <p class="card-label">Algorithmic Mycelia</p>
+            <figure class="card-image">
+              <img src="context-review-4.jpeg" alt="Context Review 4.4" />
+            </figure>
+          </a>
+        </section>
+      </main>
+
+      <section class="footer-notes">
+        <p>4.1 A downward theory of life.</p>
+        <p>4.2 Rhizome, Madness, Cartography, and Assemblage.</p>
+        <p>4.3 Practising more than human within the temporality of the morning mushroom.</p>
+        <p>4.4 Techno-Daoism and rhizomatic aesthetics.</p>
+      </section>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preface / Introduction</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background:
+          radial-gradient(circle at 16% 18%, rgba(162, 134, 84, 0.08), transparent 24%),
+          radial-gradient(circle at 82% 78%, rgba(120, 105, 78, 0.08), transparent 28%),
+          linear-gradient(180deg, #f6f3ec, #eee6d8);
+        color: #111;
+        font-family: "Cormorant Garamond", serif;
+        overflow-x: hidden;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2311100d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M7 15c1-5 5-8 9-8s8 3 9 8c-5 1-13 1-18 0Z'/><path d='M16 15v8'/><path d='M13.5 23c.6 1.2 1.4 1.8 2.5 1.8s1.9-.6 2.5-1.8'/></g></svg>")
+            8 8,
+          auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2311100d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M7 15c1-5 5-8 9-8s8 3 9 8c-5 1-13 1-18 0Z'/><path d='M16 15v8'/><path d='M13.5 23c.6 1.2 1.4 1.8 2.5 1.8s1.9-.6 2.5-1.8'/></g></svg>")
+            8 8,
+          pointer;
+      }
+
+      p,
+      h1,
+      h2 {
+        margin: 0;
+      }
+
+      .intro-video-gate {
+        position: fixed;
+        inset: 0;
+        z-index: 30;
+        display: grid;
+        place-items: center;
+        background: #060806;
+        transition: opacity 900ms ease, visibility 900ms ease;
+      }
+
+      .intro-video-gate.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .intro-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .intro-video-note {
+        position: absolute;
+        right: 24px;
+        bottom: 20px;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.66rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 248, 232, 0.72);
+      }
+
+      .canvas-wrap {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: min(34vw, 420px);
+        height: min(38vh, 360px);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      #bg-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .paper-noise {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.18;
+        z-index: 1;
+        background:
+          radial-gradient(circle at 20% 24%, rgba(0, 0, 0, 0.03) 0 1px, transparent 1px),
+          radial-gradient(circle at 74% 28%, rgba(0, 0, 0, 0.02) 0 1px, transparent 1px),
+          radial-gradient(circle at 34% 72%, rgba(0, 0, 0, 0.018) 0 1px, transparent 1px);
+        background-size: 16px 16px, 20px 20px, 22px 22px;
+      }
+
+      .page {
+        position: relative;
+        z-index: 3;
+        width: min(100vw - 40px, 1120px);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 18px 0 40px;
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 1.1s ease, transform 1.1s ease;
+      }
+
+      .page.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .kicker,
+      .nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .main {
+        display: grid;
+        gap: 24px;
+        padding-top: 34px;
+      }
+
+      h1 {
+        font-size: clamp(3.2rem, 7vw, 6rem);
+        line-height: 0.9;
+        font-weight: 600;
+      }
+
+      .text {
+        max-width: 54rem;
+        display: grid;
+        gap: 18px;
+      }
+
+      .text p {
+        font-size: 1.06rem;
+        line-height: 1.88;
+        color: rgba(17, 17, 17, 0.88);
+      }
+
+      .word {
+        display: inline-block;
+        white-space: pre;
+        will-change: transform;
+      }
+
+      .drift-soft .word {
+        animation: driftSoft var(--dur, 6.2s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+      }
+
+      .drift-mid .word {
+        animation: driftMid var(--dur, 5.2s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+      }
+
+      .drift-strong .word {
+        animation: driftStrong var(--dur, 4.4s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+      }
+
+      .loading-note {
+        position: fixed;
+        right: 24px;
+        bottom: 18px;
+        z-index: 4;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.64rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.45);
+      }
+
+      @keyframes driftSoft {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(0.6px, -0.4px) rotate(-0.4deg); }
+        50% { transform: translate(-0.8px, 0.8px) rotate(0.5deg); }
+        75% { transform: translate(0.4px, 0.6px) rotate(-0.3deg); }
+        100% { transform: translate(0, 0) rotate(0deg); }
+      }
+
+      @keyframes driftMid {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        20% { transform: translate(1px, -1px) rotate(-0.7deg); }
+        48% { transform: translate(-1.2px, 1.2px) rotate(0.8deg); }
+        72% { transform: translate(0.8px, 1px) rotate(-0.6deg); }
+        100% { transform: translate(0, 0) rotate(0deg); }
+      }
+
+      @keyframes driftStrong {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        18% { transform: translate(1.6px, -1.8px) rotate(-1deg); }
+        42% { transform: translate(-2px, 1.8px) rotate(1.2deg); }
+        66% { transform: translate(1.2px, 1.4px) rotate(-0.9deg); }
+        100% { transform: translate(0, 0) rotate(0deg); }
+      }
+
+      @media (max-width: 800px) {
+        .page {
+          width: min(100vw - 24px, 1120px);
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+
+        .canvas-wrap {
+          width: min(46vw, 260px);
+          height: min(28vh, 220px);
+        }
+
+        .text p {
+          font-size: 1rem;
+          line-height: 1.82;
+        }
+      }
+    </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="intro-video-gate" id="videoGate">
+      <video class="intro-video" id="introVideo" autoplay muted playsinline>
+        <source src="preface-video-1.mp4" type="video/mp4" />
+      </video>
+      <p class="intro-video-note">Preface / Introduction</p>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="bg-canvas"></canvas>
+    </div>
+
+    <div class="paper-noise" aria-hidden="true"></div>
+    <p class="loading-note" id="loadingNote">Loading mushroom model</p>
+
+    <div class="page" id="pageContent">
+      <header class="header">
+        <p class="kicker drift-soft word-cloud">Preface / 01</p>
+        <nav class="nav">
+          <a href="preface.html">Back</a>
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <p class="kicker drift-soft word-cloud">Introduction</p>
+        <h1 class="drift-strong word-cloud">Introduction to this Document</h1>
+
+        <section class="text">
+          <p class="drift-mid word-cloud">
+            This confirmation document outlines my practice-based doctoral research,
+            which investigates how virtual ecological art practices might turn toward
+            nature through the intertwined philosophies of Taoism and Deleuze and
+            Guattari in a posthuman era. I am undertaking this research because of a
+            long-standing fascination with mushrooms, my embodied encounters with fungi
+            and immersive art, and a desire to rethink human–technology–nature
+            relations beyond anthropocentric control.
+          </p>
+
+          <p class="drift-soft word-cloud">
+            Methodologically, I approach the research as a cultivation process that
+            combines philosophical inquiry, generative and immersive digital art,
+            somatic practices informed by Daoist cosmology, and post-qualitative,
+            relational modes of data generation. The work is supported by practice
+            communities in art, design, and somatic movement who participate in
+            exhibitions and workshops. The research unfolds over the duration of my
+            doctoral study, with key phases marked by exhibitions, iterative workshops,
+            and a planned programme of practice and reflection through to completion.
+          </p>
+
+          <p class="drift-strong word-cloud">
+            The document is structured to guide the reader through this trajectory: it
+            opens by positioning my practice as the primary point of departure, before
+            situating my own encounter and positionality, then establishing the
+            methodological metaphor of the “morning mushroom” from Zhuangzi and its
+            philosophical subsoil. From there, the writing elaborates the broader
+            theoretical environment, outlines the Morning Mushroom Method, presents
+            preliminary exhibitions and workshops as sites of practice, details ethical
+            considerations, and finally maps the planned route to completion.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const videoGate = document.getElementById("videoGate");
+      const introVideo = document.getElementById("introVideo");
+      const pageContent = document.getElementById("pageContent");
+
+      function wrapWords(node) {
+        const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null);
+        const textNodes = [];
+        while (walker.nextNode()) {
+          const current = walker.currentNode;
+          if (current.nodeValue.trim()) {
+            textNodes.push(current);
+          }
+        }
+
+        textNodes.forEach((textNode) => {
+          const frag = document.createDocumentFragment();
+          const parts = textNode.nodeValue.split(/(\s+)/);
+          parts.forEach((part, index) => {
+            if (!part) return;
+            if (/\s+/.test(part)) {
+              frag.appendChild(document.createTextNode(part));
+              return;
+            }
+            const span = document.createElement("span");
+            span.className = "word";
+            span.textContent = part;
+            span.style.setProperty("--delay", `${(index % 9) * 0.12}s`);
+            span.style.setProperty("--dur", `${4.2 + (index % 5) * 0.55}s`);
+            frag.appendChild(span);
+          });
+          textNode.parentNode.replaceChild(frag, textNode);
+        });
+      }
+
+      document.querySelectorAll(".word-cloud").forEach(wrapWords);
+
+      function revealPage() {
+        videoGate.classList.add("hidden");
+        pageContent.classList.add("visible");
+      }
+
+      introVideo.addEventListener("ended", revealPage);
+      introVideo.addEventListener("error", revealPage);
+
+      setTimeout(() => {
+        if (!pageContent.classList.contains("visible") && introVideo.paused && introVideo.currentTime > 0) {
+          revealPage();
+        }
+      }, 1200);
+
+      setTimeout(() => {
+        if (!pageContent.classList.contains("visible")) {
+          revealPage();
+        }
+      }, 15000);
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      const loadingNote = document.getElementById("loadingNote");
+      const canvas = document.getElementById("bg-canvas");
+
+      const scene = new THREE.Scene();
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+      camera.position.set(0, 0.35, 3.6);
+
+      const ambient = new THREE.AmbientLight(0xf3ebd7, 1.35);
+      scene.add(ambient);
+
+      const dir1 = new THREE.DirectionalLight(0xffffff, 1);
+      dir1.position.set(3, 4, 5);
+      scene.add(dir1);
+
+      const dir2 = new THREE.DirectionalLight(0xdcc6a0, 0.8);
+      dir2.position.set(-4, -1, 2);
+      scene.add(dir2);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enablePan = false;
+      controls.enableZoom = false;
+      controls.enableDamping = true;
+      controls.rotateSpeed = 0.35;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.9;
+      controls.minPolarAngle = Math.PI / 2.5;
+      controls.maxPolarAngle = Math.PI / 1.75;
+
+      let mushroom = null;
+
+      function resize() {
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+
+      const loader = new GLTFLoader();
+      loader.load(
+        "./mushroom-0.glb",
+        (gltf) => {
+          mushroom = gltf.scene;
+          mushroom.position.set(0, -0.65, 0);
+          mushroom.rotation.y = -0.4;
+          mushroom.scale.setScalar(1.12);
+
+          mushroom.traverse((child) => {
+            if (child.isMesh && child.material) {
+              child.material.transparent = true;
+              child.material.opacity = 0.36;
+            }
+          });
+
+          scene.add(mushroom);
+          loadingNote.style.display = "none";
+        },
+        undefined,
+        () => {
+          loadingNote.textContent = "Model failed to load";
+        }
+      );
+
+      const pointer = { x: 0, y: 0 };
+
+      window.addEventListener("mousemove", (event) => {
+        pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        if (mushroom) {
+          mushroom.rotation.x += (pointer.y * 0.08 - mushroom.rotation.x) * 0.025;
+          mushroom.rotation.z += (pointer.x * 0.06 - mushroom.rotation.z) * 0.025;
+        }
+
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>

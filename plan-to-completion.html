@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plan To Completion</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Cormorant+Garamond:wght@400;500;600&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: #efe6d8;
+        color: #17130f;
+        font-family: "Cormorant Garamond", serif;
+        overflow: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .bg-scene {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background:
+          linear-gradient(rgba(255, 244, 233, 0.06), rgba(255, 244, 233, 0.18)),
+          url("plan-background.jpg") center center / cover no-repeat;
+        filter: saturate(1.02) contrast(1.02);
+      }
+
+      .bg-scene::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 22% 18%, rgba(255,255,255,0.14), transparent 22%),
+          radial-gradient(circle at 78% 66%, rgba(255,255,255,0.08), transparent 24%);
+        pointer-events: none;
+      }
+
+      .page {
+        position: relative;
+        z-index: 2;
+        min-height: 100vh;
+        width: min(100vw - 40px, 1400px);
+        margin: 0 auto;
+        padding: 18px 0 28px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .kicker,
+      .nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(23, 19, 15, 0.78);
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .nav a {
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        border-color: rgba(23, 19, 15, 0.4);
+      }
+
+      .hero {
+        position: relative;
+        min-height: calc(100vh - 70px);
+        display: grid;
+        place-items: center;
+      }
+
+      .plan-card {
+  position: relative;
+  z-index: 5;
+  width: min(76vw, 840px);
+  transform: rotate(0deg);
+  box-shadow: 0 29px 42px rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(1px);
+}
+
+
+      .plan-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .fall-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 4;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .fall {
+        position: absolute;
+        top: -80px;
+        color: rgba(178, 46, 34, 0.78);
+        font-family: "Orbitron", sans-serif;
+        user-select: none;
+        white-space: nowrap;
+        animation-name: fallDown;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+
+      .fall.arrow {
+        font-size: 28px;
+      }
+
+      .fall.mushroom {
+        font-size: 22px;
+      }
+
+      .fall svg {
+        display: block;
+        width: 26px;
+        height: 26px;
+      }
+
+      @keyframes fallDown {
+        0% {
+          transform: translate3d(0, -10vh, 0) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.9;
+        }
+        100% {
+          transform: translate3d(var(--drift, 0px), 115vh, 0) rotate(var(--rot, 180deg));
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .page {
+          width: min(100vw - 24px, 1400px);
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        .plan-card {
+          width: min(92vw, 840px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-scene" aria-hidden="true"></div>
+    <div class="fall-layer" id="fallLayer" aria-hidden="true"></div>
+
+    <div class="page">
+      <header class="header">
+        <p class="kicker">Plan To Completion</p>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="hero">
+        <figure class="plan-card">
+          <img src="plan.png" alt="Plan to completion table" />
+        </figure>
+      </main>
+    </div>
+
+    <script>
+      const fallLayer = document.getElementById("fallLayer");
+
+      const mushroomSvg = `
+        <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            d="M6.5 15.2C8 9.8 12.5 6.7 18 6.7s10 3.1 11.5 8.5c-3.3 1-7.4 1.5-11.5 1.5s-8.2-.5-11.5-1.5Z"/>
+          <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            d="M18 16.7v9.1"/>
+          <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            d="M14.9 25.8c.8 1.4 1.8 2.1 3.1 2.1s2.3-.7 3.1-2.1"/>
+          <circle cx="13" cy="12.8" r="1" fill="currentColor"/>
+          <circle cx="18.6" cy="11.2" r="1" fill="currentColor"/>
+          <circle cx="23.7" cy="13" r="1" fill="currentColor"/>
+        </svg>
+      `;
+
+      const items = [];
+      for (let i = 0; i < 22; i++) items.push("arrow");
+      for (let i = 0; i < 18; i++) items.push("mushroom");
+
+      items.forEach((type, index) => {
+        const el = document.createElement("div");
+        el.className = `fall ${type}`;
+
+        if (type === "arrow") {
+          const arrows = ["↖", "↗", "↘", "↙", "↑", "↓", "↺"];
+          el.textContent = arrows[index % arrows.length];
+        } else {
+          el.innerHTML = mushroomSvg;
+        }
+
+        const left = Math.random() * 100;
+        const delay = Math.random() * 14;
+        const duration = 14 + Math.random() * 14;
+        const drift = `${(Math.random() - 0.5) * 180}px`;
+        const rot = `${(Math.random() - 0.5) * 520}deg`;
+        const scale = 0.8 + Math.random() * 0.9;
+        const opacity = 0.35 + Math.random() * 0.45;
+
+        el.style.left = `${left}%`;
+        el.style.animationDelay = `-${delay}s`;
+        el.style.animationDuration = `${duration}s`;
+        el.style.setProperty("--drift", drift);
+        el.style.setProperty("--rot", rot);
+        el.style.transform = `scale(${scale})`;
+        el.style.opacity = opacity;
+
+        fallLayer.appendChild(el);
+      });
+    </script>
+  </body>
+</html>

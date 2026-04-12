@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The "Morning Mushroom Method" / Part One</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: #050505;
+        color: rgba(248, 245, 238, 0.96);
+        font-family: "Cormorant Garamond", serif;
+        overflow-x: hidden;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><path fill='white' d='M18 5c6.4 0 11.4 3.6 12.8 9.4-2.2.7-4.7 1.1-7.3 1.3-1 .1-2 .1-3 .1s-2 0-3-.1c-2.6-.2-5.1-.6-7.3-1.3C6.6 8.6 11.6 5 18 5Zm-2.2 11.3h4.4v4.8c0 1.2.4 2.1 1.2 2.9.7.7 1.1 1.6 1.1 2.8 0 2.2-1.8 3.9-4.5 3.9s-4.5-1.7-4.5-3.9c0-1.2.4-2.1 1.1-2.8.8-.8 1.2-1.7 1.2-2.9v-4.8Z'/><circle fill='white' cx='13.5' cy='11.4' r='1.1'/><circle fill='white' cx='18.3' cy='9.9' r='1'/><circle fill='white' cx='23.2' cy='11.2' r='1.05'/></svg>")
+            8 8,
+          auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      p,
+      h1,
+      h2 {
+        margin: 0;
+      }
+
+      .bg-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .center-video {
+        position: absolute;
+        left: 50%;
+        top: 15vh;
+        transform: translateX(-50%);
+        width: min(58vw, 860px);
+        height: min(40vh, 420px);
+        background: rgba(255, 255, 255, 0.03);
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.32);
+        overflow: hidden;
+      }
+
+      .center-video video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        background: #000;
+        opacity: 0.7;
+        filter: saturate(0.82) contrast(1.08) brightness(0.84);
+      }
+
+      .bg-wash {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        background:
+          radial-gradient(circle at 50% 28%, rgba(110, 118, 152, 0.08), transparent 18%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.66));
+      }
+
+      .page {
+        position: relative;
+        z-index: 2;
+        width: min(100vw - 40px, 1120px);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 18px 0 72px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .kicker,
+      .nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.84);
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .nav a {
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        border-color: rgba(255, 255, 255, 0.56);
+      }
+
+      .main {
+        display: grid;
+        gap: 28px;
+        padding-top: 32px;
+      }
+
+      .title-block {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+        padding-top: min(30vh, 300px);
+      }
+
+      h1 {
+        max-width: 18ch;
+        text-align: center;
+        font-size: clamp(2.6rem, 5vw, 4.4rem);
+        line-height: 0.95;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.96);
+      }
+
+      h2 {
+        width: min(100%, 52rem);
+        margin: 8px auto 0;
+        font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+        line-height: 1;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.94);
+      }
+
+      .text {
+        display: grid;
+        gap: 18px;
+        justify-items: center;
+      }
+
+      .text p {
+        width: min(100%, 52rem);
+        text-align: justify;
+        text-align-last: left;
+        font-size: 1.06rem;
+        line-height: 1.92;
+        color: rgba(245, 241, 233, 0.92);
+      }
+
+      @media (max-width: 800px) {
+        .page {
+          width: min(100vw - 24px, 1120px);
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .center-video {
+          top: 14vh;
+          width: 82vw;
+          height: 26vh;
+        }
+
+        .title-block {
+          padding-top: 24vh;
+        }
+
+        .text p,
+        h2 {
+          width: 100%;
+        }
+
+        h1 {
+          font-size: clamp(2.2rem, 8vw, 3.5rem);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-layer" aria-hidden="true">
+      <div class="center-video">
+        <video autoplay muted loop playsinline>
+  <source src="method-video-1.mp4" type="video/mp4" />
+</video>
+
+
+      </div>
+    </div>
+
+    <div class="bg-wash" aria-hidden="true"></div>
+
+    <div class="page">
+      <header class="header">
+        <p class="kicker">Chapter 5 / Method</p>
+        <nav class="nav">
+          <a href="morning-mushroom-method.html">Back</a>
+          <a href="morning-mushroom-method-part-2.html">Next</a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <section class="title-block">
+          <p class="kicker">The "Morning Mushroom Method"</p>
+          <h1>Part One</h1>
+        </section>
+
+        <section class="text">
+          <h2>Methodological Orientation</h2>
+
+          <p>
+            My methodological stance is rooted in what Elizabeth St. Pierre (2019) calls the "post-qualitative turn" within design and social science research, and I want to explain what draws me to this framework and where I find it genuinely useful for my own work. St. Pierre's project is, at its core, a challenge to the inherited structures of conventional qualitative inquiry: the stable subject, the transparent data, the researcher who stands outside the field and interprets it. She describes post-qualitative inquiry as a "methodology-to-come," meaning it cannot be specified in advance as a set of procedures but must be invented in response to the specific entanglements of each research situation. What I find honest and generative about this position is that it refuses the comfort of a predetermined method. It asks the researcher to stay open to what the field is doing rather than imposing a grid upon it.
+          </p>
+
+          <p>
+            St. Pierre's insistence that data itself is not pre-given but produced within relational and material processes gives me a theoretical grounding for treating these moments as legitimate sites of knowledge generation. I enter this research as a researcher in a symbiotic field saturated with what I think of as "algorithmic humidity," a condition in which the boundaries between the digital and the somatic are persistently blurred. Within this field, my methodological orientation facilitates a dynamic collaboration between Taoist philosophy and the Deleuze and Guattarian philosophy of becoming, not as two systems I apply from the outside, but as living orientations that shape how I perceive and respond to what happens in practice. I understand research here as a relationship of cultivation, treating each experiment as the germination of spores, where the trajectory of growth depends upon the unpredictable intra-action between algorithms, the body, and the environment.
+          </p>
+
+          <h2>Rhizomatic Entanglement: Generative Experiments</h2>
+
+          <p>
+            My inquiry constitutes Practice-Based Research (Candy, 2018), and the technical and aesthetic decisions I make within it are not incidental to the research but constitute its primary site of thinking. I want to sketch here how I am approaching this, with the understanding that these ideas will be unpacked in considerably more detail in the final thesis.
+          </p>
+
+          <p>
+            Central to my generative practice is the stochasticity and "Contextual Fluidity" of AI systems: the fact that the same parameters, run at different moments or with slight variations, produce meaningfully different outputs. I have been working with this unpredictability not as a problem to be managed but as a condition to be cultivated, in a manner that resonates with what I understand as the Daoist practice of wuwei. By introducing Recursive Aesthetics and Fractal Logic into my image generation process, I am attempting to build systems that simulate self-organising evolutionary processes, where complexity emerges from simple iterative rules rather than from top-down compositional decisions. In practice, this has meant working extensively with TouchDesigner and custom algorithms, testing how different recursive parameters produce visual ecologies that feel alive rather than designed.
+          </p>
+
+          <p>
+            The project employs 3D software and real-time algorithms to endow digital fungi with what I am calling "technical subjectivity": a quality of behaviour that makes these virtual forms feel like they are responding to the environment rather than simply executing instructions. I am still working through what this concept means precisely, and it is one of the areas I intend to develop most fully in the thesis, drawing on Latour's account of non-human actants, Barad's intra-action, and my own observations from the studio. What I can say at this stage is that in my installations, audiences consistently describe the digital organisms as feeling present, as having intention, and as making the anthropocentric perceptual boundaries of the gallery space feel temporarily unstable. Understanding why that happens, and what it means for a post-human art practice, is at the heart of what I am investigating.
+          </p>
+
+          <h2>Spore Diffusion: Embodied Non-conscious Cognition</h2>
+
+          <p>
+            This research unfolds through two modes of practice, specifically the Exhibition and the participatory Workshop. What I am investigating is how these established forms can be reoriented when inhabited through the specific philosophical conditions of this research. This dual-track trajectory aims to balance the qualitative depth of artistic expression with the process of shared generation within collective participation. The exhibition serves as a concentrated manifestation of research findings, focusing on the creation of an immersive perceptual environment. The workshop functions as an experimental site for collaboration, specifically investigating the agency of participants and the transfer of agency during the interactive process.
+          </p>
+
+          <p>
+            Within the exhibition space, I have observed, most concretely in the Symbiotic Ghosts installation at Unfolding Narrative (2025) and the subsequent Unfolding Narrative exhibition (2026), that the audience engages in real-time resonance with projected imagery through specific gestures or somatic interaction. This interaction is endowed with the profound connotations of Daoist "breath regulation" (tiaoxi) and "Qi circulation" (xingqi). As somatic "Qi" extends to the digital interface through movement, the mycelia within the imagery vibrate, expand, or decay accordingly, achieving a perceptual coupling that transcends the virtual and the real. This process represents a tension between the "autonomy of the algorithm" and the "corporeal desire for control." My research captures the subtle somatic vibrations occurring during interaction with the work, specifically identifying these vibrations as pre-linguistic and affective. In future exhibition phases, I intend to develop more deliberate mechanisms for recording these moments of coupling between body and system.
+          </p>
+
+          <p>
+            As the experiment extends from the creative laboratory to the participatory workshop, the research enters the socialisation stage of "spore dispersal," a metaphor I draw from my reading of Tsing's (2015) account of how matsutake spores travel and take root in contingent, unpredictable conditions. In the workshops I have run, including the Daoist movement and AI divination sessions described in Section 5, I found that participants were assimilated into a "symbiotic community" composed of respiration, creation, and algorithms in ways I had not fully anticipated. Knowledge production here is based on deep records of Embodied Phenomenology. The workshop becomes an experimental space that allows participants to relinquish power in favour of "composting" alongside non-human systems. This transfer of power simulates the decentralised distributional logic of fungi, allowing meaning to emerge spontaneously at every point of connection. In future workshops, I plan to develop more rigorous methods for documenting these emergent moments, so that what arises can be analysed as a form of relational knowledge production.
+          </p>
+
+          <h2>Cyclical Closed Loop: A Four-dimensional Integrated Nutrient Feedback System</h2>
+
+          <p>
+            I have come to think of my research as constructing a "cyclical feedback system," a concept I have developed in dialogue with Candy's (2018) account of practice-based research as iterative and reflexive, and with the nutrient cycling logic I encountered in Sheldrake's (2020) description of how fungal ecosystems convert matter into energy and back again. What draws me to this biological model is how it refuses the linearity of input and output: nothing is wasted, and every manifestation feeds the next phase of growth. In my research, I am attempting to build a methodology that works in the same way, supported by the integration of philosophical input, generative art methods, embodied perceptual analysis, and visual ethnography. Every "manifestation" within an exhibition or workshop, whether a participant's somatic response, an unexpected algorithmic output, or a moment of perceptual disruption, is converted into fresh data and affective nutrients that flow back into the theoretical subsoil to recalibrate the subsequent trajectory of growth.
+          </p>
+
+          <p>
+            This reflexive logic is grounded in auto-ethnography, and it requires me to document every instance when my own neural pathways are "loosened" during technological interaction, attending to those moments when habitual ways of perceiving are temporarily destabilised. Ultimately, what I am working toward is a methodology that itself evolves into a living fungal colony, exploring a non-linear academic narrative through continuous respiration, dispersal, and re-organisation within the fissures of technological ruins.
+          </p>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

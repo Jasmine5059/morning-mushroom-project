@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.2 On Becoming: The Morning Mushroom</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: #050505;
+        color: rgba(248, 245, 238, 0.95);
+        font-family: "Cormorant Garamond", serif;
+        overflow-x: hidden;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path fill='white' d='M16 6c5.2 0 9.3 3.1 10.4 8.1-3.1.8-6.8 1.2-10.4 1.2S8.7 14.9 5.6 14.1C6.7 9.1 10.8 6 16 6Zm-1.2 10.2h2.4v7.2c0 1.7-.7 2.6-1.2 2.6s-1.2-.9-1.2-2.6v-7.2Z'/></svg>")
+            8 8,
+          auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      p,
+      h1,
+      h2,
+      blockquote {
+        margin: 0;
+      }
+
+      .bg-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .bg-video-box {
+        position: absolute;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.04);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+      }
+
+      .bg-video-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+  opacity: 0.72;
+  filter: saturate(0.72) contrast(1.08) brightness(0.88);
+}
+
+
+      .bg-video-1 {
+        top: 10vh;
+        left: 5vw;
+        width: min(20vw, 280px);
+        height: min(28vh, 220px);
+      }
+
+      .bg-video-2 {
+        top: 18vh;
+        right: 7vw;
+        width: min(24vw, 330px);
+        height: min(24vh, 200px);
+      }
+
+      .bg-video-3 {
+  bottom: 10vh;
+  left: 13vw;
+  width: min(28vw, 380px);
+  height: min(32vh, 300px);
+}
+
+
+      .bg-wash {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        background:
+          radial-gradient(circle at 18% 30%, rgba(96, 104, 126, 0.08), transparent 20%),
+          radial-gradient(circle at 84% 22%, rgba(134, 110, 168, 0.07), transparent 22%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.62));
+      }
+
+      .page {
+        position: relative;
+        z-index: 2;
+        width: min(100vw - 40px, 1120px);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 18px 0 72px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .kicker,
+      .nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .nav a {
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        border-color: rgba(255, 255, 255, 0.52);
+      }
+
+      .main {
+        display: grid;
+        gap: 28px;
+        padding-top: 32px;
+      }
+
+      .title-block {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+      }
+
+      h1 {
+  margin: 0;
+}
+
+.split-title {
+  max-width: 2ch;
+  display: grid;
+  gap: 0.08em;
+  text-align: left
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.split-title span:first-child {
+  font-size: clamp(3rem, 5.5vw, 4.9rem);
+}
+
+.split-title span:last-child {
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+}
+
+
+.split-title span {
+  display: block;
+}
+
+
+      h2 {
+        width: min(100%, 52rem);
+        margin: 8px auto 0;
+        font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+        line-height: 1;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.94);
+      }
+
+      .text {
+        display: grid;
+        gap: 18px;
+        justify-items: center;
+      }
+
+      .text p,
+      .text blockquote {
+        width: min(100%, 52rem);
+        text-align: justify;
+        text-align-last: left;
+        font-size: 1.06rem;
+        line-height: 1.9;
+        color: rgba(245, 241, 233, 0.92);
+      }
+
+      .text blockquote {
+        border-left: 1px solid rgba(255, 255, 255, 0.12);
+        padding-left: 16px;
+        font-style: italic;
+      }
+
+      .pull-quote {
+        width: min(100%, 56rem);
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.22em 0.28em;
+        justify-content: flex-start;
+        line-height: 1.55;
+        font-size: 1.02rem;
+        font-style: italic;
+      }
+
+      .pull-quote .word {
+        display: inline-block;
+        animation: quotePull var(--dur, 5.6s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+      }
+
+      .pull-quote .word:nth-child(4n + 1) { transform: translateY(-5px) scaleX(1.02); }
+      .pull-quote .word:nth-child(4n + 2) { transform: translateY(2px) scaleX(0.98); }
+      .pull-quote .word:nth-child(4n + 3) { transform: translateY(-2px) scaleX(1.03); }
+      .pull-quote .word:nth-child(4n) { transform: translateY(4px) scaleX(0.97); }
+
+      @keyframes quotePull {
+        0% {
+          transform: translateX(0) translateY(0) scaleX(1);
+          letter-spacing: 0;
+        }
+        25% {
+          transform: translateX(3px) translateY(-4px) scaleX(1.08);
+          letter-spacing: 0.01em;
+        }
+        50% {
+          transform: translateX(-2px) translateY(3px) scaleX(0.96);
+          letter-spacing: -0.01em;
+        }
+        75% {
+          transform: translateX(4px) translateY(-1px) scaleX(1.04);
+          letter-spacing: 0.005em;
+        }
+        100% {
+          transform: translateX(0) translateY(0) scaleX(1);
+          letter-spacing: 0;
+        }
+      }
+
+      @media (max-width: 980px) {
+        .bg-video-1,
+        .bg-video-2,
+        .bg-video-3 {
+          opacity: 0.45;
+        }
+      }
+
+      @media (max-width: 800px) {
+        .page {
+          width: min(100vw - 24px, 1120px);
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .bg-video-1 {
+  top: 9vh;
+  left: 4vw;
+  width: min(25vw, 660px);
+  height: min(32vh, 580px);
+}
+
+.bg-video-2 {
+  top: 16vh;
+  right: 5vw;
+  width: min(28vw, 710px);
+  height: min(30vh, 580px);
+}
+
+.bg-video-3 {
+  bottom: 8vh;
+  left: 15vw;
+  width: min(32vw, 760px);
+  height: min(36vh, 640px);
+}
+
+
+
+        .text p,
+        .text blockquote,
+        .pull-quote,
+        h2 {
+          width: 100%;
+        }
+
+        h1 {
+          font-size: clamp(2.2rem, 8vw, 3.4rem);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-layer" aria-hidden="true">
+      <div class="bg-video-box bg-video-1">
+        <video autoplay muted loop playsinline>
+          <source src="context-video-6.mov" type="video/mp4" />
+        </video>
+      </div>
+
+      <div class="bg-video-box bg-video-2">
+        <video autoplay muted loop playsinline>
+          <source src="context-video-4.mov" type="video/mp4" />
+        </video>
+      </div>
+
+      <div class="bg-video-box bg-video-3">
+        <video autoplay muted loop playsinline>
+          <source src="context-video-3.mov" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+
+    <div class="bg-wash" aria-hidden="true"></div>
+
+    <div class="page">
+      <header class="header">
+        <p class="kicker">Context Review / 4.2</p>
+        <nav class="nav">
+          <a href="context-review.html">Back</a>
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <section class="title-block">
+  <h1 class="split-title">
+    <span>On Becoming</span>
+    <span>The Morning Mushroom</span>
+  </h1>
+</section>
+
+        <section class="text">
+          <h2>Introduction</h2>
+
+          <p>
+            The section that follows traces the philosophical encounter that has most profoundly shaped how I think about my practice: the meeting between Zhuangzi's morning mushroom and the rhizome of Deleuze and Guattari.
+          </p>
+
+          <p>
+            I move through this shared ground in four steps. I begin reading DG's concept of the rhizome through the figure of fungal growth. I then turn to the psychedelic dimension of mushrooms as a way into DG's notion of flowing madness, understanding the hallucinatory qualities of generative AI as a form of systemic deterritorialisation. From there, I develop what I call "Drawing the Leak," a cartographic practice that follows mycelial logic. Finally, I bring these threads together in a discussion of how the morning mushroom and the rhizome meet, holding their productive tension, to construct the theoretical and methodological ground from which my artistic practice grows as a mycelial bed.
+          </p>
+
+          <h2>A Deleuzo-Guattarian Counter-Toona: Becoming Fungi instead of Arborescence</h2>
+
+          <p>
+            The morning mushroom emerges as a definitive model of becoming. It penetrates, escapes, and de-skins in a cunning manner while transcending the arborescent model of the Great Toona tree. The ‘arborescent model’ criticised by Deleuze and Guattari (DG) (1987) represents a Western metaphysical paradigm centred on binary oppositions, hierarchical structures, and central axes. This research employs the ephemerality and diffusiveness of the morning mushroom to perform a deconstruction of the arborescent logic inherent in the Toona tree.
+          </p>
+
+          <p>
+            This research regards the concepts of assemblage, rhizome, and nomadic thought introduced in <em>A Thousand Plateaus</em> by Deleuze and Guattari as core theoretical resources for transdisciplinary inquiry. The book functions as an ecosystem composed of heterogeneous elements, concepts, metaphors, and intensities. Each plateau in ATP exists as a temporary intellectual region that can be accessed via multiple entry points, functioning independently of any fixed sequence or central axis. As Deleuze and Guattari (1987, p. 21) write, ‘a plateau is always in the middle, not at the beginning or the end.’
+          </p>
+
+          <p>
+            Practising this mushroom-style philosophy necessitates a radical movement of "De-skinning." a term I use to describe the process of shedding fixed subjectivity to become a network of roots that enter the soil. This is the embodied expression of the Deleuze and Guattarian Rhizome. As they write, ‘a rhizome has no beginning or end; it is always in the middle, between things, interbeing, intermezzo’ (Deleuze & Guattari, 1987, p. 25). Rhizomes or fungal mycelia find pathways within cracks, humidity, and contingency to establish multiple connections across heterogeneous domains. Under this logic, linguistic systems, bodily movements, affects, and technologies are liberated from transcendent central structures, instead operating collectively in a non-hierarchical state. To become fungi is to embrace multiplicity and heterogeneity, allowing the subject to engage in a morphic interpenetration with the environment through continuous ‘becoming’ (Deleuze & Guattari, 1987, p. 293). Every point of contact possesses the potential to become a new node of connection, thoroughly transcending the closed and self-referential arborescent model of the Toona tree.
+          </p>
+
+          <div class="pull-quote word-cloud">
+            Unlike the tree, the rhizome is not the object of reproduction: neither external reproduction as image-tree nor internal reproduction as tree-structure. The rhizome is an antigenealogy. It is a short-term memory, or antimemory…that is totally different from the arborescent relation: all manner of "becomings." (ATP, P21)
+          </div>
+
+          <p>
+            The theories of DG are viewed as a vital foundation for critical post-humanism, supporting the parallel relationships between philosophy, science, and art (Braidotti, 2018). The artistic practice in this study involves cultivating a dynamic assemblage, specifically a constellation formed by the interaction of human and non-human elements. Within this field, defined as a ‘virtual ecology,’ practice is understood as an infected and participatory mushroom bed. Technical media demonstrate their materiality and perceptual agency, while the bodies of the audience are embedded into the generative network as temporary nodes.
+          </p>
+
+          <h2>Mushrooms and Schizophrenia: Psychedelia and Flowing Madness</h2>
+
+          <p>
+            While the ‘Rhizome’ provides a morphological metaphor for fungi, ‘Psychedelia’ reveals its operational mechanism at the cognitive and spiritual levels. Within the Shamanic traditions of South America and Asia, toxic mushrooms have long been regarded as a neutral "biotechnology" that alters the state of consciousness of the host through the intervention of chemical molecules. Within the philosophical framework of this research, the hallucination induced by psilocybin is understood as a ‘Madness’ in a DG sense, representing a deterritorialising force capable of breaking through rigid rational structures (Deleuze, 2006).
+          </p>
+
+          <p>
+            In <em>Anti-Oedipus</em>, DG radically criticise traditional psychoanalysis represented by Freud and Lacan (Deleuze & Guattari, 1972/1983). Lacan (1977, p. 149) argues that the Symbolic Order fixes the subject within a linear and repressive linguistic structure, establishing an arborescent hierarchy that renders escape from its network of knots structurally impossible. I find a striking resonance between this locked symbolic order and the rigidity of the Great Toona tree: both represent systems that grow upward through fixed structures, accumulating authority and foreclosing deviation.
+          </p>
+
+          <p>
+            However, I propose, the fungal psychedelic experience constitutes a liquefaction of this symbolic order. As Merlin Sheldrake (2020) describes in <em>Entangled Life</em>, psychedelic fungi can temporarily dissolve the Default Mode Network (DMN) in the brain that maintains self narratives, allowing consciousness to return to a boundless and interconnected ‘pre-linguistic state.’ This aligns with the schizophrenic process advocated by Deleuze and Guattari, representing a pure flow of productive desire capable of penetrating the barriers of capitalist and familial structures (Deleuze & Guattari, 1972/1983).
+          </p>
+
+          <div class="pull-quote word-cloud">
+            Unlike the paranoid whose delirium consists of restoring codes and reinventing territories, the schizophrenic never ceases to go one more step in a movement of self-decoding and self-deterritorialization (this is the schizophrenic breakthrough, the voyage or trip, the process). (Two Regimes of Madness, Deleuze, 1975-1995)
+          </div>
+
+          <p>
+            This flowing madness, a concept I draw from Deleuze's account of desiring-production as a force that resists capture (Deleuze & Guattari, 1972/1983, p. 130), forms a subtle mirror relationship with the operational logic of capitalism (Deleuze, 2006, p. 12). Capitalism itself functions as a ‘Delirium,’ which deconstructs old codes while simultaneously exerting extreme effort to re-control these flows through axiomatic systems. Modern technological systems appear stable, much like the trunk of the Great Toona tree, yet they are perpetually subject to seeping.
+          </p>
+
+          <p>
+            This research translates fungal psychedelia into a methodology of art and technology by utilising generative AI to create systemic hallucinations. Artworks here move beyond the pursuit of constructing perfect or closed symbolic signs to focus on identifying cracks within the system, fostering a transformation from ‘lines of subjectification’ toward ‘lines of flight’ (Deleuze & Guattari, 1987, p. 227). Through the introduction of randomness and errors into code and generative AI, the work simulates the hallucinatory state following the ingestion of psychedelic fungi. Fixed forms are dissolved, enabling marginal subjectivity to emerge, while a new type of uncontrolled flow threatens and activates the previously stagnant system.
+          </p>
+
+          <p>
+            Within the dimension of psychoanalysis, "becoming a mushroom" signifies, in my reading, becoming an "antidote" that employs the induction of immediate and flowing micro-madness to counter the suffocating, arborescent rational order found at the macro level (Deleuze & Guattari, 1972/1983).
+          </p>
+
+          <h2>Mapping Seeping: Mycelial Growth as Cartography</h2>
+
+          <p>
+            ‘Make maps , not photos or drawings. (Deleuze & Guattari, 1987, p. 25)’ After rejecting the vertical lineage of the ‘arborescent model’, the core methodological problem facing this research is how to construct art without tracing an established reality. DG provide the answer by advocating to ‘Make a map, not a tracing’ (1987, p. 12). Tracing always attempts to replicate the existing ring like structure of the Great Toona tree. Conversely, ‘Mapping’ represents a radical fungal action oriented entirely toward experimentation and contact with the real (Deleuze & Guattari, 1987, p. 13). Within the generative practice of this study, “mapping seeping” moves beyond depicting a static image of a mushroom to operate in the manner of mycelia. It establishes connections across heterogeneous dimensions and constructs a ‘Body without Organs’ that possesses multiple entry points while remaining perpetually detachable, connectable, and modifiable (Deleuze & Guattari, 1987, p. 9). Cartography serves as an interventional action that re-articulates the self and the technical world through interaction and projection.
+          </p>
+
+          <p>
+            The core mechanism of this cartography finds precise interpretation in the famous Deleuzian and Guattarian allegory of the Orchid and the Wasp. As they write,
+          </p>
+
+          <div class="pull-quote word-cloud">
+            it is not imitation at all but a capture of code, surplus value of code, an increase in valence, a veritable becoming, a becoming-wasp of the orchid and a becoming-orchid of the wasp (Deleuze & Guattari, 1987, p. 10).
+          </div>
+
+          <p>
+            The orchid captures the code of the wasp to become its map instead of merely imitating it. This relationship forms a multidimensional map shaped by mutual transformation and sympoiesis. In the context of this research, this represents the logic of entanglement between the body and the code. A mode of semiotic interpretation is formed within the zone of territorialisation and deterritorialisation, where analogical representation operates through conceptual metaphors, emphasising difference as a productive force (Deleuze & Guattari, 1987, p. 258). When meaning is generated from such relationships of difference, metaphor becomes a creative linguistic form that enables communication between disparate fields, specifically art, biology, and the digital, while maintaining necessary openness and ambiguity.
+          </p>
+
+          <p>
+            However, this "mushroom-style" cartography introduces methodological tension. Deleuze employs philosophical writing and metaphor as tools for generating thought and triggering collective understanding, yet extreme openness presents challenges, including interpretative uncertainty and difficulties in operationalisation within structured research contexts. Therefore, while this study emphasises process, movement, and relationality, it also requires cautious translation when applied to empirical or practice-led research. It is precisely these tensions that provide productive possibilities, maximising flexibility in experimentation, reflection, and methodology during the process of "maping seeping." This allows the artistic practice itself to become a continuously growing, living map.
+          </p>
+
+          <h2>Constructing the Mycelial Bed: Artistic Practice as Assemblage and Smooth Space</h2>
+
+          <p>
+            As the philosophical proposition of "becoming fungi" enters the concrete site of practice, the concepts of Deleuze and Guattari (1987) offer a precise conceptual vocabulary for the immersive installations, generative imagery, and participatory workshops within this research. Drawing on Buchanan's (2021) methodological elaboration of assemblage theory, this framework facilitates an understanding of these elements as a dynamic Assemblage. Within this collective, which spreads in a manner resembling a mycelial bed, the artwork, the somatic presence of participants, movement trajectories, sign systems, algorithmic processes, and dialogic reflection collectively engage in a non-hierarchical generative process.
+          </p>
+
+          <p>
+            Within this human-AI micro-ecology, the sprawling logic of fungi manifests as a form of spatial topological tension. Deleuze and Guattari (1987, p. 474) distinguish between ‘smooth space,’ which is open, nomadic, and occupied by intensities and affects, and ‘striated space,’ which is organised, measured, and governed by fixed structures. They describe smooth space as ‘a field without conduits or channels,’ in contrast to striated space where ‘lines or trajectories tend to be subordinated to points.’ The algorithmic rules of generative AI, technical hardware constraints, and the boundaries of the physical exhibition space constitute striated space in this sense, imposing order and measurability upon the generative field. This research attempts to create fluid smooth space within these rigid grids through somatic movement and multi-sensory immersion. Just as mycelia seek fissures in compacted soil to establish soft connections, artistic practice becomes a deterritorialising force that softens technical rigidity and overcomes algorithmic barriers (Deleuze & Guattari, 1987, p. 479).
+          </p>
+
+          <div class="pull-quote word-cloud">
+            Smooth space is a field without conduits or channels. A field, a heterogeneous smooth space, is wedded to a very particular type of multiplicity: nonmetric, acentered, rhizomatic multiplicities that occupy space without "counting" it and can "be explored only by legwork." (ATP, p371)
+          </div>
+
+          <p>
+            Whether in the form of workshops or exhibitions, the operational logic of this practice follows what Deleuze and Guattari (1987, p. 21) describe as a rhizomatic structure: ‘any point of a rhizome can be connected to anything other and must be.’ I understand this in my practice as a commitment to opening multiple parallel pathways for entry, perception, and the generation of meaning for the audience, where no single route is privileged over another. Such theoretical perspectives provide support for the methodological orientation of this research, encouraging non-linear research design, embodied participation, and open interaction. The framework of Deleuze and Guattari consequently constitutes a generative context, enabling my artistic practice to remain sensitively responsive to its continuously evolving material and perceptual conditions.
+          </p>
+
+          <h2>Two Types of Mushrooms Meet: Linking Zhuangzi and DG</h2>
+
+          <p>
+            In bringing the morning mushroom of Zhuangzi into encounter with the rhizome of Deleuze and Guattari within this research, I find that these two figures collectively construct a subsoil that transcends traditional Western metaphysics, establishing an underlying logic characterised by humidity and biological essence. This cross-cultural philosophical resonance is not something I discovered ready-made, but something I have actively cultivated through my own practice, reading, and embodied experience of both traditions. The core of this alignment, as I understand it, lies in the proximity between Deleuzian experimental ontology and Daoist natural cosmology in their shared orientation toward decentralisation and self-organisation (Burik, 2010).
+          </p>
+
+          <p>
+            Deleuze and Guattari's concept of the ‘Body without Organs,’ which they describe as ‘a body populated by multiplicities’ (1987, p. 30), resonates deeply with my understanding of how artistic practice can resist fixed organisation. For Deleuze and Guattari, the BwO is not an absence of organs but a field of potential intensities that precedes and exceeds any stable form — it is what remains when habitual structures are loosened and flow becomes possible. I find this concept particularly generative for my practice because it describes precisely what I am attempting to construct in my installations: a space where the body of the participant, the algorithmic processes, and the imagery are not organised into fixed roles but remain open to mutual transformation. This, I argue, profoundly echoes the principle of Wuwei in Daoist thought, which seeks non-intervention to maintain pure openness (Caravella, 2020; Moeller, 2006). My artistic practice in this research operates as a Plane of Consistency established in the manner of underground fungi, facilitating the non-hierarchical co-emergence of imagery, participants, and algorithms.
+          </p>
+
+          <p>
+            Working across these two philosophies, I notice a productive tension in their different orientations toward transformation. Deleuze and Guattari's notion of ‘revolutionary becoming’ pulls toward radical rupture and escape, pursuing rapid deterritorialisation through lines of flight (Deleuze & Guattari, 1987, p. 277). Conversely, Daoism is rooted in cosmic cycles and harmony, understanding transformation as a gradual and non-destructive process rooted in the flow of Qi and the returning logic of water (Zhuangzi & Watson, 2013). I find this tension generative for my practice: the urgency and rupture of schizoanalysis give me tools to identify and crack open the rigid structures of capitalist and technological systems, while Daoist thought provides the patience and ecological wisdom to sustain long-term flow without collapse. In this sense, the morning mushroom becomes a figure that holds both orientations at once, seeping through cracks with the quiet persistence of Wuwei, while carrying within it the potential for sudden and radical transformation.
+          </p>
+
+          <p>
+            Within this cross-cultural theoretical tension, I aspire to construct an active space saturated with generative potential. Through my practice, I recreate Daoist dynamic transformation while exploring pure potentiality after the dissolution of subjective boundaries within the uncertainty of generative artificial intelligence. These two mushrooms converge in my work, ultimately transforming into unstoppable, sprawling mycelia within the digital ecology.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      function wrapWords(selector) {
+        document.querySelectorAll(selector).forEach((node) => {
+          const text = node.textContent.trim();
+          const parts = text.split(/\s+/);
+          node.innerHTML = parts
+            .map((word, index) => {
+              const delay = (index % 10) * 0.16;
+              const dur = 4.8 + (index % 4) * 0.6;
+              return `<span class="word" style="--delay:${delay}s;--dur:${dur}s">${word}</span>`;
+            })
+            .join(" ");
+        });
+      }
+
+      wrapWords(".word-cloud");
+    </script>
+  </body>
+</html>

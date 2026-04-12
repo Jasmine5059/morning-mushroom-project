@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The "Morning Mushroom Method" / Part Two</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: #050505;
+        color: rgba(248, 245, 238, 0.96);
+        font-family: "Cormorant Garamond", serif;
+        overflow-x: hidden;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><path fill='white' d='M18 5c6.4 0 11.4 3.6 12.8 9.4-2.2.7-4.7 1.1-7.3 1.3-1 .1-2 .1-3 .1s-2 0-3-.1c-2.6-.2-5.1-.6-7.3-1.3C6.6 8.6 11.6 5 18 5Zm-2.2 11.3h4.4v4.8c0 1.2.4 2.1 1.2 2.9.7.7 1.1 1.6 1.1 2.8 0 2.2-1.8 3.9-4.5 3.9s-4.5-1.7-4.5-3.9c0-1.2.4-2.1 1.1-2.8.8-.8 1.2-1.7 1.2-2.9v-4.8Z'/><circle fill='white' cx='13.5' cy='11.4' r='1.1'/><circle fill='white' cx='18.3' cy='9.9' r='1'/><circle fill='white' cx='23.2' cy='11.2' r='1.05'/></svg>")
+            8 8,
+          auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      p,
+      h1,
+      h2 {
+        margin: 0;
+      }
+
+      .bg-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .center-video {
+        position: absolute;
+        left: 50%;
+        top: 15vh;
+        transform: translateX(-50%);
+        width: min(58vw, 860px);
+        height: min(40vh, 420px);
+        background: rgba(255, 255, 255, 0.03);
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.32);
+        overflow: hidden;
+      }
+
+      .center-video video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        background: #000;
+        opacity: 0.7;
+        filter: saturate(0.82) contrast(1.08) brightness(0.84);
+      }
+
+      .bg-wash {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        background:
+          radial-gradient(circle at 50% 28%, rgba(110, 118, 152, 0.08), transparent 18%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.66));
+      }
+
+      .page {
+        position: relative;
+        z-index: 2;
+        width: min(100vw - 40px, 1120px);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 18px 0 72px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .kicker,
+      .nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.84);
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .nav a {
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        border-color: rgba(255, 255, 255, 0.56);
+      }
+
+      .main {
+        display: grid;
+        gap: 28px;
+        padding-top: 32px;
+      }
+
+      .title-block {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+        padding-top: min(30vh, 300px);
+      }
+
+      h1 {
+        max-width: 18ch;
+        text-align: center;
+        font-size: clamp(2.6rem, 5vw, 4.4rem);
+        line-height: 0.95;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.96);
+      }
+
+      h2 {
+        width: min(100%, 52rem);
+        margin: 8px auto 0;
+        font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+        line-height: 1;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.94);
+      }
+
+      .text {
+        display: grid;
+        gap: 18px;
+        justify-items: center;
+      }
+
+      .text p {
+        width: min(100%, 52rem);
+        text-align: justify;
+        text-align-last: left;
+        font-size: 1.06rem;
+        line-height: 1.92;
+        color: rgba(245, 241, 233, 0.92);
+      }
+
+      @media (max-width: 800px) {
+        .page {
+          width: min(100vw - 24px, 1120px);
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .center-video {
+          top: 14vh;
+          width: 82vw;
+          height: 26vh;
+        }
+
+        .title-block {
+          padding-top: 24vh;
+        }
+
+        .text p,
+        h2 {
+          width: 100%;
+        }
+
+        h1 {
+          font-size: clamp(2.2rem, 8vw, 3.5rem);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-layer" aria-hidden="true">
+      <div class="center-video">
+        <video autoplay muted loop playsinline>
+          <source src="method-video-2.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+
+    <div class="bg-wash" aria-hidden="true"></div>
+
+    <div class="page">
+      <header class="header">
+        <p class="kicker">Chapter 5 / Method</p>
+        <nav class="nav">
+          <a href="morning-mushroom-method-part-1.html">Back</a>
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <section class="title-block">
+          <p class="kicker">The "Morning Mushroom Method"</p>
+          <h1>Part Two</h1>
+        </section>
+
+        <section class="text">
+          <h2>Participant Recruitment</h2>
+
+          <p>
+            Participants will be recruited through multiple complementary and intersecting pathways. Invitations will be issued during public exhibitions and art showcases, specifically <em>Unfolding Narratives</em>, UAL campus displays, and other exhibition spaces, where viewers who express interest will be guided into the research process. Simultaneously, recruitment will utilise the academic and creative networks of UAL, including postgraduate communities, noticeboards, workshop environments, and relevant academic activities, to attract postgraduate students and practitioners from fields such as art, design, and philosophy. Furthermore, public recruitment notices will be distributed via social media platforms, specifically Instagram and Xiaohongshu, to ensure a broad cultural and disciplinary reach. The research also engages with practice communities related to somatic perception and movement, specifically Tai Chi, Yoga, and body awareness courses, to invite participants with prior experience in embodied practice or Daoist thought.
+          </p>
+
+          <h2>Data Generation and Collection</h2>
+
+          <p>
+            I am employing two primary methods for data collection corresponding to two categories of participants, namely exhibition audiences and workshop participants. The first category comprises the general exhibition audience, with an expected participation of 30 to 50 viewers within the installation space. I will record data through non-interventional and observational methods to document behavioural patterns within the immersive digital art installation, including movement trajectories, dwell times, and modes of interaction. This process maintains total anonymity by excluding identifiable personal information. On a purely voluntary basis, audiences may provide anonymous spontaneous feedback, such as short texts or pictorial responses, to express immediate perceptions and emotional reactions.
+          </p>
+
+          <p>
+            To achieve a comprehensive record of emotional and somatic responses, I am drawing on several synergistic methods that I have begun to test in my preliminary exhibitions. My observation logs document dwell positions, paths of movement, focal points of gaze, and bodily postures to extract somatic feedback from the immersive experience. What I have found particularly revealing in early observations is how bodily posture shifts, often subtle and unconscious, register something about the work that participants cannot yet articulate verbally. I will also conduct semi-structured interviews with select participants to discuss their subjective experiences, exploring emotional fluctuations, psychological resonance, and the perceptual logic of spatial structures. Alongside this, I maintain self-logs from my own perspective as creator, documenting my interactions with the environment and the technological feedback processes I encounter during the work, which allows me to hold a multi-perspectival understanding between my position as maker and the experience of the viewer.
+          </p>
+
+          <p>
+            The second category consists of workshop participants, with each session recruiting between 3 and 15 individuals to maintain an intimate atmosphere and ensure ethical controllability. All workshop participants will sign informed consent forms before the commencement of activities. I will hold workshops at the London College of Communication or the UAL Doctoral School, beginning with somatic perception exercises inspired by Daoist thought that guide participants to attend to their movements, breathing, and physical sensations. In the workshops I have already run, I found that this opening phase is crucial: it shifts participants from a mode of passive reception into one of active somatic awareness, which then carries into their engagement with the installations. Subsequently, participants will engage in deeper interactions with immersive digital art installations that integrate Daoist philosophy and the thought of Deleuze and Guattari, combining generative ecological imagery, algorithmic visual systems, and somatic interaction mechanisms within small-scale immersive experiments, allowing participants to move freely and engage through embodied experience. During the workshops, participants may generate creative materials and engage in optional recorded discussions subject to explicit permission. All collected materials will be anonymised during the analysis phase. Across both modes, I am committed to embodied inquiry, self-observation, and creative methods that support participants in expressing their experiences through open and non-prescriptive formats, remaining attentive to what emerges rather than what I anticipate.
+          </p>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

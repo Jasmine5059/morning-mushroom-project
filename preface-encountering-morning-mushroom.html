@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preface / Encountering Morning Mushroom</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background:
+          radial-gradient(circle at 18% 16%, rgba(155, 128, 80, 0.08), transparent 24%),
+          radial-gradient(circle at 82% 72%, rgba(119, 103, 72, 0.08), transparent 28%),
+          linear-gradient(180deg, #f3ebdb, #e9deca);
+        color: #17130f;
+        font-family: "Cormorant Garamond", serif;
+        overflow-x: hidden;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2311100d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M7 15c1-5 5-8 9-8s8 3 9 8c-5 1-13 1-18 0Z'/><path d='M16 15v8'/><path d='M13.5 23c.6 1.2 1.4 1.8 2.5 1.8s1.9-.6 2.5-1.8'/></g></svg>")
+            8 8,
+          auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2311100d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M7 15c1-5 5-8 9-8s8 3 9 8c-5 1-13 1-18 0Z'/><path d='M16 15v8'/><path d='M13.5 23c.6 1.2 1.4 1.8 2.5 1.8s1.9-.6 2.5-1.8'/></g></svg>")
+            8 8,
+          pointer;
+      }
+
+      p,
+      h1,
+      h2,
+      blockquote {
+        margin: 0;
+      }
+
+      .video-gate {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background: #040504;
+        display: grid;
+        place-items: center;
+        transition: opacity 900ms ease, visibility 900ms ease;
+      }
+
+      .video-gate.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .gate-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .gate-note {
+        position: absolute;
+        right: 24px;
+        bottom: 20px;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.66rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(250, 244, 229, 0.72);
+      }
+
+      .canvas-wrap {
+        position: fixed;
+        left: 50%;
+        bottom: -4vh;
+        transform: translateX(-50%);
+        width: min(72vw, 980px);
+        height: min(44vh, 420px);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      #bg-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .paper-noise {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.16;
+        background:
+          radial-gradient(circle at 20% 24%, rgba(0, 0, 0, 0.03) 0 1px, transparent 1px),
+          radial-gradient(circle at 74% 28%, rgba(0, 0, 0, 0.02) 0 1px, transparent 1px),
+          radial-gradient(circle at 34% 72%, rgba(0, 0, 0, 0.018) 0 1px, transparent 1px);
+        background-size: 16px 16px, 20px 20px, 22px 22px;
+      }
+
+      .page {
+        position: relative;
+        z-index: 3;
+        width: min(100vw - 40px, 980px);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 18px 0 140px;
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 1.1s ease, transform 1.1s ease;
+      }
+
+      .page.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .kicker,
+      .nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(23, 19, 15, 0.78);
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .nav a {
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        border-color: rgba(23, 19, 15, 0.45);
+      }
+
+      .main {
+        display: grid;
+        gap: 28px;
+        padding-top: 42px;
+      }
+
+      .title-block {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+      }
+
+      .title {
+        max-width: 18ch;
+        text-align: center;
+        font-size: clamp(2.1rem, 4.2vw, 3.6rem);
+        line-height: 0.95;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+      }
+
+      .poem {
+        display: grid;
+        gap: 8px;
+        justify-items: end;
+        margin-left: auto;
+        width: min(100%, 34rem);
+        text-align: right;
+      }
+
+      .poem p {
+        font-size: 1.06rem;
+        line-height: 1.7;
+        font-style: italic;
+      }
+
+      .spacer {
+        height: 3.6rem;
+      }
+
+      .mushroom-quote {
+        position: relative;
+        width: min(100%, 54rem);
+        margin: 0 auto;
+        min-height: 31rem;
+      }
+
+      .mushroom-quote-lines {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        justify-items: center;
+        gap: 0.45rem;
+        padding-top: 1rem;
+      }
+
+      .mushroom-line {
+        text-align: center;
+        line-height: 1.45;
+        font-size: 1.04rem;
+      }
+
+      .cap-1 { width: 18rem; }
+      .cap-2 { width: 26rem; }
+      .cap-3 { width: 33rem; }
+      .cap-4 { width: 38rem; }
+      .cap-5 { width: 42rem; }
+      .cap-6 { width: 38rem; }
+      .cap-7 { width: 31rem; }
+      .cap-8 { width: 22rem; }
+      .stem-1 { width: 13rem; margin-top: 0.9rem; }
+      .stem-2 { width: 12rem; }
+      .stem-3 { width: 11rem; }
+
+      .spores {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+      }
+
+      .spore {
+        position: absolute;
+        font-size: 1rem;
+        color: rgba(116, 102, 138, 0.72);
+        animation: sporeFloat var(--dur, 7s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+      }
+
+      .s1 { top: 0.4rem; left: 4%; }
+.s2 { top: 2.8rem; left: 22%; }
+.s3 { top: 0.1rem; left: 39%; }
+.s4 { top: 1.7rem; right: 23%; }
+.s5 { top: 3.6rem; right: 6%; }
+.s6 { top: 4.2rem; left: 1.5%; }
+.s7 { top: 7.1rem; left: 12%; }
+.s8 { top: 5.1rem; right: 14%; }
+.s9 { top: 8.9rem; left: 6%; }
+.s10 { top: 10.4rem; right: 1%; }
+.s11 { top: 12.5rem; left: 2%; }
+.s12 { top: 14.1rem; right: 11%; }
+.s13 { top: 15.7rem; left: 24%; }
+.s14 { top: 17.6rem; right: 24%; }
+.s15 { top: 18.7rem; left: 34%; }
+.s16 { top: 21.2rem; right: 29%; }
+.s17 { top: 22.7rem; left: 42%; }
+.s18 { top: 24.6rem; right: 34%; }
+.s19 { top: 27.2rem; left: 38%; }
+.s20 { top: 25.8rem; right: 46%; }
+
+
+      .body-text {
+        width: min(100%, 46rem);
+        margin: 0 auto;
+        display: grid;
+        gap: 20px;
+      }
+
+      .body-text p {
+        text-align: justify;
+        text-align-last: left;
+        font-size: 1.08rem;
+        line-height: 1.92;
+        color: rgba(23, 19, 15, 0.92);
+        background: rgba(246, 239, 223, 0.36);
+        padding: 0.1rem 0.15rem;
+      }
+
+      .loading-note {
+        position: fixed;
+        right: 24px;
+        bottom: 18px;
+        z-index: 4;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.64rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.45);
+      }
+
+      @keyframes sporeFloat {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+          opacity: 0.44;
+        }
+        35% {
+          transform: translate(6px, -8px) rotate(-6deg);
+          opacity: 0.8;
+        }
+        70% {
+          transform: translate(-5px, 10px) rotate(5deg);
+          opacity: 0.62;
+        }
+        100% {
+          transform: translate(0, 0) rotate(0deg);
+          opacity: 0.44;
+        }
+      }
+
+      @media (max-width: 800px) {
+        .page {
+          width: min(100vw - 24px, 980px);
+          padding-bottom: 120px;
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .title {
+          font-size: clamp(1.9rem, 8vw, 3rem);
+        }
+
+        .poem {
+          width: 100%;
+        }
+
+        .mushroom-quote {
+          min-height: 34rem;
+        }
+
+        .mushroom-line {
+          font-size: 0.94rem;
+        }
+
+        .cap-1 { width: 13rem; }
+        .cap-2 { width: 18rem; }
+        .cap-3 { width: 23rem; }
+        .cap-4 { width: 27rem; }
+        .cap-5 { width: 29rem; }
+        .cap-6 { width: 26rem; }
+        .cap-7 { width: 20rem; }
+        .cap-8 { width: 14rem; }
+        .stem-1 { width: 9rem; }
+        .stem-2 { width: 8rem; }
+        .stem-3 { width: 7rem; }
+
+        .body-text p {
+          font-size: 1rem;
+          line-height: 1.82;
+        }
+
+        .canvas-wrap {
+          width: min(96vw, 680px);
+          height: min(34vh, 300px);
+        }
+      }
+    </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="video-gate" id="videoGate">
+      <video class="gate-video" id="introVideo" autoplay muted playsinline>
+        <source src="preface-video-3.mp4" type="video/mp4" />
+      </video>
+      <p class="gate-note">Preface / Encountering Morning Mushroom</p>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="bg-canvas"></canvas>
+    </div>
+
+    <div class="paper-noise" aria-hidden="true"></div>
+    <p class="loading-note" id="loadingNote">Loading mushroom model</p>
+
+    <div class="page" id="pageContent">
+      <header class="header">
+        <p class="kicker">Preface / 03</p>
+        <nav class="nav">
+          <a href="preface.html">Back</a>
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <section class="title-block">
+          <p class="kicker">Encountering Morning Mushroom</p>
+          <h1 class="title">Encountering Morning Mushroom</h1>
+        </section>
+
+        <section class="poem">
+          <p>We are taught to become Chun (the Toona tree椿).</p>
+          <p>To grow tall enough, long enough, stable enough.</p>
+          <p>To possess a main trunk, annual rings, a lineage, and a history.</p>
+          <p>To organise the world into forms</p>
+          <p>that can be inherited, preserved, and archived.</p>
+          <p>I stand with Zhaojun (the morning mushroom, 朝菌).</p>
+          <p>It knows nothing of dusk or dawn.</p>
+          <p>It does not preserve itself for the future.</p>
+          <p>It falls into the soil, spreads, borrows, disappears.</p>
+          <p>The Chun understands life as continuity.</p>
+          <p>The Zhaojun knows the world is already a network.</p>
+          <p>I refuse the "Toona-style" subject.</p>
+          <p>Choosing a downward method instead.</p>
+          <p>To let technology lose control.</p>
+          <p>To let systems leak.</p>
+        </section>
+
+        <div class="spacer"></div>
+
+        <section class="mushroom-quote">
+          <div class="spores" aria-hidden="true">
+            <span class="spore s1" style="--delay:0s;--dur:7s;">朝</span>
+            <span class="spore s2" style="--delay:0.8s;--dur:6.2s;">菌</span>
+            <span class="spore s3" style="--delay:1.4s;--dur:7.8s;">不</span>
+            <span class="spore s4" style="--delay:0.6s;--dur:6.6s;">知</span>
+            <span class="spore s5" style="--delay:1.9s;--dur:7.4s;">晦</span>
+            <span class="spore s6" style="--delay:0.2s;--dur:6.8s;">朔</span>
+            <span class="spore s7" style="--delay:1.1s;--dur:7.3s;">蟪</span>
+            <span class="spore s8" style="--delay:0.4s;--dur:6.5s;">蛄</span>
+            <span class="spore s9" style="--delay:1.6s;--dur:7.6s;">不</span>
+            <span class="spore s10" style="--delay:0.7s;--dur:6.7s;">知</span>
+            <span class="spore s11" style="--delay:1.3s;--dur:7.2s;">春</span>
+            <span class="spore s12" style="--delay:0.5s;--dur:6.9s;">秋</span>
+            <span class="spore s13" style="--delay:1.8s;--dur:7.5s;">此</span>
+            <span class="spore s14" style="--delay:0.3s;--dur:6.4s;">小</span>
+            <span class="spore s15" style="--delay:1s;--dur:7.1s;">年</span>
+            <span class="spore s16" style="--delay:1.5s;--dur:6.8s;">也</span>
+            <span class="spore s17" style="--delay:0.9s;--dur:7.7s;">冥</span>
+            <span class="spore s18" style="--delay:1.7s;--dur:6.6s;">灵</span>
+            <span class="spore s19" style="--delay:0.6s;--dur:7.4s;">大</span>
+            <span class="spore s20" style="--delay:1.2s;--dur:6.9s;">椿</span>
+          </div>
+
+          <div class="mushroom-quote-lines">
+            <p class="mushroom-line cap-1">Morning mushrooms know not</p>
+            <p class="mushroom-line cap-2">the transition of eve and dawn, and cicadas</p>
+            <p class="mushroom-line cap-3">know not the passing of spring and autumn;</p>
+            <p class="mushroom-line cap-4">this is the nature of the short-lived. In the south of Chu,</p>
+            <p class="mushroom-line cap-5">there is the Mingling tree, which regards five hundred years as a single spring</p>
+            <p class="mushroom-line cap-6">and five hundred years as a single autumn. In high antiquity, there was</p>
+            <p class="mushroom-line cap-7">the Great Toona tree, which regarded eight thousand years</p>
+            <p class="mushroom-line cap-8">as a single spring and a single...</p>
+            <p class="mushroom-line stem-1">a long stem of time</p>
+            <p class="mushroom-line stem-2">descending through scales</p>
+            <p class="mushroom-line stem-3">of life and duration</p>
+          </div>
+        </section>
+
+        <section class="body-text">
+          <p>
+            This section traces the personal and philosophical encounters that give rise
+            to the central research questions of this study. It moves from the Daoist
+            figure of the morning mushroom toward an emerging connection between
+            psychedelic perception and generative artificial intelligence. These
+            encounters collectively prompt a central enquiry: whether immersive and
+            generative ecological art practices might open new perceptual pathways,
+            offering alternative ways of sensing, feeling, and being in the world.
+          </p>
+
+          <p>
+            Zhuangzi described these two temporalities over two millennia ago. The
+            morning mushroom emerges at dawn and vanishes by dusk, whereas the Great
+            Toona tree grows infinitely upward with eight thousand years as its seasonal
+            cycle. Time here collapses into a mismatch of scales. I am drawn to this
+            misalignment: a life spanning only a single day, seeping downward to unfold
+            within the damp, dark layer of decay where invisible mycelia connect,
+            entwine, and thrive.
+          </p>
+
+          <p>
+            Taoist texts remind us that life is no longer merely an upward ascent. It
+            involves a return, a descent, and a blending. Mushrooms differ from the
+            organised expansion of the Great Toona tree as they cling, branch, and
+            disappear only to reappear suddenly elsewhere. They prioritise entering and
+            becoming the other over maintaining their own fixed form. Fungi grow amidst
+            ruins, stitching the world together at the ruptures of capitalism. The
+            metaphors of the morning mushroom and the Great Toona tree function as a
+            methodology for this research, providing a way to think through
+            entanglement, becoming, and alterity.
+          </p>
+
+          <p>
+            This same loosening, I would later find, has a technological counterpart.
+            When discussing generative AI visuals, viewers often instinctively associate
+            them with altered perceptual states. Images oscillate between stability and
+            collapse, as seen in uncanny temporal distortions visible in AI video
+            generation platforms. Structures lose control and re-crystallise while
+            figures constantly deform, flee, and re-territorialise, resembling the
+            visual logic of consuming certain toxic fungi.
+          </p>
+
+          <p>
+            Both mushrooms and AI large language models were, in a sense, cultivated in
+            the dark: fungi grow beneath the soil in conditions invisible to us, while
+            AI systems emerge from vast, opaque datasets within what is commonly called
+            the black box. Both carry within them something toxic and something sweet.
+            Mushrooms can poison or nourish. AI likewise operates as a system of
+            toxicity and drops of sweetness simultaneously, generating outputs that can
+            disorient, manipulate, or open unexpected ways of sensing and thinking.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      const videoGate = document.getElementById("videoGate");
+      const introVideo = document.getElementById("introVideo");
+      const pageContent = document.getElementById("pageContent");
+      const loadingNote = document.getElementById("loadingNote");
+      const canvas = document.getElementById("bg-canvas");
+
+      function revealPage() {
+        videoGate.classList.add("hidden");
+        pageContent.classList.add("visible");
+      }
+
+      introVideo.addEventListener("ended", revealPage);
+      introVideo.addEventListener("error", revealPage);
+
+      setTimeout(() => {
+        if (!pageContent.classList.contains("visible") && introVideo.paused && introVideo.currentTime > 0) {
+          revealPage();
+        }
+      }, 1200);
+
+      const scene = new THREE.Scene();
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+      camera.position.set(0, 0.6, 5.4);
+
+      const ambient = new THREE.AmbientLight(0xf2e7d1, 1.25);
+      scene.add(ambient);
+
+      const dir1 = new THREE.DirectionalLight(0xffffff, 1.1);
+      dir1.position.set(3, 5, 5);
+      scene.add(dir1);
+
+      const dir2 = new THREE.DirectionalLight(0xd3b98e, 0.8);
+      dir2.position.set(-3, 0, 4);
+      scene.add(dir2);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enablePan = false;
+      controls.enableZoom = false;
+      controls.enableDamping = true;
+      controls.rotateSpeed = 0.26;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.5;
+      controls.minPolarAngle = Math.PI / 2.45;
+      controls.maxPolarAngle = Math.PI / 1.78;
+
+      let mushroom = null;
+
+      function resize() {
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+
+      const loader = new GLTFLoader();
+      loader.load(
+        "./mushroom-2.glb",
+        (gltf) => {
+          mushroom = gltf.scene;
+          mushroom.position.set(0, -0.7, 0);
+          mushroom.rotation.y = -0.28;
+          mushroom.scale.setScalar(4.5);
+
+          mushroom.traverse((child) => {
+            if (child.isMesh && child.material) {
+              child.material.transparent = true;
+              child.material.opacity = 0.28;
+            }
+          });
+
+          scene.add(mushroom);
+          loadingNote.style.display = "none";
+        },
+        undefined,
+        () => {
+          loadingNote.textContent = "Model failed to load";
+        }
+      );
+
+      const pointer = { x: 0, y: 0 };
+
+      window.addEventListener("mousemove", (event) => {
+        pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        if (mushroom) {
+          mushroom.rotation.x += (pointer.y * 0.05 - mushroom.rotation.x) * 0.02;
+          mushroom.rotation.z += (pointer.x * 0.05 - mushroom.rotation.z) * 0.02;
+        }
+
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>

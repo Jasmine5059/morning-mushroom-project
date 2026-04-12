@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Algorithmic Mycelia</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: #050505;
+        color: rgba(248, 245, 238, 0.95);
+        font-family: "Cormorant Garamond", serif;
+        overflow-x: hidden;
+        cursor:
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path fill='white' d='M16 6c5.2 0 9.3 3.1 10.4 8.1-3.1.8-6.8 1.2-10.4 1.2S8.7 14.9 5.6 14.1C6.7 9.1 10.8 6 16 6Zm-1.2 10.2h2.4v7.2c0 1.7-.7 2.6-1.2 2.6s-1.2-.9-1.2-2.6v-7.2Z'/></svg>")
+            8 8,
+          auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      p,
+      h1,
+      h2,
+      blockquote {
+        margin: 0;
+      }
+
+      .bg-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .center-video {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(94vw, 1800px);
+  height: min(88vh, 1400px);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 26px 58px rgba(0, 0, 0, 0.36);
+  overflow: hidden;
+}
+
+
+      .center-video video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        background: #000;
+        opacity: 0.72;
+        filter: saturate(0.82) contrast(1.08) brightness(0.84);
+      }
+
+      .bg-wash {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        background:
+          radial-gradient(circle at 50% 28%, rgba(104, 112, 154, 0.1), transparent 22%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.7));
+      }
+
+      .page {
+        position: relative;
+        z-index: 2;
+        width: min(100vw - 40px, 1120px);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 18px 0 72px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .kicker,
+      .nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .nav a {
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        border-color: rgba(255, 255, 255, 0.52);
+      }
+
+      .main {
+        display: grid;
+        gap: 28px;
+        padding-top: 32px;
+      }
+
+      .title-block {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+        padding-top: min(36vh, 380px);
+      }
+
+      h1 {
+        max-width: 18ch;
+        text-align: center;
+        font-size: clamp(2.7rem, 5vw, 4.5rem);
+        line-height: 0.95;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.96);
+      }
+
+      h2 {
+        width: min(100%, 52rem);
+        margin: 8px auto 0;
+        font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+        line-height: 1;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.94);
+      }
+
+      .text {
+        display: grid;
+        gap: 18px;
+        justify-items: center;
+      }
+
+      .text p,
+      .text blockquote {
+        width: min(100%, 52rem);
+        text-align: justify;
+        text-align-last: left;
+        font-size: 1.06rem;
+        line-height: 1.9;
+        color: rgba(245, 241, 233, 0.92);
+      }
+
+      .text blockquote {
+        border-left: 1px solid rgba(255, 255, 255, 0.12);
+        padding-left: 16px;
+        font-style: italic;
+      }
+
+      @media (max-width: 800px) {
+        .page {
+          width: min(100vw - 24px, 1120px);
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .center-video {
+          top: 11vh;
+          width: 86vw;
+          height: 32vh;
+        }
+
+        .title-block {
+          padding-top: 28vh;
+        }
+
+        .text p,
+        .text blockquote,
+        h2 {
+          width: 100%;
+        }
+
+        h1 {
+          font-size: clamp(2.1rem, 7vw, 3.4rem);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-layer" aria-hidden="true">
+      <div class="center-video">
+        <video autoplay muted loop playsinline>
+          <source src="context-video-5.MP4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+
+    <div class="bg-wash" aria-hidden="true"></div>
+
+    <div class="page">
+      <header class="header">
+        <p class="kicker">Context Review / 4.4</p>
+        <nav class="nav">
+          <a href="context-review.html">Back</a>
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <section class="title-block">
+          <p class="kicker">Algorithmic Mycelia</p>
+          <h1>Techno-Daoism and Rhizomatic Aesthetics</h1>
+        </section>
+
+        <section class="text">
+          <h2>Algorithmic Generation: Deleuze, Daoist Hundun混沌, and AI Aesthetics</h2>
+
+          <p>
+            It was through my own practice with generative AI systems that I first began to notice what felt like a structural resonance between the underlying logic of artificial intelligence, specifically rheological generation and feedback loops, and the concepts of "flow" and "resonance" within Daoist cosmology. The more I worked with these systems, the more I found myself returning to Daoist thought to make sense of what I was experiencing. This intuition was later given philosophical grounding when I encountered Robin R. Wang's (2021) work, in which she establishes a bridge between these domains, suggesting that concepts such as Dao, Qi, and Wuwei accurately describe AI as a generative process characterised by continuous attunement to changing contexts. Reading Wang helped me articulate what I had already been sensing in the workshops: that algorithms need not be understood as discrete tools, but as ‘actants’ participating in generative relationships. This understanding was further deepened through my reading of Ellen Y. Zhang (2025), whose inquiry into how AI reshapes human relational perception, elevating functional exchanges into affective and ethical encounters, gave me a language for the kinds of relational shifts I was observing in my workshops and installations. Encountering the work of Lin (2014) and Chui (2014) on artists such as Song Dong further confirmed for me that Daoist aesthetics, grounded in nothingness, emptiness, and spontaneity, carry significant critical potential for de-centring the human and constructing immersive, fluid environments.
+          </p>
+
+          <p>
+            Within a Deleuze and Guattarian framework, I have found it productive to engage with Parisi's (2013) concept of ‘Algorithmic Thought,’ in which she argues that algorithms generate incomputable probabilities through the processing of vast datasets. I am drawn to this framing, though I hold it with critical caution. The claim that algorithms create novel forms through deterritorialisation that transcend human preconception risks romanticising AI capability. As many critics point out, deep learning systems remain constrained within the closed loop of their training data and optimisation goals, operating through pattern matching within predefined and often bias-ridden parameter spaces rather than achieving any genuine ontological openness. What interests me in my practice is precisely this tension: the gap between the appearance of becoming and the reality of constraint, and what that gap might make possible creatively and critically. The ‘machinic unconscious’ proposed by Pasquinelli (2015), describing how AI uncovers latent intensities beneath data through pattern recognition, is for me less a celebration of machine autonomy than a provocation to ask whose intensities are already encoded in the data. O'Sullivan's (2016) assertion that AI art produces pure difference through continuous iterative repetition is similarly something I approach as a working hypothesis rather than a settled claim, since what appears as difference may often be surface variation rather than the kind of genuine rupture Deleuze had in mind. With these reservations held openly, I remain interested in how this aesthetic orients attention toward the process of ‘Becoming’ itself, and how that orientation might push my practice toward non-organic, non-anthropocentric modes of expression that exceed the sensory habits of the human body.
+          </p>
+
+          <p>
+            It was through sustained engagement with both Daoist texts and generative AI systems in my studio practice that I came to understand what I now think of as ‘Techno-Daoism.’ Working with the unpredictability of algorithmic outputs, I began to notice that the opacity of these systems, what is commonly called the "black box," felt less like a technical obstacle and more like a condition I recognised from my reading of Daoist cosmology, specifically the state of Hundun, or primordial chaos, out of which forms emerge without predetermined intention. I do not claim these are identical, but the parallel felt productive enough to pursue. Through this lens, Deleuzian philosophy offers instruments of rupture for identifying where solidified representational logics can be cracked open, while Daoist thought contributes a slower ecological patience that allows things to emerge. In my practice, I have come to understand AI less as a machinic intermediary that neutrally bridges Western post-structuralism and ancient Eastern wisdom, and more as a site of productive friction where these traditions meet, conflict, and generate. What I am working toward is a non-organic expression of life that transcends organic sensory constraints.
+          </p>
+
+          <h2>Code's Hallucination Generation: Virtual Mushrooms</h2>
+
+          <p>
+            What I find most compelling about AI-generated imagery is what Pasquinelli (2015) describes as the "machinic unconscious": the hallucinations that emerge when neural networks process vast datasets, disrupting linear human tracings of reality. I recognise this disruption in my own practice, where unstable, morphing images feel less like errors and more like openings. Reading Schneider and Csűrös (2025) helped me articulate why: images in generative systems function as active states of continuous becoming rather than final results, and it is precisely that unfinishedness that I want to work with.
+          </p>
+
+          <p>
+            What strikes me further is the fractal logic underlying these hallucinations. Working with tools like TouchDesigner, I have observed how recursive algorithms generate complex structures that genuinely resemble fungal mycelia, and Parisi's (2013) concept of "contagious" logical forms gave me a framework for understanding why this visual kinship feels more than superficial. Sheldrake (2020) argues that fungal growth is itself a dynamic fractal in the physical world, and sitting with that parallel has shaped how I approach my own generative process: I establish an algorithmic seed and attend to what emerges, treating this less as a abdication of authorship and more as a practice of wuwei, a deliberate loosening of control that remains, nonetheless, a form of decision-making.
+          </p>
+
+          <p>
+            I approach O'Sullivan's (2016) suggestion that AI art creates "pure difference" within repetition with some caution, since as I noted earlier, what appears as difference may sometimes be surface variation. Yet in my practice, I find the claim useful as an orientation: each iteration does produce something I could not have predicted, and it is in attending to those unpredicted moments that my work finds its direction. Through generative AI and real-time interaction, imagery becomes a fluid medium for me, one that maps a kind of life that, like Zhuangzi's morning mushroom, knows neither eve nor dawn.
+          </p>
+
+          <p>
+            My interest in the connection between psychedelic visual experience and AI-generated imagery began with looking. Spending time with generative video outputs in my own practice, I kept noticing a quality that felt familiar from a different context entirely: the same sense of forms refusing to settle, of boundaries dissolving before they could be fixed, of colour and movement operating according to a logic that was coherent but not rational. This quality is what drew me toward the literature on psychedelic aesthetics, and toward artists whose work seemed to inhabit the same perceptual territory.
+          </p>
+
+          <p>
+            Refik Anadol's data sculptures were among the first works that made this connection feel urgent for me. Watching his large-scale projections of morphing, flowing data, I found myself thinking about perception and about what it means for a nervous system to encounter imagery that refuses to stabilise. This led me toward Anna Waldstein's research on psychedelic visual culture, which examines how altered states of perception have historically generated new aesthetic vocabularies and new ways of understanding the relationship between mind, body, and image (Waldstein, 2016). Reading Waldstein helped me articulate something I had been sensing in my own practice: that the visual logic of generative AI and the visual logic of psychedelic experience share a common structure of perceptual destabilisation.
+          </p>
+
+          <p>
+            David Luke's <em>Otherworlds: Psychedelics and Exceptional Human Experience</em> (2019) deepened this understanding by approaching psychedelic perception not from a neuroscientific angle but from the perspective of lived cultural experience. Luke's work helped me think about altered perception as a cultural and embodied phenomenon, which felt more aligned with my practice-based approach. His framing of psychedelic experience as a form of expanded relational awareness resonated with my interest in how immersive AI environments might generate similar expansions of perceptual openness.
+          </p>
+
+          <p>
+            The work of visionary artist Alex Grey provided yet another entry point. Grey's paintings, which attempt to render the visual texture of psychedelic states, share with AI-generated imagery a fascination with the neural and the cosmic simultaneously: intricate latticed structures, luminous fields of interconnection, forms that are simultaneously biological and technological. Grey's theoretical reflections on visionary art as a mode of perception that dissolves the boundary between the individual nervous system and the larger field of life (Grey, 1998) offered me a way to think about my own practice as operating in a similar register, using generative AI to construct immersive environments that invite participants into states of perceptual loosening.
+          </p>
+
+          <p>
+            Together, these encounters helped me understand the hallucinatory quality of AI-generated imagery not as a bug or a curiosity but as a genuine aesthetic and perceptual phenomenon worthy of sustained inquiry.
+          </p>
+
+          <h2>Bodies Infected by Fungi: Immersive Art Perception</h2>
+
+          <p>
+            This section grew out of a concrete problem I encountered in my own practice: how does a body actually change when it enters an immersive generative environment? I began noticing, through the making of my installations, that audiences did not simply look at the work. They slowed down, adjusted their breathing, tilted their heads. Something was happening that felt closer to infection than observation. This led me to think through the relationship between biological fungi and digital algorithms as parallel systems of bodily penetration.
+          </p>
+
+          <p>
+            Spores drift in invisible forms, settling within the lungs and infecting organs. I find this image of fungal infection a precise metaphor for what happens when the mycelia of digital algorithms extend into physical space, transforming the relationship between art and the body from singular visual observation into what I think of as embodied penetration. Generative AI, immersive technologies, and sensor systems construct novel bodily experiences, rendering human boundaries increasingly blurred. My installations have become, in this sense, laboratories for investigating what multi-species perception might feel like from the inside.
+          </p>
+
+          <p>
+            The body functions as both an instrument of perception and the subject of aesthetic experience. In developing my installation practice, I kept returning to a question Merleau-Ponty (1962) first opened for me: how does the body weave itself together with the world through what he calls the chiasm? Within a digital ecology, I have found that this weaving is collectively achieved through the integration of code, light, shadow, and breath. When a participant stands still and breathes slowly before a projected field of generative imagery, something shifts. The boundary between the body and the algorithmic system becomes, however briefly, uncertain. This uncertainty is what I am trying to cultivate.
+          </p>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

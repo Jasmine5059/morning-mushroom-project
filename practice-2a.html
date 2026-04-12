@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practice 2 / Symbiotic Ghosts</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: #f6f3ec;
+        color: #111;
+        font-family: "Cormorant Garamond", serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      p,
+      h1,
+      h2,
+      figure {
+        margin: 0;
+      }
+
+      .p2-shell {
+        width: min(100vw - 40px, 1380px);
+        margin: 0 auto;
+        padding: 18px 0 40px;
+      }
+
+      .p2-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .p2-date {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.72);
+      }
+
+      .p2-nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .p2-nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.72);
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .p2-nav a:hover,
+      .p2-nav a:focus-visible {
+        border-color: rgba(17, 17, 17, 0.6);
+      }
+
+      .p2-main {
+        display: grid;
+        gap: 54px;
+        padding-top: 18px;
+      }
+
+      .p2-top {
+        display: grid;
+        grid-template-columns: 0.94fr 1.06fr;
+        gap: 48px;
+        align-items: start;
+      }
+
+      .p2-top-left {
+        display: grid;
+        gap: 18px;
+        align-content: start;
+      }
+
+      .p2-kicker {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(17, 17, 17, 0.68);
+      }
+
+      .p2-title-wrap {
+        display: grid;
+        gap: 0;
+        margin-left: 0.4rem;
+        line-height: 0.84;
+      }
+
+      .p2-title-word {
+        font-size: clamp(4.8rem, 9vw, 8.8rem);
+        font-weight: 600;
+        letter-spacing: -0.05em;
+      }
+
+      .p2-title-word.left {
+        margin-left: 0;
+      }
+
+      .p2-title-word.right {
+        margin-left: 5.7rem;
+      }
+
+      .p2-top-video-wrap {
+        width: min(32vw, 410px);
+        margin-left: auto;
+        margin-right: 0;
+        transform: translateX(72px);
+        background: #000;
+      }
+
+      .p2-top-video-wrap video {
+        display: block;
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+      }
+
+      .p2-illusion {
+        margin-left: auto;
+        margin-right: 0;
+        width: min(32vw, 410px);
+        transform: translateX(80px);
+        font-size: clamp(3.6rem, 6.2vw, 6.2rem);
+        line-height: 0.82;
+        font-weight: 500;
+        letter-spacing: -0.04em;
+        text-align: right;
+      }
+
+      .p2-top-right {
+        position: relative;
+        display: grid;
+        gap: 26px;
+        align-content: start;
+        min-height: 760px;
+      }
+
+      .p2-intro {
+        max-width: 35rem;
+        margin-left: 6.2rem;
+        font-size: 1rem;
+        line-height: 1.84;
+        color: rgba(17, 17, 17, 0.86);
+      }
+
+      .p2-meta {
+        width: min(28vw, 370px);
+        display: grid;
+        gap: 10px;
+        margin-top: 56px;
+        margin-left: 6.2rem;
+      }
+
+      .p2-meta p {
+        font-size: 0.92rem;
+        line-height: 1.72;
+        color: rgba(17, 17, 17, 0.84);
+      }
+
+      .p2-meta strong {
+        display: inline-block;
+        margin-right: 8px;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.64rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .p2-meta a {
+        text-decoration: underline;
+      }
+
+      .p2-words {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .p2-word {
+        position: absolute;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(88, 120, 104, 0.58);
+        animation: p2Float 6s ease-in-out infinite;
+      }
+
+      .p2-word-1 {
+        top: 44px;
+        right: 22px;
+      }
+
+      .p2-word-2 {
+        top: 190px;
+        right: 182px;
+        animation-delay: -1s;
+      }
+
+      .p2-word-3 {
+        top: 348px;
+        right: 18px;
+        animation-delay: -2s;
+      }
+
+      .p2-word-4 {
+        top: 504px;
+        right: 210px;
+        animation-delay: -3s;
+      }
+
+      .p2-word-5 {
+        top: 662px;
+        right: 26px;
+        animation-delay: -4s;
+      }
+
+      .p2-bottom {
+        display: grid;
+        grid-template-columns: 0.92fr 1.08fr;
+        gap: 44px;
+        align-items: start;
+      }
+
+      .p2-bottom-left {
+        display: grid;
+        gap: 14px;
+        align-content: start;
+      }
+
+      .p2-section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2.8rem, 5.6vw, 4.8rem);
+        line-height: 0.86;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        color: #90aa8f;
+        margin-bottom: -2px;
+      }
+
+      .p2-text-groups {
+        display: grid;
+        grid-template-columns: 0.74fr 1.26fr;
+        gap: 34px;
+        align-items: start;
+      }
+
+      .p2-text-col {
+        display: grid;
+        gap: 18px;
+      }
+
+      .p2-text-col p {
+        font-size: 0.96rem;
+        line-height: 1.88;
+        color: rgba(17, 17, 17, 0.88);
+      }
+
+      .p2-bottom-right {
+        display: grid;
+        gap: 16px;
+        align-content: start;
+        justify-items: start;
+        padding-top: 18px;
+        padding-left: 150px;
+      }
+
+      .p2-media {
+        overflow: hidden;
+        background: #dbe7f2;
+      }
+
+      .p2-media img,
+      .p2-media video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .p2-media-large {
+        width: min(29vw, 370px);
+      }
+
+      .p2-media-wide {
+        width: min(31vw, 400px);
+        margin-left: 8vw;
+      }
+
+      .p2-media-small {
+        width: min(17vw, 240px);
+        margin-left: 19vw;
+        margin-top: 38px;
+      }
+
+      .p2-caption {
+        margin-top: 4px;
+        width: min(22vw, 280px);
+        font-size: 0.78rem;
+        line-height: 1.5;
+        color: rgba(17, 17, 17, 0.72);
+      }
+
+      .p2-caption.video-caption {
+        margin-left: 8vw;
+      }
+
+      .p2-caption.photo-caption {
+        margin-left: 19vw;
+      }
+
+      @keyframes p2Float {
+        0% {
+          opacity: 0.3;
+          transform: translateY(0px) rotate(90deg);
+        }
+        50% {
+          opacity: 0.8;
+          transform: translateY(-6px) rotate(90deg);
+        }
+        100% {
+          opacity: 0.3;
+          transform: translateY(0px) rotate(90deg);
+        }
+      }
+
+      @media (max-width: 980px) {
+        .p2-top,
+        .p2-bottom,
+        .p2-text-groups {
+          grid-template-columns: 1fr;
+        }
+
+        .p2-top-video-wrap,
+        .p2-illusion,
+        .p2-meta,
+        .p2-media-large,
+        .p2-media-wide,
+        .p2-media-small,
+        .p2-caption.video-caption,
+        .p2-caption.photo-caption {
+          width: 100%;
+          max-width: none;
+          margin-left: 0;
+          margin-right: 0;
+          transform: none;
+        }
+
+        .p2-title-wrap,
+        .p2-intro,
+        .p2-meta {
+          margin-left: 0;
+        }
+
+        .p2-title-word.right {
+          margin-left: 0;
+        }
+
+        .p2-top-right {
+          min-height: auto;
+        }
+
+        .p2-words {
+          position: static;
+          display: grid;
+          gap: 8px;
+          margin-top: 8px;
+        }
+
+        .p2-word {
+          position: static;
+          transform: none !important;
+        }
+
+        .p2-bottom-right {
+          padding-left: 0;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .p2-shell {
+          width: min(100vw - 24px, 1380px);
+        }
+
+        .p2-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .p2-title-word {
+          font-size: clamp(3.4rem, 15vw, 5.6rem);
+        }
+
+        .p2-illusion {
+          font-size: 2.1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="p2-shell">
+      <header class="p2-header">
+        <p class="p2-date">March 2025</p>
+        <nav class="p2-nav" aria-label="页面导航">
+          <a href="my-practice.html">Back</a>
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="p2-main">
+        <section class="p2-top">
+          <div class="p2-top-left">
+            <p class="p2-kicker">Practice 2</p>
+
+            <div class="p2-title-wrap">
+              <h1 class="p2-title-word left">Symbiotic</h1>
+              <h1 class="p2-title-word right">Ghosts</h1>
+            </div>
+
+            <div class="p2-top-video-wrap">
+              <video autoplay muted loop playsinline>
+                <source src="My-practice-video-2.mp4" type="video/mp4" />
+              </video>
+            </div>
+
+            <p class="p2-illusion">illusion</p>
+          </div>
+
+          <div class="p2-top-right">
+            <div class="p2-words" aria-hidden="true">
+              <span class="p2-word p2-word-1">Rhizome</span>
+              <span class="p2-word p2-word-2">Taoist cosmology</span>
+              <span class="p2-word p2-word-3">Becoming</span>
+              <span class="p2-word p2-word-4">Posthuman ecology</span>
+              <span class="p2-word p2-word-5">Posthuman art</span>
+            </div>
+
+            <p class="p2-intro">
+              In this installation, I used three projectors, an iPad running the Pepper's
+              Ghost illusion, and a layered arrangement of artificial moss, sculpted clay
+              mushrooms, coral forms, and yarn to make mushrooms and jellyfish resonate
+              with one another across the same space. What drew me to this pairing was a
+              feeling I kept returning to in my research: that fungi and jellyfish share a
+              quality of formlessness, of existing at the edges of what we recognise as
+              individual life. I wanted to see what happened when I placed them in the same
+              field, letting the virtual and the real coexist without resolving into each
+              other.
+            </p>
+
+            <div class="p2-meta">
+              <p><strong>Name:</strong> <em>Symbiotic Ghosts</em></p>
+              <p>
+                <strong>Venue:</strong> <em>Unfolding Narrative</em> Exhibition 2025,
+                (Upper Gallery, London College of Communication)
+              </p>
+              <p><strong>Equipment:</strong> Three projectors, iPad</p>
+              <p>
+                <strong>Materials:</strong> Artificial moss, sculpted clay mushrooms and
+                coral, yarn
+              </p>
+              <p>
+                <strong>Publication Status:</strong> A reflective article based on this
+                practice was published in <em>AnthWays</em>, Goldsmiths,
+                <a
+                  href="https://sites.gold.ac.uk/anthways/anthropocene-anthropology-at-an-impasse-2/folding-futures-taoist-flow-deleuzian-becoming-and-posthuman-art/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  read here
+                </a>.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="p2-bottom">
+          <div class="p2-bottom-left">
+            <p class="p2-section-title">Folding Futures</p>
+
+            <div class="p2-text-groups">
+              <div class="p2-text-col">
+                <p>
+                  The philosophical concept of "becoming" proposed by Gilles Deleuze and
+                  Felix Guattari provide the theoretical inspiration for this work. The
+                  installation constructs a symbiotic environment where life forms coexist
+                  across a three-dimensional space comprising one horizontal surface (the
+                  ground) and two vertical surfaces. A central theme involves the dissolution
+                  of dimensional boundaries.
+                </p>
+
+                <p>
+                  The video content deliberately blurs the distinctions between terrestrial
+                  and marine ecosystems, showcasing the transformation and evolution of
+                  multiple species. I found that the AI-generated animations produced
+                  something I had not fully anticipated: it manifested what Deleuze terms the
+                  "repetition of difference," presenting "infinite variations of folding"
+                  (Hélène Frichot，2009), specifically where each frame constitutes a
+                  micro-fold of the previous one.
+                </p>
+              </div>
+
+              <div class="p2-text-col">
+                <p>
+                  The Pepper’s Ghost illusion reflects the dynamic intersection and
+                  coexistence of terrestrial and marine organisms, specifically rotating
+                  spaces, swimming creatures, and growing plants inhabiting the same vibrant
+                  field. Within this intricately layered corner, the work balances intentional
+                  design with natural stochasticity to articulate themes of freedom and
+                  generative potential.
+                </p>
+
+                <p>
+                  Through the integration of multi-species imagery, specifically lichens,
+                  fungi, and corals, with AI-generated visuals, spatial folding structures,
+                  and Pepper’s Ghost illusion technology, my work established a temporary
+                  ecosystem. This system emphasised relational existence and a state of
+                  continuous becoming, facilitating a perceptual overlap between terrestrial
+                  and marine environments, biology and technology, as well as matter and
+                  imagery.
+                </p>
+
+                <p>
+                  This installation aims to generate a fungal "rhizome" and "a map" wherein
+                  audience movement, dwelling, and perceptual engagement inform the generative
+                  process, ensuring that ecological relationships are experienced as an
+                  unfolding phenomenon.
+                </p>
+
+                <p>
+                  Working with this installation clarified for me what the subsequent stages
+                  of my doctoral research need to build toward. It validates the feasibility
+                  of integrating Deleuze-Guattarian thought into artistic practice as a
+                  generative mechanism, while demonstrating the capacity of installation art
+                  to function as a relational research site where non-human agency,
+                  perceptual becoming, and post-human ecological awareness manifest.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p2-bottom-right">
+            <figure class="p2-media p2-media-large">
+              <img src="My-practice-picture-9.jpg" alt="Symbiotic Ghosts installation overview" />
+            </figure>
+
+            <div>
+              <figure class="p2-media p2-media-wide">
+                <video autoplay muted loop playsinline>
+                  <source src="My-practice-video-3.MP4" type="video/mp4" />
+                </video>
+              </figure>
+              <p class="p2-caption video-caption">3D video in Pepper Ghost, created using Blender</p>
+            </div>
+
+            <div>
+              <figure class="p2-media p2-media-small">
+                <img src="My-practice-picture-10.jpg" alt="Symbiotic Ghosts detail photo" />
+              </figure>
+              <p class="p2-caption photo-caption">Pictures took by Jasmine Kang, 2025</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

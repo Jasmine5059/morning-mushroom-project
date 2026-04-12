@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bibliography</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: #f7f4ee;
+        color: #161311;
+        font-family: "Cormorant Garamond", serif;
+        overflow-x: hidden;
+        cursor: default;
+      }
+
+      a {
+        color: #2a4d7a;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      p,
+      h1,
+      h2 {
+        margin: 0;
+      }
+
+      .bg-canvas-wrap {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      #bg-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .bg-wash {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        background:
+          radial-gradient(circle at 50% 42%, rgba(170, 180, 210, 0.08), transparent 24%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.56));
+        pointer-events: none;
+      }
+
+      .page {
+        position: relative;
+        z-index: 2;
+        width: min(100vw - 40px, 1160px);
+        margin: 0 auto;
+        min-height: 100vh;
+        padding: 18px 0 72px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .kicker,
+      .nav a {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(22, 19, 17, 0.78);
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+      }
+
+      .nav a {
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        border-color: rgba(22, 19, 17, 0.4);
+      }
+
+      .main {
+        display: grid;
+        gap: 36px;
+        padding-top: 34px;
+      }
+
+      .title-block {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 5.6vw, 5rem);
+        line-height: 0.94;
+        font-weight: 600;
+        color: rgba(22, 19, 17, 0.96);
+      }
+
+      .sections {
+        display: grid;
+        gap: 44px;
+      }
+
+      .section {
+        display: grid;
+        gap: 18px;
+      }
+
+      h2 {
+        font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+        line-height: 1;
+        font-weight: 600;
+        color: rgba(22, 19, 17, 0.94);
+      }
+
+      .refs {
+        display: grid;
+        gap: 12px;
+        max-width: 56rem;
+      }
+
+      .refs p {
+        font-size: 1.04rem;
+        line-height: 1.82;
+        text-align: left;
+        color: rgba(22, 19, 17, 0.9);
+      }
+
+      .loading-note {
+        position: fixed;
+        right: 24px;
+        bottom: 18px;
+        z-index: 4;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.64rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(22, 19, 17, 0.42);
+      }
+
+      @media (max-width: 800px) {
+        .page {
+          width: min(100vw - 24px, 1160px);
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .refs p {
+          font-size: 0.98rem;
+          line-height: 1.76;
+        }
+      }
+    </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="bg-canvas-wrap">
+      <canvas id="bg-canvas"></canvas>
+    </div>
+    <div class="bg-wash" aria-hidden="true"></div>
+    <p class="loading-note" id="loadingNote">Loading model</p>
+
+    <div class="page">
+      <header class="header">
+        <p class="kicker">Final Chapter</p>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <section class="title-block">
+          <p class="kicker">Bibliography</p>
+          <h1>References and Bibliography</h1>
+        </section>
+
+        <div class="sections">
+          <section class="section">
+            <h2>Reference</h2>
+            <div class="refs">
+              <p>Alaimo, S. (2010). <em>Bodily natures: Science, environment, and the material self</em>. Indiana University Press.</p>
+              <p>Barad, K. (2007). <em>Meeting the universe halfway: Quantum physics and the entanglement of matter and meaning</em>. Duke University Press.</p>
+              <p>Bennett, J. (2010). <em>Vibrant matter: A political ecology of things</em>. Duke University Press.</p>
+              <p>Billeter, J. F. (2010). <em>Leçons sur Tchouang-tseu</em>. Allia.</p>
+              <p>Braidotti, R. (2013). <em>The posthuman</em>. Polity Press.</p>
+              <p>Braidotti, R. (2018). <em>Posthuman knowledge</em>. Polity Press.</p>
+              <p>Buchanan, I. (2021). <em>Assemblage theory and method</em>. Bloomsbury Academic.</p>
+              <p>Burik, S. (2010). <em>The end of comparative philosophy</em>. SUNY Press.</p>
+              <p>Campany, R. F. (2023). <em>The Chinese transformation of corporate Buddhism</em>. Columbia University Press.</p>
+              <p>Candy, L. (2018). <em>The creative reflective practitioner</em>. Routledge.</p>
+              <p>Caravella, G. (2020). <em>Deleuze and the existential China</em>. Routledge.</p>
+              <p>Chan, A. (2019). Neo-Daoism. In E. N. Zalta (Ed.), <em>The Stanford encyclopedia of philosophy</em>. <a href="https://plato.stanford.edu/entries/neo-daoism/" target="_blank" rel="noopener noreferrer">https://plato.stanford.edu/entries/neo-daoism/</a></p>
+              <p>Chan, A. K. L. (2006). Wang Bi. <em>Research Collection, College of Integrative Studies</em>, Singapore Management University, 9, 722–723.</p>
+              <p>Chen, G. (2016). <em>The philosophy of life: A new reading of the Zhuangzi</em> (D. Hertzer, Ed.). Brill. <a href="https://doi.org/10.1163/9789004310230" target="_blank" rel="noopener noreferrer">https://doi.org/10.1163/9789004310230</a></p>
+              <p>Deleuze, G. (2006). <em>Two regimes of madness</em> (D. Lapoujade, Ed.; A. Hodges & M. Taormina, Trans.). Semiotext(e). (Original work published 2003)</p>
+              <p>Deleuze, G., & Guattari, F. (1983). <em>Anti-Oedipus</em> (R. Hurley, M. Seem, & H. R. Lane, Trans.). University of Minnesota Press. (Original work published 1972)</p>
+              <p>Deleuze, G., & Guattari, F. (1987). <em>A thousand plateaus</em> (B. Massumi, Trans.). University of Minnesota Press. (Original work published 1980)</p>
+              <p>Despeux, C. (1989). Gymnastics: The ancient tradition. In L. Kohn (Ed.), <em>Taoist meditation and longevity techniques</em> (pp. 225–261). University of Michigan Press.</p>
+              <p>Gao, Y. (2022). Rethinking Guo Xiang's concept of "nothing." <em>Religions</em>, <em>13</em>(7), 593. <a href="https://www.mdpi.com/2077-1444/13/7/593" target="_blank" rel="noopener noreferrer">https://www.mdpi.com/2077-1444/13/7/593</a></p>
+              <p>Grey, A. (1998). <em>The mission of art</em>. Shambhala Publications.</p>
+              <p>Guattari, F. (2000). <em>The three ecologies</em> (I. Pindar & P. Sutton, Trans.). Athlone Press.</p>
+              <p>Haraway, D. J. (2016). <em>Staying with the trouble: Making kin in the Chthulucene</em>. Duke University Press.</p>
+              <p>Hayles, N. K. (1999). <em>How we became posthuman</em>. University of Chicago Press.</p>
+              <p>Hui, Y. (2016). <em>The question concerning technology in China</em>. Urbanomic.</p>
+              <p>Ingold, T. (2011). <em>Being alive: Essays on movement, knowledge and description</em>. Routledge.</p>
+              <p>Kaganskiy, J. (2025). Decoding generative art. In <em>Infinite images: The art of algorithms</em>. Toledo Museum of Art. <a href="https://infiniteimages.toledomuseum.org/essay/decoding-generative-art" target="_blank" rel="noopener noreferrer">https://infiniteimages.toledomuseum.org/essay/decoding-generative-art</a></p>
+              <p>Kirksey, E. (Ed.). (2014). <em>The multispecies salon</em>. Duke University Press.</p>
+              <p>Kohn, E. (2013). <em>How forests think</em>. University of California Press.</p>
+              <p>Kohn, L. (2008). <em>Chinese healing exercises: The tradition of Daoyin</em>. University of Hawaii Press.</p>
+              <p>Komjathy, L. (2019). Introducing Daoist ritual. <em>Journal of Daoist Studies</em>.</p>
+              <p>Krzywoszynska, A. (2019). Caring for soil. <em>The Sociological Review</em>, <em>67</em>(3), 661–677.</p>
+              <p>Kwek, D. K. (2018). Power and the useless. <em>Theory, Culture & Society</em>, <em>36</em>(6), 93–115.</p>
+              <p>Lacan, J. (1977). <em>Écrits: A selection</em> (A. Sheridan, Trans.). Tavistock. (Original work published 1966)</p>
+              <p>Laozi. (1963). <em>Tao te ching</em> (D. C. Lau, Trans.). Penguin. (Original work published ca. 6th century BCE)</p>
+              <p>Liu, Y. (2025). Symbolic memory and cultural philosophy. <em>Cultura: International Journal of Philosophy of Culture and Axiology</em>, <em>22</em>(3), 333–355.</p>
+              <p>Luke, D. (2019). <em>Otherworlds: Psychedelics and exceptional human experience</em>. Muswell Hill Press.</p>
+              <p>Manning, E. (2010). <em>Relationscapes: Movement, art, philosophy</em>. MIT Press.</p>
+              <p>Manning, E. (2025). <em>The being of relation</em>. Intellect.</p>
+              <p>Massumi, B. (2002). <em>Parables for the virtual</em>. Duke University Press.</p>
+              <p>Merleau-Ponty, M. (1962). <em>Phenomenology of perception</em> (C. Smith, Trans.). Routledge & Kegan Paul.</p>
+              <p>Miller, J. (2017). <em>China's green religion: Daoism and the quest for a sustainable future</em>. Columbia University Press.</p>
+              <p>Moeller, H.-G. (2006). <em>The philosophy of the Daodejing</em>. Columbia University Press.</p>
+              <p>O'Sullivan, S. (2016). <em>On the production of subjectivity</em>. Palgrave Macmillan.</p>
+              <p>Ostendorf-Rodríguez, Y. (2021). <em>Let's become fungal!</em> Good Press.</p>
+              <p>Parisi, L. (2013). <em>Contagious architecture</em>. MIT Press.</p>
+              <p>Pasquinelli, M. (Ed.). (2015). <em>Alleys of your mind</em>. Meson Press.</p>
+              <p>Pelbart, P. P. (2023). Ecology of the virtual. <em>Deleuze and Guattari Studies</em>, <em>17</em>(3). <a href="https://doi.org/10.3366/dlgs.2023.0523" target="_blank" rel="noopener noreferrer">https://doi.org/10.3366/dlgs.2023.0523</a></p>
+              <p>Rombach, R., Blattmann, A., Lorenz, D., Esser, P., & Ommer, B. (2023). Latent diffusion models. <em>NeurIPS 2023</em>. <a href="https://neurips.cc/virtual/2023/73957" target="_blank" rel="noopener noreferrer">https://neurips.cc/virtual/2023/73957</a></p>
+              <p>Schneider, Á., & Csűrös, D. (2025). Towards distributed creativity. <em>Journal of Design Philosophy</em>.</p>
+              <p>Seigworth, G. J., & Gregg, M. (Eds.). (2010). <em>The affect theory reader</em>. Duke University Press.</p>
+              <p>Sheldrake, M. (2020). <em>Entangled life</em>. Random House.</p>
+              <p>St. Pierre, E. A. (2019). Post-qualitative inquiry in an ontology of immanence. <em>Qualitative Inquiry</em>, <em>25</em>(1), 3–16.</p>
+              <p>Suzuki, K., Roseboom, W., Schwartzman, D. J., & Seth, A. K. (2017). A deep-dream virtual reality platform for studying altered perceptual phenomenology. <em>Scientific Reports</em>, <em>7</em>, 15982.</p>
+              <p>Timeto, F. (2021). Becoming-with in a compost society. <em>Theory, Culture & Society</em>, <em>39</em>(8), 97–114.</p>
+              <p>Tsing, A. L. (2015). <em>The mushroom at the end of the world</em>. Princeton University Press.</p>
+              <p>Waldstein, A. (2016). <em>Dispensing with drugs</em>. Rowman & Littlefield.</p>
+              <p>Wang, R. R. (2021). <em>Daoist philosophy and artificial intelligence</em>. Bloomsbury.</p>
+              <p>Watson, B. (Trans.). (2013). <em>The complete works of Zhuangzi</em>. Columbia University Press. (Original work published ca. 3rd century BCE)</p>
+              <p>Wu, J., et al. (2018). Epistemological imperialism and the Daoist alternative. <em>Educational Philosophy and Theory</em>.</p>
+              <p>Yu, J. (2016). <em>The ethics of emptiness</em>. SUNY Press.</p>
+              <p>Zhang, E. Y. (2025). Relational encounters: AI chatbots and Daoist ethics. Springer Nature Singapore.</p>
+              <p>Zhuangzi. (2020). <em>Zhuangzi: The complete writings</em> (B. Ziporyn, Trans.). Hackett Publishing. (Original work published ca. 3rd century BCE)</p>
+              <p>Ziporyn, B. (2012). <em>Irony and self-restraint in early Daoism</em>. SUNY Press.</p>
+              <p>Zylinska, J. (2020). <em>AI art: Machine visions and warped dreams</em>. Open Humanities Press.</p>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Bibliography</h2>
+            <div class="refs">
+              <p>Bogue, R. (2014). <em>Deleuze and Asia</em> (H. Chiu & K. L. Chuang, Eds.). Cambridge Scholars Publishing.</p>
+              <p>Braidotti, R. (2019). A theoretical framework for the critical posthumanities. <em>Theory, Culture & Society</em>, <em>36</em>(6), 31–61.</p>
+              <p>Deleuze, G. (1986). <em>Cinema 1: The movement-image</em> (H. Tomlinson & B. Habberjam, Trans.). University of Minnesota Press.</p>
+              <p>Deleuze, G. (1993). <em>The fold: Leibniz and the Baroque</em> (T. Conley, Trans.). University of Minnesota Press.</p>
+              <p>Giblett, R., & Blazan, S. (2017). <em>The ethics of nature</em>. Cambridge Scholars Publishing.</p>
+              <p>Haraway, D. J. (2008). <em>When species meet</em>. University of Minnesota Press.</p>
+              <p>Hui, Y. (2019). <em>Recursivity and contingency</em>. Rowman & Littlefield.</p>
+              <p>Hui, Y. (2021). <em>Art and cosmotechnics</em>. University of Minnesota Press.</p>
+              <p>Lather, P., & St. Pierre, E. A. (2013). Post-qualitative research. <em>International Journal of Qualitative Studies in Education</em>, <em>26</em>(6), 629–633.</p>
+              <p>Latour, B. (1993). <em>We have never been modern</em> (C. Porter, Trans.). Harvard University Press.</p>
+              <p>Medenica, I. (2020). A digital talk about an analogue art: Interview with Erika Fischer-Lichte. <em>Critical Stages</em>, <em>22</em>. <a href="https://www.critical-stages.org/22/a-digital-talk-about-an-analogue-art-interview-with-erika-fischer-lichte/" target="_blank" rel="noopener noreferrer">https://www.critical-stages.org/22/a-digital-talk-about-an-analogue-art-interview-with-erika-fischer-lichte/</a></p>
+              <p>Paterson, M. (2007). <em>The senses of touch: Haptics, affects and technologies</em>. Routledge.</p>
+              <p>St. Pierre, E. A. (2011). Post-qualitative inquiry. In N. K. Denzin & Y. S. Lincoln (Eds.), <em>The SAGE handbook of qualitative research</em> (4th ed.). SAGE.</p>
+              <p>Tsing, A. L., Swanson, H., Gan, E., & Bubandt, N. (Eds.). (2017). <em>Arts of living on a damaged planet</em>. University of Minnesota Press.</p>
+              <p>Wolfram, S. (1985). Twenty problems in the theory of cellular automata. <em>Physica Scripta</em>, <em>1985</em>(T9), 170–183.</p>
+              <p>Zhao, X., Tan, L., & Tsang, K. Y. (2021). Daoism as a methodology in qualitative research. <em>International Journal of Qualitative Methods</em>, <em>20</em>.</p>
+              <p>Ziporyn, B. (1993). The self-so and its traces in the thought of Guo Xiang. <em>Philosophy East and West</em>, <em>43</em>, 511–539.</p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      const loadingNote = document.getElementById("loadingNote");
+      const canvas = document.getElementById("bg-canvas");
+
+      const scene = new THREE.Scene();
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+      camera.position.set(0, 0.25, 5.3);
+
+      const ambient = new THREE.AmbientLight(0xffffff, 1.28);
+      scene.add(ambient);
+
+      const dir1 = new THREE.DirectionalLight(0xffffff, 1.15);
+      dir1.position.set(3, 4, 5);
+      scene.add(dir1);
+
+      const dir2 = new THREE.DirectionalLight(0xd9d0ff, 0.44);
+      dir2.position.set(-3, 2, 3);
+      scene.add(dir2);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enablePan = false;
+      controls.enableZoom = false;
+      controls.enableDamping = true;
+      controls.rotateSpeed = 0.2;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.5;
+      controls.minPolarAngle = Math.PI / 2.45;
+      controls.maxPolarAngle = Math.PI / 1.8;
+
+      let model = null;
+
+      function resize() {
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+
+      const loader = new GLTFLoader();
+      loader.load(
+        "./tripo_pbr_model_abe5b203-a56e-4a41-bca3-fae98a1b0fc8.glb",
+        (gltf) => {
+          model = gltf.scene;
+          model.position.set(0, -0.15, 0);
+          model.rotation.y = -0.2;
+          model.scale.setScalar(2.2);
+
+          model.traverse((child) => {
+            if (child.isMesh && child.material) {
+              child.material.transparent = true;
+              child.material.opacity = 0.32;
+            }
+          });
+
+          scene.add(model);
+          loadingNote.style.display = "none";
+        },
+        undefined,
+        () => {
+          loadingNote.textContent = "Model failed to load";
+        }
+      );
+
+      const pointer = { x: 0, y: 0 };
+
+      window.addEventListener("mousemove", (event) => {
+        pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        if (model) {
+          model.rotation.x += (pointer.y * 0.04 - model.rotation.x) * 0.018;
+          model.rotation.z += (pointer.x * 0.04 - model.rotation.z) * 0.018;
+        }
+
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>
