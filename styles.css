@@ -1067,10 +1067,7 @@ h3 {
 .practice-cover-page {
   min-height: 100vh;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 18% 24%, rgba(178, 223, 193, 0.12), transparent 22%),
-    radial-gradient(circle at 78% 22%, rgba(184, 152, 255, 0.08), transparent 18%),
-    linear-gradient(180deg, #f7f3eb 0%, #f5f1e8 100%);
+  background: #f5f1e8;
   color: #111;
 }
 
@@ -1124,18 +1121,16 @@ h3 {
   display: grid;
   gap: 8px;
   text-decoration: none;
-  animation: floatDrift 8s ease-in-out infinite;
 }
 
 .floating-card-1 {
-  top: 20vh;
-  left: 22vw;
+  top: 21vh;
+  left: 19vw;
 }
 
 .floating-card-2 {
-  top: 18vh;
-  right: 14vw;
-  animation-delay: -3s;
+  top: 17vh;
+  right: 10vw;
 }
 
 .floating-label {
@@ -1148,11 +1143,10 @@ h3 {
 
 .floating-image-frame {
   margin: 0;
-  width: min(18vw, 220px);
+  width: min(27vw, 330px);
   aspect-ratio: 3 / 4;
   overflow: hidden;
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
-  transition: transform 180ms ease, box-shadow 180ms ease;
   background: #ddd;
 }
 
@@ -1169,18 +1163,6 @@ h3 {
 
 .tilt-right {
   transform: rotate(12deg);
-}
-
-.floating-practice-card:hover .tilt-left,
-.floating-practice-card:focus-visible .tilt-left {
-  transform: rotate(-7deg) scale(1.03);
-  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.16);
-}
-
-.floating-practice-card:hover .tilt-right,
-.floating-practice-card:focus-visible .tilt-right {
-  transform: rotate(8deg) scale(1.03);
-  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.16);
 }
 
 .practice-cover-footer {
@@ -1200,105 +1182,6 @@ h3 {
   color: rgba(17, 17, 17, 0.68);
 }
 
-.practice-mushroom-doodles {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.doodle {
-  position: absolute;
-  width: 20px;
-  height: 34px;
-  opacity: 0.34;
-  animation: floatDoodle 10s ease-in-out infinite;
-}
-
-.doodle::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 2px;
-  width: 16px;
-  height: 10px;
-  transform: translateX(-50%);
-  border: 1.5px solid rgba(112, 76, 26, 0.72);
-  border-bottom: none;
-  border-radius: 12px 12px 6px 6px;
-}
-
-.doodle::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 11px;
-  width: 3px;
-  height: 16px;
-  transform: translateX(-50%);
-  background: rgba(112, 76, 26, 0.72);
-  border-radius: 999px;
-}
-
-.doodle-1 {
-  top: 16vh;
-  left: 14vw;
-}
-
-.doodle-2 {
-  top: 31vh;
-  left: 64vw;
-  animation-delay: -2s;
-}
-
-.doodle-3 {
-  top: 54vh;
-  left: 12vw;
-  animation-delay: -4s;
-}
-
-.doodle-4 {
-  top: 62vh;
-  left: 58vw;
-  animation-delay: -1.5s;
-}
-
-.doodle-5 {
-  top: 26vh;
-  right: 26vw;
-  animation-delay: -5s;
-}
-
-.doodle-6 {
-  top: 72vh;
-  right: 10vw;
-  animation-delay: -3.5s;
-}
-
-@keyframes floatDrift {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes floatDoodle {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-8px) rotate(4deg);
-  }
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-}
-
 @media (max-width: 900px) {
   .practice-cover-title {
     font-size: clamp(4.6rem, 17vw, 8rem);
@@ -1315,7 +1198,7 @@ h3 {
   }
 
   .floating-image-frame {
-    width: min(34vw, 220px);
+    width: min(42vw, 300px);
   }
 }
 
@@ -1342,10 +1225,6 @@ h3 {
 
   .floating-image-frame {
     width: min(60vw, 260px);
-  }
-
-  .practice-mushroom-doodles {
-    display: none;
   }
 }
 .zhaojun-editorial-page {
@@ -1810,4 +1689,3 @@ h3 {
     font-size: clamp(3rem, 14vw, 4.6rem);
   }
 }
-
