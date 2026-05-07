@@ -18,8 +18,8 @@
       }
 
       body {
-        background: #f6f3ec;
-        color: #111;
+        background: #050505;
+        color: #f3efe7;
         font-family: "Cormorant Garamond", serif;
       }
 
@@ -36,7 +36,7 @@
       }
 
       .p2-shell {
-        width: min(100vw - 40px, 1380px);
+        width: min(100vw - 36px, 1480px);
         margin: 0 auto;
         padding: 18px 0 40px;
       }
@@ -53,7 +53,7 @@
         font-size: 0.68rem;
         letter-spacing: 0.18em;
         text-transform: uppercase;
-        color: rgba(17, 17, 17, 0.72);
+        color: rgba(243, 239, 231, 0.72);
       }
 
       .p2-nav {
@@ -66,14 +66,14 @@
         font-size: 0.72rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: rgba(17, 17, 17, 0.72);
+        color: rgba(243, 239, 231, 0.72);
         border-bottom: 1px solid transparent;
         padding-bottom: 2px;
       }
 
       .p2-nav a:hover,
       .p2-nav a:focus-visible {
-        border-color: rgba(17, 17, 17, 0.6);
+        border-color: rgba(243, 239, 231, 0.6);
       }
 
       .p2-main {
@@ -100,20 +100,20 @@
         font-size: 0.72rem;
         letter-spacing: 0.18em;
         text-transform: uppercase;
-        color: rgba(17, 17, 17, 0.68);
+        color: rgba(243, 239, 231, 0.66);
       }
 
       .p2-title-wrap {
         display: grid;
-        gap: 0;
-        margin-left: 0.4rem;
-        line-height: 0.84;
+        gap: 2px;
+        margin-left: 0.2rem;
+        line-height: 0.9;
       }
 
       .p2-title-word {
-        font-size: clamp(4.8rem, 9vw, 8.8rem);
+        font-size: clamp(1.8rem, 4vw, 3rem);
         font-weight: 600;
-        letter-spacing: -0.05em;
+        letter-spacing: -0.03em;
       }
 
       .p2-title-word.left {
@@ -121,14 +121,14 @@
       }
 
       .p2-title-word.right {
-        margin-left: 5.7rem;
+        margin-left: 2.4rem;
       }
 
       .p2-top-video-wrap {
-        width: min(32vw, 410px);
-        margin-left: auto;
+        width: min(46vw, 620px);
+        margin-left: 0;
         margin-right: 0;
-        transform: translateX(72px);
+        transform: none;
         background: #000;
       }
 
@@ -139,46 +139,36 @@
         object-fit: cover;
       }
 
-      .p2-illusion {
-        margin-left: auto;
-        margin-right: 0;
-        width: min(32vw, 410px);
-        transform: translateX(80px);
-        font-size: clamp(3.6rem, 6.2vw, 6.2rem);
-        line-height: 0.82;
-        font-weight: 500;
-        letter-spacing: -0.04em;
-        text-align: right;
-      }
-
       .p2-top-right {
         position: relative;
         display: grid;
         gap: 26px;
         align-content: start;
+        padding-top: 138px;
         min-height: 760px;
       }
 
       .p2-intro {
-        max-width: 35rem;
+        max-width: 39rem;
         margin-left: 6.2rem;
         font-size: 1rem;
         line-height: 1.84;
-        color: rgba(17, 17, 17, 0.86);
+        color: rgba(243, 239, 231, 0.88);
       }
 
       .p2-meta {
-        width: min(28vw, 370px);
+        width: min(34vw, 470px);
         display: grid;
         gap: 10px;
-        margin-top: 56px;
-        margin-left: 6.2rem;
+        margin-top: 152px;
+        margin-left: 13.8rem;
+        text-align: right;
       }
 
       .p2-meta p {
         font-size: 0.92rem;
         line-height: 1.72;
-        color: rgba(17, 17, 17, 0.84);
+        color: rgba(243, 239, 231, 0.84);
       }
 
       .p2-meta strong {
@@ -206,7 +196,7 @@
         font-size: 0.74rem;
         letter-spacing: 0.16em;
         text-transform: uppercase;
-        color: rgba(88, 120, 104, 0.58);
+        color: rgba(126, 162, 143, 0.52);
         animation: p2Float 6s ease-in-out infinite;
       }
 
@@ -241,8 +231,8 @@
 
       .p2-bottom {
         display: grid;
-        grid-template-columns: 0.92fr 1.08fr;
-        gap: 44px;
+        grid-template-columns: minmax(0, 1.34fr) minmax(520px, 0.86fr);
+        gap: 6px;
         align-items: start;
       }
 
@@ -250,22 +240,23 @@
         display: grid;
         gap: 14px;
         align-content: start;
+        padding-top: 18px;
       }
 
       .p2-section-title {
         font-family: "Cormorant Garamond", serif;
-        font-size: clamp(2.8rem, 5.6vw, 4.8rem);
+        font-size: clamp(2.2rem, 4.6vw, 3.8rem);
         line-height: 0.86;
         font-weight: 600;
         letter-spacing: -0.04em;
-        color: #90aa8f;
+        color: #cdd9cb;
         margin-bottom: -2px;
       }
 
       .p2-text-groups {
         display: grid;
-        grid-template-columns: 0.74fr 1.26fr;
-        gap: 34px;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
         align-items: start;
       }
 
@@ -274,10 +265,14 @@
         gap: 18px;
       }
 
+      .p2-text-groups .p2-text-col:last-child {
+        margin-top: -40px;
+      }
+
       .p2-text-col p {
-        font-size: 0.96rem;
-        line-height: 1.88;
-        color: rgba(17, 17, 17, 0.88);
+        font-size: 1.04rem;
+        line-height: 1.94;
+        color: rgba(243, 239, 231, 0.9);
       }
 
       .p2-bottom-right {
@@ -286,12 +281,12 @@
         align-content: start;
         justify-items: start;
         padding-top: 18px;
-        padding-left: 150px;
+        padding-left: 4px;
       }
 
       .p2-media {
         overflow: hidden;
-        background: #dbe7f2;
+        background: #0c0c0c;
       }
 
       .p2-media img,
@@ -302,19 +297,19 @@
         object-fit: cover;
       }
 
-      .p2-media-large {
-        width: min(29vw, 370px);
+      .p2-media-large,
+      .p2-media-small {
+        width: min(22vw, 280px);
       }
 
       .p2-media-wide {
-        width: min(31vw, 400px);
-        margin-left: 8vw;
+        width: min(51vw, 670px);
+        margin-left: 4px;
       }
 
       .p2-media-small {
-        width: min(17vw, 240px);
-        margin-left: 19vw;
-        margin-top: 38px;
+        margin-left: 0;
+        margin-top: 0;
       }
 
       .p2-caption {
@@ -322,11 +317,11 @@
         width: min(22vw, 280px);
         font-size: 0.78rem;
         line-height: 1.5;
-        color: rgba(17, 17, 17, 0.72);
+        color: rgba(243, 239, 231, 0.68);
       }
 
       .p2-caption.video-caption {
-        margin-left: 8vw;
+        margin-left: 54px;
       }
 
       .p2-caption.photo-caption {
@@ -356,7 +351,6 @@
         }
 
         .p2-top-video-wrap,
-        .p2-illusion,
         .p2-meta,
         .p2-media-large,
         .p2-media-wide,
@@ -415,9 +409,6 @@
           font-size: clamp(3.4rem, 15vw, 5.6rem);
         }
 
-        .p2-illusion {
-          font-size: 2.1rem;
-        }
       }
     </style>
   </head>
@@ -447,7 +438,6 @@
               </video>
             </div>
 
-            <p class="p2-illusion">illusion</p>
           </div>
 
           <div class="p2-top-right">
@@ -469,6 +459,15 @@
               individual life. I wanted to see what happened when I placed them in the same
               field, letting the virtual and the real coexist without resolving into each
               other.
+            </p>
+
+            <p class="p2-intro">
+              The philosophical concept of "becoming" proposed by Gilles Deleuze and Felix
+              Guattari provide the theoretical inspiration for this work. The installation
+              constructs a symbiotic environment where life forms coexist across a
+              three-dimensional space comprising one horizontal surface (the ground) and two
+              vertical surfaces. A central theme involves the dissolution of dimensional
+              boundaries.
             </p>
 
             <div class="p2-meta">
@@ -504,15 +503,6 @@
             <div class="p2-text-groups">
               <div class="p2-text-col">
                 <p>
-                  The philosophical concept of "becoming" proposed by Gilles Deleuze and
-                  Felix Guattari provide the theoretical inspiration for this work. The
-                  installation constructs a symbiotic environment where life forms coexist
-                  across a three-dimensional space comprising one horizontal surface (the
-                  ground) and two vertical surfaces. A central theme involves the dissolution
-                  of dimensional boundaries.
-                </p>
-
-                <p>
                   The video content deliberately blurs the distinctions between terrestrial
                   and marine ecosystems, showcasing the transformation and evolution of
                   multiple species. I found that the AI-generated animations produced
@@ -521,9 +511,7 @@
                   (Hélène Frichot，2009), specifically where each frame constitutes a
                   micro-fold of the previous one.
                 </p>
-              </div>
 
-              <div class="p2-text-col">
                 <p>
                   The Pepper’s Ghost illusion reflects the dynamic intersection and
                   coexistence of terrestrial and marine organisms, specifically rotating
@@ -532,7 +520,9 @@
                   design with natural stochasticity to articulate themes of freedom and
                   generative potential.
                 </p>
+              </div>
 
+              <div class="p2-text-col">
                 <p>
                   Through the integration of multi-species imagery, specifically lichens,
                   fungi, and corals, with AI-generated visuals, spatial folding structures,
@@ -563,9 +553,15 @@
           </div>
 
           <div class="p2-bottom-right">
-            <figure class="p2-media p2-media-large">
-              <img src="My-practice-picture-9.jpg" alt="Symbiotic Ghosts installation overview" />
-            </figure>
+            <div style="display: grid; grid-template-columns: auto auto; gap: 18px; align-items: start; justify-content: start; padding-left: 4px;">
+              <figure class="p2-media p2-media-large">
+                <img src="My-practice-picture-9.jpg" alt="Symbiotic Ghosts installation overview" />
+              </figure>
+
+              <figure class="p2-media p2-media-small">
+                <img src="My-practice-picture-10.jpg" alt="Symbiotic Ghosts detail photo" />
+              </figure>
+            </div>
 
             <div>
               <figure class="p2-media p2-media-wide">
@@ -574,13 +570,6 @@
                 </video>
               </figure>
               <p class="p2-caption video-caption">3D video in Pepper Ghost, created using Blender</p>
-            </div>
-
-            <div>
-              <figure class="p2-media p2-media-small">
-                <img src="My-practice-picture-10.jpg" alt="Symbiotic Ghosts detail photo" />
-              </figure>
-              <p class="p2-caption photo-caption">Pictures took by Jasmine Kang, 2025</p>
             </div>
           </div>
         </section>
