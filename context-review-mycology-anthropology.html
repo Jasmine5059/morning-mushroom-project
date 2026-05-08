@@ -51,10 +51,10 @@
       .center-video {
         position: absolute;
         left: 50%;
-        top: 16vh;
+        top: 12vh;
         transform: translateX(-50%);
-        width: min(46vw, 620px);
-        height: min(34vh, 360px);
+        width: min(84vw, 1100px);
+        height: min(62vh, 720px);
         background: rgba(255, 255, 255, 0.03);
         box-shadow: 0 20px 48px rgba(0, 0, 0, 0.32);
         overflow: hidden;
@@ -63,11 +63,11 @@
       .center-video video {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
         display: block;
         background: #000;
-        opacity: 0.68;
-        filter: saturate(0.75) contrast(1.06) brightness(0.84);
+        opacity: 0.9;
+        filter: saturate(0.9) contrast(1.08) brightness(0.92);
       }
 
       .bg-wash {
@@ -120,98 +120,23 @@
       }
 
       .main {
-        display: grid;
-        gap: 28px;
-        padding-top: 32px;
+        position: relative;
+        min-height: calc(100vh - 90px);
       }
 
       .title-block {
+        position: absolute;
+        left: 50%;
+        bottom: 6vh;
+        transform: translateX(-50%);
+        z-index: 3;
         display: grid;
-        gap: 10px;
-        justify-items: center;
-        padding-top: min(28vh, 260px);
-      }
-
-      h1 {
-        max-width: 20ch;
-        text-align: center;
-        font-size: clamp(2.5rem, 4.7vw, 4.2rem);
-        line-height: 0.95;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.96);
-      }
-
-      h2 {
-        width: min(100%, 52rem);
-        margin: 8px auto 0;
-        font-size: clamp(1.5rem, 2.6vw, 2.25rem);
-        line-height: 1;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.94);
-      }
-
-      .text {
-        display: grid;
-        gap: 18px;
         justify-items: center;
       }
 
-      .text p,
-      .text blockquote {
-        width: min(100%, 52rem);
-        text-align: justify;
-        text-align-last: left;
-        font-size: 1.06rem;
-        line-height: 1.9;
-        color: rgba(245, 241, 233, 0.92);
-      }
-
-      .text blockquote {
-        border-left: 1px solid rgba(255, 255, 255, 0.12);
-        padding-left: 16px;
-        font-style: italic;
-      }
-
-      .pull-quote {
-        width: min(100%, 46rem);
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.22em 0.28em;
-        justify-content: flex-start;
-        line-height: 1.55;
-        font-size: 1.02rem;
-        font-style: italic;
-        color: rgba(244, 240, 233, 0.96);
-      }
-
-      .pull-quote .word {
-        display: inline-block;
-        animation: quotePull var(--dur, 5.6s) ease-in-out infinite;
-        animation-delay: var(--delay, 0s);
-      }
-
-      @keyframes quotePull {
-        0% {
-          transform: translateX(0) translateY(0) scaleX(1);
-          letter-spacing: 0;
-        }
-        25% {
-          transform: translateX(3px) translateY(-4px) scaleX(1.08);
-          letter-spacing: 0.01em;
-        }
-        50% {
-          transform: translateX(-2px) translateY(3px) scaleX(0.96);
-          letter-spacing: -0.01em;
-        }
-        75% {
-          transform: translateX(4px) translateY(-1px) scaleX(1.04);
-          letter-spacing: 0.005em;
-        }
-        100% {
-          transform: translateX(0) translateY(0) scaleX(1);
-          letter-spacing: 0;
-        }
+      .title-block .kicker {
+        font-size: 0.62rem;
+        letter-spacing: 0.13em;
       }
 
       @media (max-width: 800px) {
@@ -225,24 +150,9 @@
         }
 
         .center-video {
-          top: 14vh;
-          width: 74vw;
-          height: 24vh;
-        }
-
-        .title-block {
-          padding-top: 22vh;
-        }
-
-        .text p,
-        .text blockquote,
-        .pull-quote,
-        h2 {
-          width: 100%;
-        }
-
-        h1 {
-          font-size: clamp(2.1rem, 7vw, 3.3rem);
+          top: 13vh;
+          width: 88vw;
+          height: 42vh;
         }
       }
     </style>
@@ -270,79 +180,6 @@
       <main class="main">
         <section class="title-block">
           <p class="kicker">Mycology and Anthropology</p>
-          <h1>Practising Anthropology within the Temporality of the Morning Mushroom</h1>
-        </section>
-
-        <section class="text">
-          <p>
-            Through my reading of post-human anthropology, particularly Tsing's (2015) account of precarious life in capitalist ruins and Haraway's (2016) call to stay with the trouble, I have come to understand that anthropology can no longer situate the writing of the other upon the linear timeline of the Great Toona tree. I wish to enter the time of the morning mushroom involves ephemeral relationships, unstable subjects, and affects that resist complete naming.
-          </p>
-
-          <h2>The Post-human Turn of the Matsutake</h2>
-
-          <p>
-            Fungi have leapt from the margins of biological taxonomy to become core agents in reconstructing post-human narratives. The primary marker of this shift is Anna Tsing's concept of ‘Patchy Collaborations’, developed through her extended fieldwork with matsutake foragers in <em>The Mushroom at the End of the World</em> (2015). For Tsing, patchy collaborations describe the unpredictable, non-linear, and often unintentional partnerships that form between organisms, including humans, in damaged environments. As Tsing writes, ‘matsutake's willingness to emerge in blasted landscapes allows us to explore the ruin that many of us now inhabit’ (2015, p. 3). It is precisely this capacity to thrive within damage, to find collaborative pathways in the cracks of contingency and heterogeneity, that draws me to Tsing's framework. This survival model challenges the linear narratives of progress established since the Enlightenment, and it resonates deeply with my own practice, which seeks to cultivate generative relationships within the ruins of technological and capitalist systems rather than imagining a clean escape from them.
-          </p>
-
-          <p>
-            During my reading of Donna Haraway's (2016) concept of ‘Communities of Compost,’ I found that her famous book <em>Staying with the Trouble</em> resonated with the way I am practising my research. Haraway calls for humanity to co-evolve with various life forms, including lichens, bacteria, and fungi, and it is this insistence on remaining within entanglement that I keep returning to in my practice. She wrote:
-          </p>
-
-          <p>
-            Within the process of fungal ‘Worlding’ that Haraway describes, the subject exists as an entity interpenetrating and transforming within a network of the non-human and the more-than-human. Reading Federica Timeto's (2021) elaboration of this position in ‘Becoming-with in a Compost Society: Haraway beyond Posthumanism’ further clarified for me how Haraway's ethics extend beyond metaphor into a genuine ontological reorientation, one that reshapes how we understand what it means to act, to know, and to create alongside other species.
-          </p>
-
-          <blockquote>
-            Rather, the Communities of Compost understood their task to be to cultivate and invent the arts of living with and for damaged worlds in place, not as an abstraction or a type, but as and for those living and dying in ruined places. (Donna, 2016:143)
-          </blockquote>
-
-          <p>
-            This sympoietic perspective resonates with Rosi Braidotti's (2013) reconstruction of the post-human subject. Through Situated Knowledges (Haraway, 1988), Braidotti proposes that the subject is a dynamic connection embedded within material, biological, and technological networks. Fungi serve as a particularly generative metaphor for such connections: the mushroom is only the visible fruiting body, while the true infrastructure of life is the invisible, tightly interconnected, and infinitely sprawling mycelial network.
-          </p>
-
-          <div class="pull-quote word-cloud">
-            This vitalist approach to living matter displaces the boundary between the portion of life – both organic and discursive – that has traditionally been reserved for anthropos, that is to say bios, and the wider scope of animal and non-human life, also known as zoe. Zoe as the dynamic, self-organizing structure of life itself (Braidotti 2006, 2011b) stands for generative vitality. It is the transversal force that cuts across and reconnects previously segregated species, categories and domains. Zoe-centred egalitarianism is, for me, the core of the post-anthropocentric turn: it is a materialist, secular, grounded and unsentimental response to the opportunistic trans-species commodification of Life that is the logic of advanced capitalism. It is also an affirmative reaction of social and cultural theory to the great advances made by the other culture, that of the sciences. (Braidotti, 2013:60)
-          </div>
-
-          <p>
-            The nature theories of Rod Giblett and Sladja Blazan (2017) shift focus toward the agency of long-neglected heterogeneous life forms, specifically bacteria, spores, and slime moulds. Attending to what they describe as the ‘underground other,’ Giblett and Blazan argue that fungi embody a logic of finding pathways within cracks, moisture, and contingency that provides a vital entry point for reconstructing the ecological imagination. As they write, ‘fungi are the forgotten kingdom, operating beneath the thresholds of human attention yet sustaining the very conditions that make life possible’ (Giblett & Blazan, 2017). This subterranean agency resonates with what mycologist Merlin Sheldrake (2020) describes in <em>Entangled Life</em>, where fungi are understood not as static organisms but as dynamic processes of relation and dissolution. As Sheldrake (2020) writes, ‘fungi are the grand recyclers of the planet and the vanguard of life’, dismantling the boundaries of the individual while transforming death into new life through metabolism. This material cycle constitutes the biological foundation for the ‘compost’ ethics described by Haraway. Eben Kirksey's work on ‘multispecies ethnography’ similarly attends to the generative agency of fungal life, emphasising in <em>The Multispecies Salon</em> (2014) that ‘life is not a property of individual organisms but an event that happens between them’ (Kirksey, 2014). Eduardo Kohn's explorations in <em>How Forests Think</em> (2013) extend this further, proposing that ‘life thinks’ beyond the boundaries of the human, and that fungi, as signic beings, perceive, respond to, and modulate the environment in ways that exceed our inherited categories of agency and meaning.
-          </p>
-
-          <p>
-            For me, the turn toward the matsutake and its underlying mycological shift opens a sprawling and mutable creative ecology for artistic practice. Through engaging with this generative turn in my own work, I am attempting to establish a practice that can be accessed, perceived, and grown continuously, one that offers an embodied experimental field for imagining a decentralised post-human future.
-          </p>
-
-          <h2>The Power of Spores: Mushroom-style Actor-Network Theory</h2>
-
-          <p>
-            Actants no longer act once, instead exercising continuous influence in a manner resembling mycelia. Moving from the scientific turn to the Foucauldian focus on how knowledge is produced, regulated, and operated within specific contexts, Bruno Latour (1993) provides a vital critical framework through ‘Actor-Network Theory’ (ANT). By deconstructing the dualism between nature and society, Latour introduces the concept of ‘Hybrids,’ emphasising that human and non-human ‘actants’ together weave the network of reality. In this research, technical media, material substances, and biological forms are regarded as equal actants that collectively co-construct meaning.
-          </p>
-
-          <p>
-            However, a simple point-to-point ‘Network’ remains insufficient to describe the humidity of fungal relationships. Tim Ingold (2011) proposes an essential distinction between ‘Meshwork’ and ‘Network.’ He argues that life occurs within the sprawl of entangled "Lines" instead of occurring at the points where connections meet. This perspective grants the weak connections of spores a stronger vital agency, viewing every mycelial extension as an exploratory probe into unknown pathways. This logic aligns with the concept of ‘Intra-action’ advocated by Karen Barad (2007). Barad asserts that agency represents an emergent property generated within dynamic relational interaction rather than being an inherent attribute of a subject. Consequently, the generation of data, perception, and meaning in artistic practice manifests as a continuous reconfiguration during interaction instead of a predetermined result.
-          </p>
-
-          <p>
-            My research adopts a post-critical orientation, embracing a double uncertainty throughout the inquiry process. Specifically, artistic research possesses an experimental and open nature resembling a cartographic practice, while the generation of data, perception, and meaning remains a process continuously constructed within relational networks. The aforementioned post-human theories and the previously discussed Deleuze and Guattarian configuration of ‘becoming’ complement each other, collectively establishing the critical vision of this study. Through imagery and installations, a mixed space of multi-species entanglement and non-linear generation is created to explore artistic possibilities for achieving ecological harmony and co-becoming within ruins where technical and biological boundaries blur.
-          </p>
-
-          <h2>Looseness of Affect: From Fungal Penetration to Situated Resonance</h2>
-
-          <p>
-            The vitality of fungi often manifests as an invasive internal penetration. Spores enter human lungs and organs through respiration while fungal toxins, specifically psilocybin, permeate the nervous system to reshape physiology and perception at an invisible level. This biological entanglement provides a superb material metaphor for Affect Theory. Affect represents an ‘intensity’ or ‘potential' arising from the interaction between the body and technology. As Massumi (2002) and Manning (2010) articulate, affect is pre-subjective and extra-sensory. It completes the transmission of energy within the folds of the body before an individual attains a conscious awareness of feeling.
-          </p>
-
-          <p>
-            Such power of penetration prompts a re-evaluation of material agency. Jane Bennett (2010) proposes in her theory of ‘Vibrant Matter’ that non-human substances, including fungi, electricity, or algorithms, possess ‘material efficacy’ capable of triggering direct resonance between the environment and the body. Within this project, the visual flows generated by AI and the growth logic of fungi act as affective media. They open new cognitive pathways by vibrating the senses of the participant. As noted by Seigworth and Gregg (2010), these encounters occur within the marginal zones of subject-object boundaries as a continuous and loose mutual touching.
-          </p>
-
-          <p>
-            However, existing affective frameworks remain largely rooted in Western philosophical traditions, occasionally exhibiting what Wu et al. (2018) identify as an ‘epistemological imperialist tendency.’ To dismantle this hegemony, this research introduces a non-Western perspective of the Dao as a subversive alternative. By analysing the concept of ‘uselessness’ in Zhuangzi, Kwek (2018) proposes the viewpoint of ‘Situated Affectivity.’ This perspective emphasises the dynamic relationship between humans and non-human matter within specific contexts, transcending the latent Western-centric presuppositions in new materialism. It understands affect as a process of circulation and resonance within emptiness, much like the perpetual flow of Qi.
-          </p>
-
-          <p>
-            This theoretical shift from "seeping" to "resonance" is ultimately grounded in the post-qualitative turn within design and social science research. This turn advocates for becoming, materiality, and relational generation while prioritising process and openness. Participants transition from the role of observers to become co-actants captured by spore-like affect. Through continuous sensory penetration, they collectively map a continuously evolving ecological panorama alongside the technical system.
-          </p>
         </section>
       </main>
     </div>
