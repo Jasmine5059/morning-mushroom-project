@@ -18,23 +18,17 @@
       }
 
       body {
-        background: #ece4cf;
+        background: #ffffff;
         color: #13110d;
         font-family: "Cormorant Garamond", serif;
         overflow: hidden;
-        cursor:
-          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2311100d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M7 15c1-5 5-8 9-8s8 3 9 8c-5 1-13 1-18 0Z'/><path d='M16 15v8'/><path d='M13.5 23c.6 1.2 1.4 1.8 2.5 1.8s1.9-.6 2.5-1.8'/></g></svg>")
-            8 8,
-          auto;
+        cursor: auto;
       }
 
       a {
         color: inherit;
         text-decoration: none;
-        cursor:
-          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='none' stroke='%2311100d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M7 15c1-5 5-8 9-8s8 3 9 8c-5 1-13 1-18 0Z'/><path d='M16 15v8'/><path d='M13.5 23c.6 1.2 1.4 1.8 2.5 1.8s1.9-.6 2.5-1.8'/></g></svg>")
-            8 8,
-          pointer;
+        cursor: pointer;
       }
 
       p,
@@ -43,28 +37,9 @@
         margin: 0;
       }
 
-      .preface-background {
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
-        filter: saturate(0.42) brightness(0.9);
-      }
-
-      .preface-overlay {
-        position: fixed;
-        inset: 0;
-        background:
-          linear-gradient(180deg, rgba(241, 234, 214, 0.08), rgba(231, 223, 199, 0.12)),
-          rgba(246, 239, 220, 0.12);
-        z-index: 1;
-      }
-
       .preface-page {
         position: relative;
-        z-index: 2;
+        z-index: 1;
         width: min(100vw - 40px, 1380px);
         margin: 0 auto;
         min-height: 100vh;
@@ -131,94 +106,16 @@
       .preface-title span {
         position: relative;
         display: inline-block;
-        opacity: 0;
-        transform: translateY(36px) scaleX(1.22) scaleY(0.74);
-        animation: letterArrive 0.88s cubic-bezier(.22,.86,.22,1) forwards;
+        opacity: 1;
+        transform: none;
       }
 
       .preface-title span::after {
-        content: attr(data-letter);
-        position: absolute;
-        left: 0;
-        top: 0;
-        color: rgba(19, 17, 13, 0.22);
-        filter: blur(9px);
-        opacity: 0;
-        transform: translateY(0) scaleY(1);
-        transform-origin: top center;
-        animation: inkTrail 6s ease-in-out 1.1s infinite;
-        pointer-events: none;
+        content: none;
       }
 
       .preface-title::after {
-        content: "preface";
-        position: absolute;
-        left: 0;
-        top: 0;
-        color: rgba(19, 17, 13, 0.12);
-        filter: blur(14px);
-        mix-blend-mode: multiply;
-        opacity: 0.62;
-        transform: translateY(0) scaleY(1);
-        transform-origin: top center;
-        animation: titleBleed 7.2s ease-in-out 1.2s infinite;
-        pointer-events: none;
-      }
-
-      .preface-title span:nth-child(1) {
-        animation-delay: 0.04s;
-      }
-
-      .preface-title span:nth-child(2) {
-        animation-delay: 0.12s;
-      }
-
-      .preface-title span:nth-child(3) {
-        animation-delay: 0.2s;
-      }
-
-      .preface-title span:nth-child(4) {
-        animation-delay: 0.28s;
-      }
-
-      .preface-title span:nth-child(5) {
-        animation-delay: 0.36s;
-      }
-
-      .preface-title span:nth-child(6) {
-        animation-delay: 0.44s;
-      }
-
-      .preface-title span:nth-child(7) {
-        animation-delay: 0.52s;
-      }
-
-      .preface-title span:nth-child(1)::after {
-        animation-delay: 1.1s;
-      }
-
-      .preface-title span:nth-child(2)::after {
-        animation-delay: 1.2s;
-      }
-
-      .preface-title span:nth-child(3)::after {
-        animation-delay: 1.3s;
-      }
-
-      .preface-title span:nth-child(4)::after {
-        animation-delay: 1.4s;
-      }
-
-      .preface-title span:nth-child(5)::after {
-        animation-delay: 1.5s;
-      }
-
-      .preface-title span:nth-child(6)::after {
-        animation-delay: 1.6s;
-      }
-
-      .preface-title span:nth-child(7)::after {
-        animation-delay: 1.7s;
+        content: none;
       }
 
       .preface-cards {
@@ -239,14 +136,12 @@
         letter-spacing: 0.16em;
         text-transform: uppercase;
         color: rgba(19, 17, 13, 0.82);
-        animation: labelBob 3.6s ease-in-out infinite;
       }
 
       .preface-entry-card {
         overflow: hidden;
         box-shadow: 0 18px 42px rgba(44, 31, 9, 0.14);
         background: transparent;
-        transition: transform 180ms ease, box-shadow 180ms ease;
       }
 
       .preface-entry-card img {
@@ -257,37 +152,22 @@
         transform-origin: center center;
       }
 
-      .preface-entry:hover .preface-entry-card,
-      .preface-entry:focus-visible .preface-entry-card {
-        transform: translateY(-6px) scale(1.02);
-        box-shadow: 0 26px 58px rgba(44, 31, 9, 0.18);
-      }
-
       .preface-entry-1 {
         top: 30vh;
         left: 10vw;
         z-index: 6;
-        animation:
-          dealCard1 1.25s cubic-bezier(.18,.84,.18,1) both,
-          floatCard 7s ease-in-out 1.25s infinite;
       }
 
       .preface-entry-2 {
         top: 22vh;
         left: 30vw;
         z-index: 8;
-        animation:
-          dealCard2 1.4s cubic-bezier(.18,.84,.18,1) both,
-          floatCard 7s ease-in-out 1.4s infinite;
       }
 
       .preface-entry-3 {
         top: 32vh;
         left: 53vw;
         z-index: 7;
-        animation:
-          dealCard3 1.55s cubic-bezier(.18,.84,.18,1) both,
-          floatCard 7s ease-in-out 1.55s infinite;
       }
 
       .preface-entry-1 .preface-entry-card {
@@ -315,137 +195,6 @@
 
       .preface-entry-3 .preface-entry-label {
         margin-left: 14px;
-      }
-
-      .preface-footer-notes {
-        position: absolute;
-        left: 1vw;
-        bottom: 1.4vh;
-        z-index: 12;
-        display: grid;
-        gap: 4px;
-      }
-
-      .preface-footer-notes p {
-        font-family: "Orbitron", sans-serif;
-        font-size: 0.9rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        line-height: 1.45;
-        color: rgba(86, 112, 146, 0.56);
-      }
-
-      @keyframes letterArrive {
-        0% {
-          opacity: 0;
-          transform: translateY(36px) scaleX(1.22) scaleY(0.74);
-        }
-        62% {
-          opacity: 1;
-          transform: translateY(-4px) scaleX(0.92) scaleY(1.06);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0) scaleX(1) scaleY(1);
-        }
-      }
-
-      @keyframes inkTrail {
-        0% {
-          opacity: 0;
-          transform: translateY(0) scaleY(1);
-        }
-        14% {
-          opacity: 0.16;
-        }
-        44% {
-          opacity: 0.22;
-          transform: translateY(18px) scaleY(1.1);
-        }
-        72% {
-          opacity: 0.28;
-          transform: translateY(44px) scaleY(1.28);
-        }
-        100% {
-          opacity: 0.08;
-          transform: translateY(0) scaleY(1);
-        }
-      }
-
-      @keyframes titleBleed {
-        0% {
-          opacity: 0.32;
-          transform: translateY(0) scaleY(1);
-        }
-        40% {
-          opacity: 0.46;
-          transform: translateY(12px) scaleY(1.06);
-        }
-        75% {
-          opacity: 0.56;
-          transform: translateY(30px) scaleY(1.16);
-        }
-        100% {
-          opacity: 0.32;
-          transform: translateY(0) scaleY(1);
-        }
-      }
-
-      @keyframes dealCard1 {
-        0% {
-          opacity: 0;
-          transform: translate(520px, 360px) rotate(24deg);
-        }
-        100% {
-          opacity: 1;
-          transform: translate(0, 0) rotate(0deg);
-        }
-      }
-
-      @keyframes dealCard2 {
-        0% {
-          opacity: 0;
-          transform: translate(460px, 420px) rotate(18deg);
-        }
-        100% {
-          opacity: 1;
-          transform: translate(0, 0) rotate(0deg);
-        }
-      }
-
-      @keyframes dealCard3 {
-        0% {
-          opacity: 0;
-          transform: translate(420px, 500px) rotate(22deg);
-        }
-        100% {
-          opacity: 1;
-          transform: translate(0, 0) rotate(0deg);
-        }
-      }
-
-      @keyframes floatCard {
-        0% {
-          translate: 0 0;
-        }
-        50% {
-          translate: 0 -12px;
-        }
-        100% {
-          translate: 0 0;
-        }
-      }
-
-      @keyframes labelBob {
-        0% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-4px);
-        }
-        100% {
-          transform: translateY(0);
-        }
       }
 
       @media (max-width: 980px) {
@@ -481,7 +230,6 @@
 
         .preface-entry {
           position: static;
-          animation: none;
         }
 
         .preface-entry-1 .preface-entry-card,
@@ -491,16 +239,10 @@
           transform: none;
         }
 
-        .preface-footer-notes {
-          margin-top: 24px;
-        }
       }
     </style>
   </head>
   <body>
-    <img class="preface-background" src="preface-background.png" alt="" aria-hidden="true" />
-    <div class="preface-overlay" aria-hidden="true"></div>
-
     <div class="preface-page">
       <header class="preface-header">
         <p class="preface-kicker">Chapter 3</p>
@@ -537,12 +279,6 @@
               <img src="preface-image-3.jpg" alt="Encountering Morning Mushroom preview" />
             </figure>
           </a>
-        </section>
-
-        <section class="preface-footer-notes">
-          <p>INTRODUCTION TO THIS DOCUMENT.</p>
-          <p>PRACTICE AS THE CULTIVATION OF THE MORNING MUSHROOM.</p>
-          <p>FROM THE MORNING MUSHROOM TO THE ALGORITHMIC HALLUCINATION.</p>
         </section>
       </main>
     </div>
