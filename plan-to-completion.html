@@ -96,14 +96,14 @@
       }
 
       .plan-card {
-  position: relative;
-  z-index: 5;
-  width: min(76vw, 840px);
-  transform: rotate(0deg);
-  box-shadow: 0 29px 42px rgba(0, 0, 0, 0.18);
-  background: rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(1px);
-}
+        position: relative;
+        z-index: 5;
+        width: min(82vw, 940px);
+        transform: rotate(0deg);
+        box-shadow: none;
+        background: transparent;
+        backdrop-filter: none;
+      }
 
 
       .plan-card img {
@@ -112,52 +112,20 @@
         height: auto;
       }
 
-      .fall-layer {
+      .model-wrap {
         position: fixed;
-        inset: 0;
-        z-index: 4;
+        right: 1.8vw;
+        bottom: 1.4vh;
+        width: min(28vw, 360px);
+        height: min(34vw, 420px);
+        z-index: 3;
         pointer-events: none;
-        overflow: hidden;
       }
 
-      .fall {
-        position: absolute;
-        top: -80px;
-        color: rgba(178, 46, 34, 0.78);
-        font-family: "Orbitron", sans-serif;
-        user-select: none;
-        white-space: nowrap;
-        animation-name: fallDown;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-      }
-
-      .fall.arrow {
-        font-size: 28px;
-      }
-
-      .fall.mushroom {
-        font-size: 22px;
-      }
-
-      .fall svg {
+      #mushroom-canvas {
+        width: 100%;
+        height: 100%;
         display: block;
-        width: 26px;
-        height: 26px;
-      }
-
-      @keyframes fallDown {
-        0% {
-          transform: translate3d(0, -10vh, 0) rotate(0deg);
-          opacity: 0;
-        }
-        10% {
-          opacity: 0.9;
-        }
-        100% {
-          transform: translate3d(var(--drift, 0px), 115vh, 0) rotate(var(--rot, 180deg));
-          opacity: 0;
-        }
       }
 
       @media (max-width: 720px) {
@@ -172,14 +140,31 @@
         }
 
         .plan-card {
-          width: min(92vw, 840px);
+          width: min(92vw, 940px);
+        }
+
+        .model-wrap {
+          width: min(42vw, 240px);
+          height: min(50vw, 280px);
+          right: 2vw;
+          bottom: 2vh;
         }
       }
     </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="bg-scene" aria-hidden="true"></div>
-    <div class="fall-layer" id="fallLayer" aria-hidden="true"></div>
+    <div class="model-wrap" aria-hidden="true">
+      <canvas id="mushroom-canvas"></canvas>
+    </div>
 
     <div class="page">
       <header class="header">
@@ -196,56 +181,74 @@
       </main>
     </div>
 
-    <script>
-      const fallLayer = document.getElementById("fallLayer");
+    <script type="module">
+      import * as THREE from "three";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-      const mushroomSvg = `
-        <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-            d="M6.5 15.2C8 9.8 12.5 6.7 18 6.7s10 3.1 11.5 8.5c-3.3 1-7.4 1.5-11.5 1.5s-8.2-.5-11.5-1.5Z"/>
-          <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-            d="M18 16.7v9.1"/>
-          <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-            d="M14.9 25.8c.8 1.4 1.8 2.1 3.1 2.1s2.3-.7 3.1-2.1"/>
-          <circle cx="13" cy="12.8" r="1" fill="currentColor"/>
-          <circle cx="18.6" cy="11.2" r="1" fill="currentColor"/>
-          <circle cx="23.7" cy="13" r="1" fill="currentColor"/>
-        </svg>
-      `;
+      const canvas = document.getElementById("mushroom-canvas");
+      const scene = new THREE.Scene();
 
-      const items = [];
-      for (let i = 0; i < 22; i++) items.push("arrow");
-      for (let i = 0; i < 18; i++) items.push("mushroom");
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      items.forEach((type, index) => {
-        const el = document.createElement("div");
-        el.className = `fall ${type}`;
+      const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+      camera.position.set(0, 0.2, 5.6);
 
-        if (type === "arrow") {
-          const arrows = ["↖", "↗", "↘", "↙", "↑", "↓", "↺"];
-          el.textContent = arrows[index % arrows.length];
-        } else {
-          el.innerHTML = mushroomSvg;
+      scene.add(new THREE.AmbientLight(0xffffff, 1.18));
+
+      const dir1 = new THREE.DirectionalLight(0xffffff, 1.05);
+      dir1.position.set(3, 4, 5);
+      scene.add(dir1);
+
+      const dir2 = new THREE.DirectionalLight(0xd4c7ff, 0.45);
+      dir2.position.set(-2, 1, 3);
+      scene.add(dir2);
+
+      let mushroom = null;
+
+      function resize() {
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+
+      const loader = new GLTFLoader();
+      loader.load("./mushroom-2.glb", (gltf) => {
+        mushroom = gltf.scene;
+        mushroom.position.set(0.25, -0.9, 0);
+        mushroom.rotation.x = 0.14;
+        mushroom.scale.setScalar(2.2);
+
+        mushroom.traverse((child) => {
+          if (child.isMesh && child.material) {
+            child.material.transparent = true;
+            child.material.opacity = 0.42;
+          }
+        });
+
+        scene.add(mushroom);
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        if (mushroom) {
+          mushroom.rotation.y += 0.006;
         }
 
-        const left = Math.random() * 100;
-        const delay = Math.random() * 14;
-        const duration = 14 + Math.random() * 14;
-        const drift = `${(Math.random() - 0.5) * 180}px`;
-        const rot = `${(Math.random() - 0.5) * 520}deg`;
-        const scale = 0.8 + Math.random() * 0.9;
-        const opacity = 0.35 + Math.random() * 0.45;
+        renderer.render(scene, camera);
+      }
 
-        el.style.left = `${left}%`;
-        el.style.animationDelay = `-${delay}s`;
-        el.style.animationDuration = `${duration}s`;
-        el.style.setProperty("--drift", drift);
-        el.style.setProperty("--rot", rot);
-        el.style.transform = `scale(${scale})`;
-        el.style.opacity = opacity;
-
-        fallLayer.appendChild(el);
-      });
+      animate();
     </script>
   </body>
 </html>
