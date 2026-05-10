@@ -83,7 +83,7 @@
 
       .layout {
         display: grid;
-        grid-template-columns: 1.05fr 0.95fr;
+        grid-template-columns: 1.42fr 0.78fr;
         gap: 60px 44px;
         align-items: start;
       }
@@ -97,7 +97,7 @@
         font-size: clamp(2rem, 3vw, 3.2rem);
         line-height: 0.98;
         font-weight: 600;
-        max-width: 13ch;
+        max-width: 19ch;
         text-align: left;
       }
 
@@ -121,9 +121,10 @@
 
       .left-top-inner {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 300px;
-        gap: 34px;
-        align-items: end;
+        grid-template-columns: 1fr;
+        gap: 0;
+        align-items: start;
+        position: relative;
       }
 
       .left-copy {
@@ -131,18 +132,35 @@
         gap: 18px;
         justify-items: start;
         align-items: start;
+        width: 100%;
+        padding-top: 22px;
       }
 
       .left-copy .body-text {
-        max-width: 36rem;
+        max-width: none;
+        width: min(100%, 112rem);
+        margin-top: 22px;
       }
 
       .left-hero {
-        width: 100%;
-        max-width: 300px;
-        justify-self: end;
-        align-self: end;
-        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
+        position: absolute;
+        top: 34px;
+        right: -40px;
+        width: min(32vw, 360px);
+        z-index: 2;
+      }
+
+      .left-hero figcaption,
+      .stack-image figcaption,
+      .lower-left-extra figcaption {
+        margin-top: 4px;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.64rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        line-height: 1.45;
+        color: rgba(23, 19, 15, 0.74);
+        background: transparent;
       }
 
       .right-top {
@@ -160,20 +178,23 @@
 
       .stack-image {
         position: absolute;
-        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.16);
-        background: #ddd;
+        background: transparent;
+      }
+
+      .stack-image img {
+        display: block;
       }
 
       .stack-image.top {
         top: 0;
-        right: 26px;
+        right: 46px;
         width: 62%;
         z-index: 1;
       }
 
       .stack-image.bottom {
-        top: 390px;
-        left: 0;
+        top: 340px;
+        left: 26px;
         width: 86%;
         z-index: 1;
       }
@@ -183,13 +204,12 @@
         left: 61%;
         width: 30%;
         z-index: 3;
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
       }
 
       .stack-text {
         position: absolute;
-        top: 750px;
-        right: 0;
+        top: 734px;
+        right: 74px;
         width: 82%;
         display: grid;
         gap: 18px;
@@ -232,17 +252,8 @@
       .circle-rotation {
         position: absolute;
         inset: 0;
-        animation: orbitSpin 168s linear infinite;
         transform-origin: center center;
       }
-@keyframes orbitSpin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
       .orbit-img {
         position: absolute;
@@ -259,23 +270,37 @@
         object-fit: cover;
       }
 
+      .orbit-3,
+      .orbit-10 {
+        width: 180px;
+        height: 180px;
+        box-shadow: none;
+        background: transparent;
+      }
+
+      .orbit-3 img,
+      .orbit-10 img {
+        object-fit: contain;
+        background: transparent;
+      }
+
       .orbit-1 { top: 18px; left: 305px; }
       .orbit-2 { top: 100px; right: 88px; }
       .orbit-3 { top: 280px; right: 12px; }
       .orbit-4 { top: 520px; right: 72px; }
       .orbit-5 { bottom: 40px; left: 430px; }
       .orbit-6 { bottom: 42px; left: 185px; }
-      .orbit-7 { top: 520px; left: 40px; }
+      .orbit-7 { top: 520px; left: 20px; }
       .orbit-8 { top: 280px; left: 0; }
       .orbit-9 { top: 102px; left: 82px; }
       .orbit-10 { top: 340px; left: 305px; }
 
       .circle-center-text {
         position: absolute;
-        top: 49%;
+        top: calc(100% + 12px);
         left: 50%;
-        transform: translate(-50%, -50%);
-        width: 320px;
+        transform: translateX(-50%);
+        width: 520px;
         text-align: center;
         font-family: "Orbitron", sans-serif;
         font-size: 0.76rem;
@@ -290,6 +315,15 @@
         margin: 0 auto;
         display: grid;
         gap: 18px;
+        padding-top: 72px;
+      }
+
+      .lower-left-extra {
+        width: min(100%, 720px);
+        margin-top: 62px;
+        margin-left: 0;
+        justify-self: start;
+        background: transparent;
       }
 
       .left-bottom-text p {
@@ -325,8 +359,7 @@
       }
 
       .pair-card figure {
-        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.14);
-        background: #ddd;
+        background: transparent;
       }
 
       .pair-card figcaption {
@@ -457,17 +490,22 @@
               <h1 class="block-title">Reimage the relationship between AI and human through Daoist Cosmology: Patterns of the Unseen in Co-creation</h1>
               <div class="body-text">
                 <p>
-                  I want to describe what actually happened in these workshops, because the experience exceeded what I had anticipated and opened questions I am still working through.
+                  As human-AI collaboration becomes central to participatory design (PD), current approaches remain grounded in Western frameworks that treat AI as either an instrumental tool or an autonomous agent. However, this binary fails to address how AI can participate in culturally situated, embodied meaning-making processes. We explore how Daoist cosmology reclaims AI as an organic participant through Qi-based epistemologies. Using a series of participatory workshops that integrated Qi Gong movement practice, drawing, I Ching divination, and AI-generated images, we examined whether tacit correspondences could emerge between human expression and algorithmic output. Our findings reveal unexpected visual and affective alignments between participants' hand-drawn images and pre-generated AI outputs despite no information transfer. We identify mechanisms of "Tacit Resonance" where Qi practice expanded perceptual capacities, enabling recognition of patterns that crystallised meaning retroactively through encounter. We conclude with implications for participatory design that embrace relational cosmology and tacit attunement, arguing for methodologies grounded.
                 </p>
                 <p>
                   The series of collaborative workshops functions as a full-process trial of the practice model established in this research. Three participatory workshops integrated Daoist somatic practices, divination systems, and generative artificial intelligence to explore a non-instrumental mode of human-AI collaboration. Within each workshop, participants first achieved a perceptual state of the body and <em>Qi</em> through Tai Chi or Qigong exercises, subsequently engaging in abstract drawing to express immediate feelings regarding current life dilemmas. Following the completion of these drawings, the research team employed <em>I Ching</em> hexagram divination to pair each participant with a pre-generated AI image corresponding to the structures and symbolic meanings of the 64 hexagrams.
+                </p>
+                <p>
+                  This research proposes a fundamental reorientation of participatory design: from extracting latent knowledge to cultivating perceptual readiness. Where dominant approaches treat participation as the articulation of pre-existing needs, our Daoist-informed framework reveals it as the expansion of what can be sensed, felt, and collectively rendered meaningful. We argue that tacit resonance emerges when design creates conditions for new ways of knowing to arise through embodied encounter. This positions AI within a relational ontology where agency is distributed, indeterminacy is generative, and meaning unfolds through mutual becoming.
                 </p>
               </div>
             </div>
 
             <figure class="left-hero">
               <img src="workshop-image-1.jpg" alt="Workshop image 1" />
+              <figcaption>Daoist divination session, 16th June, 2025</figcaption>
             </figure>
+
           </div>
         </section>
 
@@ -475,10 +513,12 @@
           <div class="stack-wrap">
             <figure class="stack-image top">
               <img src="workshop-image-3.JPG" alt="Workshop image 3" />
+              <figcaption>Drawing session, 16th June, 2025</figcaption>
             </figure>
 
             <figure class="stack-image bottom">
               <img src="workshop-image-2.jpg" alt="Workshop image 2" />
+              <figcaption>Daoist movement practice session, 16th June, 2025</figcaption>
             </figure>
 
             <figure class="stack-image middle">
@@ -499,22 +539,21 @@
         <section class="block left-bottom">
           <div class="circle-gallery-wrap">
             <div class="circle-gallery">
-              <div class="circle-gallery">
-  <div class="circle-rotation">
-    <figure class="orbit-img orbit-1"><img src="workshop-image-9.JPG" alt="Workshop image 9" /></figure>
-    <figure class="orbit-img orbit-2"><img src="workshop-image-10.JPG" alt="Workshop image 10" /></figure>
-    <figure class="orbit-img orbit-3"><img src="workshop-image-11.JPG" alt="Workshop image 11" /></figure>
-    <figure class="orbit-img orbit-4"><img src="workshop-image-7.JPG" alt="Workshop image 7" /></figure>
-    <figure class="orbit-img orbit-5"><img src="workshop-image-8.JPG" alt="Workshop image 8" /></figure>
-    <figure class="orbit-img orbit-6"><img src="workshop-image-12.jpg" alt="Workshop image 12" /></figure>
-    <figure class="orbit-img orbit-7"><img src="workshop-image-13.jpg" alt="Workshop image 13" /></figure>
-    <figure class="orbit-img orbit-8"><img src="workshop-image-14.jpg" alt="Workshop image 14" /></figure>
-    <figure class="orbit-img orbit-9"><img src="workshop-image-5.jpg" alt="Workshop image 5" /></figure>
-    <figure class="orbit-img orbit-10"><img src="workshop-image-4.png" alt="Workshop image 4" /></figure>
-  </div>
+              <div class="circle-rotation">
+                <figure class="orbit-img orbit-1"><img src="workshop-image-9.JPG" alt="Workshop image 9" /></figure>
+                <figure class="orbit-img orbit-2"><img src="workshop-image-10.JPG" alt="Workshop image 10" /></figure>
+                <figure class="orbit-img orbit-3"><img src="workshop-image-11.JPG" alt="Workshop image 11" /></figure>
+                <figure class="orbit-img orbit-4"><img src="workshop-image-7.JPG" alt="Workshop image 7" /></figure>
+                <figure class="orbit-img orbit-5"><img src="workshop-image-8.JPG" alt="Workshop image 8" /></figure>
+                <figure class="orbit-img orbit-6"><img src="workshop-image-12.jpg" alt="Workshop image 12" /></figure>
+                <figure class="orbit-img orbit-7"><img src="workshop-image-13.jpg" alt="Workshop image 13" /></figure>
+                <figure class="orbit-img orbit-8"><img src="workshop-image-14.jpg" alt="Workshop image 14" /></figure>
+                <figure class="orbit-img orbit-9"><img src="workshop-image-5.jpg" alt="Workshop image 5" /></figure>
+                <figure class="orbit-img orbit-10"><img src="workshop-image-4.png" alt="Workshop image 4" /></figure>
+              </div>
 
-  <p class="circle-center-text">Participant's drawn compared to Midjourney image generation.</p>
-</div>
+              <p class="circle-center-text">Participant's drawn compared to Midjourney image generation.</p>
+            </div>
 
 
             <div class="left-bottom-text">
@@ -524,6 +563,10 @@
               <p>
                 These experiences gave me a practical understanding of what a human-AI collaboration method based on Qi and symbolic resonance might actually feel like from the inside. They are the ground from which the next phase of my research grows.
               </p>
+              <figure class="lower-left-extra">
+                <img src="IMG_6954 2.jpg" alt="Workshop additional image" />
+                <figcaption>Daoist movement practice session, 30th October, 2025</figcaption>
+              </figure>
             </div>
           </div>
         </section>
