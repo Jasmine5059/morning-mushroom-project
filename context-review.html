@@ -19,15 +19,12 @@
 
       body {
   background:
-    radial-gradient(circle at 50% 32%, rgba(230, 234, 240, 0.13), transparent 27%),
-    linear-gradient(180deg, #9aa1aa, #8b929d);
+    radial-gradient(circle at 50% 32%, rgba(244, 246, 250, 0.18), transparent 28%),
+    linear-gradient(180deg, #aeb4bc, #9ca4ae);
   color: #fff;
   font-family: "Cormorant Garamond", serif;
   overflow: hidden;
-  cursor:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path fill='white' d='M16 6c5.2 0 9.3 3.1 10.4 8.1-3.1.8-6.8 1.2-10.4 1.2S8.7 14.9 5.6 14.1C6.7 9.1 10.8 6 16 6Zm-1.2 10.2h2.4v7.2c0 1.7-.7 2.6-1.2 2.6s-1.2-.9-1.2-2.6v-7.2Z'/></svg>")
-      8 8,
-    auto;
+  cursor: auto;
 }
 
 
@@ -35,10 +32,7 @@
       a {
         color: inherit;
         text-decoration: none;
-        cursor:
-          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path fill='white' d='M16 6c5.2 0 9.3 3.1 10.4 8.1-3.1.8-6.8 1.2-10.4 1.2S8.7 14.9 5.6 14.1C6.7 9.1 10.8 6 16 6Zm-1.2 10.2h2.4v7.2c0 1.7-.7 2.6-1.2 2.6s-1.2-.9-1.2-2.6v-7.2Z'/></svg>")
-            8 8,
-          pointer;
+        cursor: pointer;
       }
 
       p,
@@ -52,8 +46,8 @@
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(180deg, rgba(18, 24, 30, 0.05), rgba(18, 24, 30, 0.1)),
-    radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.055), transparent 26%);
+    linear-gradient(180deg, rgba(18, 24, 30, 0.03), rgba(18, 24, 30, 0.07)),
+    radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.08), transparent 26%);
 }
 
 
@@ -94,11 +88,6 @@
         padding-bottom: 2px;
       }
 
-      .nav a:hover,
-      .nav a:focus-visible {
-        border-color: rgba(255, 255, 255, 0.74);
-      }
-
       .main {
         position: relative;
         display: grid;
@@ -107,14 +96,37 @@
         gap: 34px;
       }
 
+      .hero-stack {
+        position: relative;
+        width: min(100%, 980px);
+        min-height: 360px;
+        display: grid;
+        place-items: center;
+      }
+
+      .model-wrap {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      #hero-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
       .title {
+        position: relative;
+        z-index: 2;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         gap: 0.28em;
         max-width: 14ch;
         text-align: center;
-        font-size: clamp(3.8rem, 7vw, 7rem);
+        font-size: clamp(3rem, 5.6vw, 5.6rem);
         line-height: 0.88;
         font-weight: 600;
         letter-spacing: -0.04em;
@@ -127,13 +139,6 @@
       .title span {
         display: inline-block;
       }
-
-      .w1 { animation: wordSway 6.4s ease-in-out infinite; }
-      .w2 { animation: wordSpin 9s linear infinite; transform-origin: center 62%; }
-      .w3 { animation: wordHop 4.8s ease-in-out infinite; }
-      .w4 { animation: wordLean 5.6s ease-in-out infinite; }
-      .w5 { animation: wordOrbit 7.4s ease-in-out infinite; }
-      .w6 { animation: wordBreathe 5.2s ease-in-out infinite; }
 
       .card-grid {
         width: 100%;
@@ -180,9 +185,8 @@
         max-width: 156px;
         aspect-ratio: 4 / 5;
         overflow: hidden;
-        background: rgba(255, 255, 255, 0.12);
-        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
-        transition: transform 260ms ease, box-shadow 260ms ease, z-index 260ms ease;
+        background: transparent;
+        box-shadow: none;
       }
 
       .card-image img {
@@ -192,101 +196,6 @@
         display: block;
         transform: translate(-2%, -2%) scale(1);
         filter: saturate(1.04) contrast(1.02);
-        animation: imageFlow 8s ease-in-out infinite;
-      }
-
-      .card:nth-child(2) .card-image img {
-        animation-duration: 9.5s;
-        animation-delay: -1.2s;
-      }
-
-      .card:nth-child(3) .card-image img {
-        animation-duration: 7.4s;
-        animation-delay: -2.1s;
-      }
-
-      .card:nth-child(4) .card-image img {
-        animation-duration: 10.2s;
-        animation-delay: -3s;
-      }
-
-      .card:hover .card-image,
-      .card:focus-visible .card-image {
-        transform: scale(1.5);
-        box-shadow: 0 28px 56px rgba(0, 0, 0, 0.34);
-        z-index: 5;
-      }
-
-      .footer-notes {
-        display: grid;
-        gap: 4px;
-        justify-items: start;
-        align-self: end;
-      }
-
-      .footer-notes p {
-        font-family: "Orbitron", sans-serif;
-        font-size: 0.76rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        line-height: 1.45;
-        color: rgba(255, 255, 255, 0.62);
-      }
-
-      @keyframes wordSway {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-8px) rotate(-3deg); }
-      }
-
-      @keyframes wordSpin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
-
-      @keyframes wordHop {
-        0%, 100% { transform: translateY(0); }
-        35% { transform: translateY(-12px); }
-        55% { transform: translateY(2px); }
-      }
-
-      @keyframes wordLean {
-        0%, 100% { transform: rotate(0deg) scale(1); }
-        50% { transform: rotate(7deg) scale(1.04); }
-      }
-
-      @keyframes wordOrbit {
-        0%, 100% { transform: translate(0, 0) rotate(0deg); }
-        25% { transform: translate(6px, -5px) rotate(-5deg); }
-        50% { transform: translate(-3px, -10px) rotate(5deg); }
-        75% { transform: translate(-8px, 4px) rotate(-4deg); }
-      }
-
-      @keyframes wordBreathe {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.08); opacity: 0.84; }
-      }
-
-      @keyframes imageFlow {
-        0% {
-          transform: translate(-2%, -2%) scale(1) rotate(0deg);
-          filter: saturate(1.04) contrast(1.02);
-        }
-        25% {
-          transform: translate(-3.4%, -1.2%) scale(1.03) rotate(-0.6deg);
-          filter: saturate(1.08) contrast(1.04);
-        }
-        50% {
-          transform: translate(-1.2%, -3.4%) scale(1.05) rotate(0.5deg);
-          filter: saturate(1.1) contrast(1.05);
-        }
-        75% {
-          transform: translate(-3.1%, -2.4%) scale(1.02) rotate(-0.4deg);
-          filter: saturate(1.06) contrast(1.03);
-        }
-        100% {
-          transform: translate(-2%, -2%) scale(1) rotate(0deg);
-          filter: saturate(1.04) contrast(1.02);
-        }
       }
 
       @media (max-width: 1100px) {
@@ -315,6 +224,10 @@
           align-content: start;
         }
 
+        .hero-stack {
+          min-height: 220px;
+        }
+
         .card-grid {
           grid-template-columns: 1fr;
           max-width: 320px;
@@ -325,6 +238,14 @@
         }
       }
     </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="overlay" aria-hidden="true"></div>
@@ -333,20 +254,24 @@
       <header class="header">
         <p class="kicker">Chapter 4</p>
         <nav class="nav">
-          <a href="preface.html">Back</a>
           <a href="index.html">Home</a>
         </nav>
       </header>
 
       <main class="main">
-        <h1 class="title" aria-label="The Growing Environment of the Mushroom">
-          <span class="w1">The</span>
-          <span class="w2">Growing</span>
-          <span class="w3">Environment</span>
-          <span class="w4">of</span>
-          <span class="w5">the</span>
-          <span class="w6">Mushroom</span>
-        </h1>
+        <section class="hero-stack" aria-label="Title and model">
+          <div class="model-wrap" aria-hidden="true">
+            <canvas id="hero-canvas"></canvas>
+          </div>
+          <h1 class="title" aria-label="The Growing Environment of the Mushroom">
+            <span class="w1">The</span>
+            <span class="w2">Growing</span>
+            <span class="w3">Environment</span>
+            <span class="w4">of</span>
+            <span class="w5">the</span>
+            <span class="w6">Mushroom</span>
+          </h1>
+        </section>
 
         <section class="card-grid">
           <a class="card" href="context-review-taoist-reflection.html">
@@ -378,13 +303,75 @@
           </a>
         </section>
       </main>
-
-      <section class="footer-notes">
-        <p>4.1 A downward theory of life.</p>
-        <p>4.2 Rhizome, Madness, Cartography, and Assemblage.</p>
-        <p>4.3 Practising more than human within the temporality of the morning mushroom.</p>
-        <p>4.4 Techno-Daoism and rhizomatic aesthetics.</p>
-      </section>
     </div>
+    <script type="module">
+      import * as THREE from "three";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+      const canvas = document.getElementById("hero-canvas");
+      const scene = new THREE.Scene();
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+      camera.position.set(0, 0.15, 5.2);
+
+      scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+
+      const dir1 = new THREE.DirectionalLight(0xffffff, 1.1);
+      dir1.position.set(2.5, 3, 4);
+      scene.add(dir1);
+
+      const dir2 = new THREE.DirectionalLight(0xc8b6ff, 0.5);
+      dir2.position.set(-2, 1, 3);
+      scene.add(dir2);
+
+      let mushroom = null;
+
+      function resize() {
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+
+      const loader = new GLTFLoader();
+      loader.load("./mushroom-1.glb", (gltf) => {
+        mushroom = gltf.scene;
+        mushroom.position.set(0.35, -0.8, 0);
+        mushroom.scale.setScalar(2.2);
+        mushroom.rotation.x = 0.24;
+
+        mushroom.traverse((child) => {
+          if (child.isMesh && child.material) {
+            child.material.transparent = true;
+            child.material.opacity = 0.92;
+          }
+        });
+
+        scene.add(mushroom);
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        if (mushroom) {
+          mushroom.rotation.y += 0.006;
+        }
+
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    </script>
   </body>
 </html>
